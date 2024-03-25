@@ -1,27 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   string.h                                           :+:      :+:    :+:   */
+/*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fnikzad <fnikzad@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/23 13:00:47 by fnikzad           #+#    #+#             */
-/*   Updated: 2024/03/24 12:02:16 by fnikzad          ###   ########.fr       */
+/*   Created: 2024/03/24 12:11:29 by fnikzad           #+#    #+#             */
+/*   Updated: 2024/03/24 13:25:19 by fnikzad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef STRING_H
-# define STRING_H
-#include <stdio.h>
-# include <stdlib.h>
+#include "minishell.h"
+#include "lexer.h"
 
-typedef struct s_string
+void	parse(t_list_lexeme *list)
 {
-	char	*str;
-	size_t	len;
-}	t_string;
-
-t_string new_string(char *s, int l);
-
-
-#endif
+	
+}

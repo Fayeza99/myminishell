@@ -6,7 +6,7 @@
 /*   By: fnikzad <fnikzad@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/23 12:58:06 by fnikzad           #+#    #+#             */
-/*   Updated: 2024/03/23 17:18:23 by fnikzad          ###   ########.fr       */
+/*   Updated: 2024/03/25 13:09:33 by fnikzad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ typedef enum e_tokens
 	EXPANSION,
 	PIPES,
 	DASH,
+	D_QUOTES,
+	S_QUOTES,
 	UNEXPECTED,
 	END_OF_FILE,
 }	t_tokens;
@@ -59,6 +61,11 @@ int		is_pipes(char c);
 int		is_dash(char c);
 int		is_expansion(char c);
 int		is_EOF(char c);
+int		is_double_quotes(char c);
+int		is_single_quotes(char c);
+
+
+
 
 const char *get_token_name(t_tokens token);
 

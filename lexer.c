@@ -6,7 +6,7 @@
 /*   By: fnikzad <fnikzad@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/23 13:23:08 by fnikzad           #+#    #+#             */
-/*   Updated: 2024/03/23 17:33:36 by fnikzad          ###   ########.fr       */
+/*   Updated: 2024/03/25 13:12:31 by fnikzad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,16 @@ int		is_pipes(char c) {
 	return (c == '|');
 }
 
+int		is_double_quotes(char c)
+{
+	return (c == '"');
+}
+
+int		is_single_quotes(char c)
+{
+	return (c == '\'');
+}
+
 
 int		is_dash(char c) {
 	return (c == '-');
@@ -81,15 +91,19 @@ int		is_EOF(char c) {
 
 const char *get_token_name(t_tokens token)
 {
-	char *names[] = {
+	char *names[] =
+	{
 		"IDEFNTIFIERS",
 		"LESS", 
 		"GREATER",
 		"EXPANSION",
 		"PIPES",
 		"DASH",
+		"D_QUOTES",
+		"S_QUOTES",
 		"UNEXPECTED",
 		"END_OF_FILE"
 	};
 	return (names[token]);
 }
+
