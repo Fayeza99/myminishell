@@ -6,16 +6,22 @@
 /*   By: asemsey <asemsey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/23 13:23:08 by fnikzad           #+#    #+#             */
-/*   Updated: 2024/03/26 10:41:15 by asemsey          ###   ########.fr       */
+/*   Updated: 2024/03/26 14:34:02 by asemsey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lexer.h"
 
+// // return the current char and skip to the next
+// char	*getcharacter_p(t_lexer *lexer)
+// {
+// 	return ((char *)lexer->current++);
+// }
+
 // return the current char and skip to the next
-char	*getcharacter(t_lexer *lexer)
+char	getcharacter(t_lexer *lexer)
 {
-	return ((char *)lexer->current++);
+	return (*lexer->current++);
 }
 
 // return the current char

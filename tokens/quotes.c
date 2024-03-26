@@ -6,7 +6,7 @@
 /*   By: asemsey <asemsey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 10:42:12 by asemsey           #+#    #+#             */
-/*   Updated: 2024/03/26 10:42:39 by asemsey          ###   ########.fr       */
+/*   Updated: 2024/03/26 14:16:24 by asemsey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	quoted_str(t_list_lexeme *list, t_lexer *lexer)
 		|| is_whitespace(peekcharacter(lexer)) || is_single_quotes(peekcharacter(lexer))
 		|| is_pipes(peekcharacter(lexer))) && !(is_double_quotes(peekcharacter(lexer))))
 	{
-		buffer[i] = getcharacter(lexer);
+		buffer[i] = (char)getcharacter(lexer);
 		i++;
 	}
 	buffer[i] = '\0';
@@ -46,7 +46,7 @@ void	s_quoted_str(t_list_lexeme *list, t_lexer *lexer)
 		|| is_whitespace(peekcharacter(lexer)) || is_double_quotes(peekcharacter(lexer))
 		|| is_pipes(peekcharacter(lexer))) && !(is_single_quotes(peekcharacter(lexer))))
 	{
-		buffer[i] = getcharacter(lexer);
+		buffer[i] = (char)getcharacter(lexer);
 		i++;
 	}
 	buffer[i] = '\0';

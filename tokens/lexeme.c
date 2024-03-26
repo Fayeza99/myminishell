@@ -6,7 +6,7 @@
 /*   By: asemsey <asemsey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 14:58:31 by asemsey           #+#    #+#             */
-/*   Updated: 2024/03/25 19:21:36 by asemsey          ###   ########.fr       */
+/*   Updated: 2024/03/26 14:29:24 by asemsey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ t_list_lexeme *create_list()
 }
 
 // add a new item to lexeme_list
-void	add_to_lex(t_list_lexeme *list, t_lexeme *lex)
+int	add_to_lex(t_list_lexeme *list, t_lexeme *lex)
 {
 	t_list *node;
 
@@ -37,6 +37,7 @@ void	add_to_lex(t_list_lexeme *list, t_lexeme *lex)
 			node = node->next;
 		node->next = ft_lstnew(lex);
 	}
+	return (1);
 }
 
 // free the lexeme_list
@@ -57,7 +58,7 @@ void	delete_list(t_list_lexeme *list)
 }
 
 // save an alphabetical string in lexeme_list as IDENTIFIER
-void	identifier(t_list_lexeme *list, t_lexer *lexer)
+int	identifier(t_list_lexeme *list, t_lexer *lexer)
 {
 	char buffer[1000];
 
@@ -68,5 +69,5 @@ void	identifier(t_list_lexeme *list, t_lexer *lexer)
 		i++;
 	}
 	buffer[i] = '\0';
-	add_to_lex(list, create_lexeme(IDENTIFIERS, buffer, i));
+	return (add_to_lex(list, create_lexeme(IDENTIFIERS, buffer, i)));
 }

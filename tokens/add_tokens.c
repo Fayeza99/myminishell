@@ -6,41 +6,73 @@
 /*   By: asemsey <asemsey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 17:55:42 by asemsey           #+#    #+#             */
-/*   Updated: 2024/03/26 10:38:30 by asemsey          ###   ########.fr       */
+/*   Updated: 2024/03/26 14:32:20 by asemsey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lexer.h"
+
+static int	ft_tokens1(t_list_lexeme *list, t_lexer *lexer)
+{
+	char c;
+
+	if (is_whitespace(peekcharacter(lexer)))
+	{
+		getcharacter(lexer);
+		return (1);
+	}
+	else if (is_identifier(peekcharacter(lexer)))
+		return (identifier(list, lexer));
+	else if (is_less(peekcharacter(lexer)))
+	{
+		c = getcharacter(lexer);
+		return (add_to_lex(list, create_lexeme(LESS, &c, 1)));
+	}
+	else if (is_greater(peekcharacter(lexer)))
+	{
+		c = getcharacter(lexer);
+		return (add_to_lex(list, create_lexeme(GREATER, &c, 1)));
+	}
+	else if (is_dash(peekcharacter(lexer)))
+	{
+		c = getcharacter(lexer);
+		return (add_to_lex(list, create_lexeme(DASH, &c, 1)));
+	}
+	return (0);
+}
+
+static void	ft_tokens2(t_list_lexeme *list, t_lexer *lexer)
+{
+	char	c;
+
+	if (is_pipes(peekcharacter(lexer)))
+	{
+		c = getcharacter(lexer);
+		add_to_lex(list, create_lexeme(PIPES, &c, 1));
+	}
+	else if (is_expansion(peekcharacter(lexer)))
+	{
+		c = getcharacter(lexer);
+		add_to_lex(list, create_lexeme(EXPANSION, &c, 1));
+	}
+	else if (is_double_quotes(peekcharacter(lexer)))
+		quoted_str(list, lexer);
+	else if (is_single_quotes(peekcharacter(lexer)))
+		s_quoted_str(list, lexer);
+	else
+	{
+		c = getcharacter(lexer);
+		add_to_lex(list, create_lexeme(UNEXPECTED, &c, 1));
+	}
+}
 
 // go through the input and save each part with a token in lexeme_list
 void	add_tokens(t_list_lexeme *list, t_lexer *lexer)
 {
 	while (peekcharacter(lexer))
 	{
-		if (is_whitespace(peekcharacter(lexer)))
-			getcharacter(lexer);
-		else if (is_identifier(peekcharacter(lexer)))
-			identifier(list, lexer);
-		else if (is_less(peekcharacter(lexer)))
-			add_to_lex(list, create_lexeme(LESS, getcharacter(lexer), 1));
-		else if (is_greater(peekcharacter(lexer)))
-			add_to_lex(list, create_lexeme(GREATER, getcharacter(lexer), 1));
-		else if (is_dash(peekcharacter(lexer)))
-			add_to_lex(list, create_lexeme(DASH, getcharacter(lexer), 1));
-		else if (is_pipes(peekcharacter(lexer)))
-			add_to_lex(list, create_lexeme(PIPES, getcharacter(lexer), 1));
-		else if (is_expansion(peekcharacter(lexer)))
-			add_to_lex(list, create_lexeme(EXPANSION, getcharacter(lexer), 1));
-		else if (is_double_quotes(peekcharacter(lexer)))
-		{
-			quoted_str(list, lexer);
-		}
-		else if (is_single_quotes(peekcharacter(lexer)))
-		{
-			s_quoted_str(list, lexer);
-		}
-		else
-			add_to_lex(list, create_lexeme(UNEXPECTED, getcharacter(lexer), 1));
+		if (!ft_tokens1(list, lexer))
+			ft_tokens2(list, lexer);
 	}
 	add_to_lex(list, create_lexeme(END_OF_FILE, "\0", 1));
 }

@@ -6,7 +6,7 @@
 #    By: asemsey <asemsey@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/20 15:14:32 by asemsey           #+#    #+#              #
-#    Updated: 2024/03/25 18:15:03 by asemsey          ###   ########.fr        #
+#    Updated: 2024/03/26 14:12:48 by asemsey          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,7 @@ LIBFT_PATH	=	include/libft
 LIBFT		=	$(LIBFT_PATH)/libft.a
 SRC			=	main.c string.c\
 				tokens/add_tokens.c tokens/char_types1.c tokens/char_types2.c\
-				tokens/lexer.c tokens/lexeme.c
+				tokens/lexer.c tokens/lexeme.c tokens/quotes.c
 
 
 all : $(NAME)
