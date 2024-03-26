@@ -1,27 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   string.h                                           :+:      :+:    :+:   */
+/*   char_types2.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: asemsey <asemsey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/23 13:00:47 by fnikzad           #+#    #+#             */
-/*   Updated: 2024/03/26 10:20:13 by asemsey          ###   ########.fr       */
+/*   Created: 2024/03/25 14:54:55 by asemsey           #+#    #+#             */
+/*   Updated: 2024/03/25 18:11:24 by asemsey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef STRING_H
-# define STRING_H
+#include "lexer.h"
 
-# include <stdio.h>
-# include <stdlib.h>
-
-typedef struct s_string
+int		is_less(char c)
 {
-	char	*str;
-	size_t	len;
-}	t_string;
+	return (c == '<');
+}
 
-t_string	new_string(char *s, int l);
+int		is_greater(char c)
+{
+	return (c == '>');
+}
 
-#endif
+int		is_pipes(char c)
+{
+	return (c == '|');
+}
+
+int		is_dash(char c)
+{
+	return (c == '-');
+}
+
+int		is_EOF(char c)
+{
+	return (c == '\0');
+}

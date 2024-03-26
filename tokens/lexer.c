@@ -3,27 +3,28 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fnikzad <fnikzad@student.42.fr>            +#+  +:+       +#+        */
+/*   By: asemsey <asemsey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/23 13:23:08 by fnikzad           #+#    #+#             */
-/*   Updated: 2024/03/25 13:12:31 by fnikzad          ###   ########.fr       */
+/*   Updated: 2024/03/26 10:28:29 by asemsey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lexer.h"
 
-
-
-char	getcharacter(t_lexer *lexer)
+// return the current char and skip to the next
+char	*getcharacter(t_lexer *lexer)
 {
-	return(*lexer->current++);
+	return ((char *)lexer->current++);
 }
 
+// return the current char
 char	peekcharacter(t_lexer *lexer)
 {
 	return (*lexer->current);
 }
 
+// create a struct for the string to scan through
 t_lexer	create_lexer(const char *s)
 {
 	t_lexer lexer;
@@ -31,67 +32,20 @@ t_lexer	create_lexer(const char *s)
 	return (lexer);
 }
 
+// create a string-token tuple
 t_lexeme	*create_lexeme(t_tokens token, char *s, size_t len)
 {
 	t_lexeme *lex;
 
-	lex  = (t_lexeme *)malloc (sizeof(t_lexeme));
+	lex = (t_lexeme *)malloc(sizeof(t_lexeme));
 	lex->token = token;
 	lex->str = new_string(s, len);
 	return (lex);
 }
 
-int		is_whitespace(char c)
+const char	*get_token_name(t_tokens token)
 {
-	return ((c >= 9 && c < 14) || c == 32);
-}
-
-int		is_identifier(char c)
-{
-	return ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z'));
-}
-
-int		is_less(char c) {
-	return (c == '<');
-}
-
-int		is_greater(char c) {
-	return (c == '>');
-}
-
-
-int		is_pipes(char c) {
-	return (c == '|');
-}
-
-int		is_double_quotes(char c)
-{
-	return (c == '"');
-}
-
-int		is_single_quotes(char c)
-{
-	return (c == '\'');
-}
-
-
-int		is_dash(char c) {
-	return (c == '-');
-}
-
-
-int		is_expansion(char c) {
-	return (c == '$');
-}
-
-
-int		is_EOF(char c) {
-	return (c == '\0');
-}
-
-const char *get_token_name(t_tokens token)
-{
-	char *names[] =
+	char	*names[] =
 	{
 		"IDEFNTIFIERS",
 		"LESS", 

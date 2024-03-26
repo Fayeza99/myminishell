@@ -1,0 +1,70 @@
+to-do:
+-	pipes
+done:
+-	Error for unclosed quotes (created leaks... oops)
+-	do not remove quotes inside quotes!!!
+-	quote handling (see below)
+-	$VAR$VAR2
+
+-----------------------------------------------------------------------------
+
+HANDLING QUOTES
+-	' inside " is normal text but interpret $ !!!
+		( echo "'$USER'" -> 'fnikzad' )
+-	" inside ' is normal text, no interpretation
+-	$ inside " is a variable
+-	$ inside ' is normal text
+-	|  &  ;  (  )  <  > inside quotes are normal text
+
+-> separate argv first, leave in quotes
+		if *str == '\''		leave as text
+		if *str == '\"'		only check for $
+		if *str == ???		interpret all metacharacters
+-> change storage of argv? save to struct and add interpretation type
+
+-----------------------------------------------------------------------------
+
+REQUIREMENTS
+-	Display a prompt when waiting for a new command
+-	Have a working history
+-	Search and launch the right executable (based on the PATH variable or
+		using a relative or an absolute path)
+-	Handle ’ (single quote) - prevent the shell from interpreting the meta-
+		characters in the quoted sequence ( |  &  ;  (  )  <  > )
+-	Handle " (double quote) - ... except for $ (dollar sign)
+-	redirections > < >> <<
+-	pipes (| character). The output of each command in the pipeline is
+		connected to the input of the next command via a pipe
+-	environment variables ($ followed by a sequence of characters)
+-	$? - the exit status of the most recently executed foreground pipeline
+-	ctrl-C, ctrl-D and ctrl-\
+-	builtins: echo, cd, pwd, export, unset, env, exit
+
+-----------------------------------------------------------------------------
+
+FROM THE BASH DOCS:
+metacharacter
+	A character that, when unquoted, separates words. A metacharacter is a
+	space, tab, newline, or one of the following characters:
+	‘|’, ‘&’, ‘;’, ‘(’, ‘)’, ‘<’, or ‘>’.
+
+builtin
+	A command that is implemented internally by the shell itself, rather
+	than by an executable program somewhere in the file system.
+
+-----------------------------------------------------------------------------
+
+allowed functions:
+	printf, malloc, free, write, open, read, close, exit
+	signal, sigaction, sigemptyset, sigaddset, kill
+---new---
+	readline, rl_clear_history, rl_on_new_line, rl_replace_line, rl_redisplay
+	add_history, access, fork, wait, waitpid, wait3, wait4,
+	getcwd, chdir, stat, lstat, fstat, unlink, execve, dup, dup2, pipe,
+
+	opendir, readdir, closedir, strerror, perror, isatty, ttyname,
+	ttyslot, ioctl, getenv, tcsetattr, tcgetattr, tgetent, tgetflag,
+	tgetnum, tgetstr, tgoto, tputs
+
+
+readline docs:	https://tiswww.case.edu/php/chet/readline/readline.html

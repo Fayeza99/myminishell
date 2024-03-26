@@ -1,27 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   string.h                                           :+:      :+:    :+:   */
+/*   char_types1.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: asemsey <asemsey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/23 13:00:47 by fnikzad           #+#    #+#             */
-/*   Updated: 2024/03/26 10:20:13 by asemsey          ###   ########.fr       */
+/*   Created: 2024/03/25 14:50:53 by asemsey           #+#    #+#             */
+/*   Updated: 2024/03/25 18:11:27 by asemsey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef STRING_H
-# define STRING_H
+#include "lexer.h"
 
-# include <stdio.h>
-# include <stdlib.h>
-
-typedef struct s_string
+int		is_whitespace(char c)
 {
-	char	*str;
-	size_t	len;
-}	t_string;
+	return ((c >= 9 && c < 14) || c == 32);
+}
 
-t_string	new_string(char *s, int l);
+int		is_identifier(char c)
+{
+	return ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z'));
+}
 
-#endif
+int		is_double_quotes(char c)
+{
+	return (c == '"');
+}
+
+int		is_single_quotes(char c)
+{
+	return (c == '\'');
+}
+
+int		is_expansion(char c)
+{
+	return (c == '$');
+}

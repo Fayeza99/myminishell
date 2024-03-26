@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fnikzad <fnikzad@student.42.fr>            +#+  +:+       +#+        */
+/*   By: asemsey <asemsey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/24 12:11:29 by fnikzad           #+#    #+#             */
-/*   Updated: 2024/03/24 13:25:19 by fnikzad          ###   ########.fr       */
+/*   Updated: 2024/03/26 10:20:02 by asemsey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "lexer.h"
 
-void	parse(t_list_lexeme *list)
-{
-	
-}
+// void	parse(t_list_lexeme *list)
+// {
+
+// }

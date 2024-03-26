@@ -3,20 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   string.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fnikzad <fnikzad@student.42.fr>            +#+  +:+       +#+        */
+/*   By: asemsey <asemsey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/23 13:03:06 by fnikzad           #+#    #+#             */
-/*   Updated: 2024/03/23 17:34:50 by fnikzad          ###   ########.fr       */
+/*   Updated: 2024/03/26 10:20:41 by asemsey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "string.h"
 
-t_string new_string(char *s, int l)
+t_string	new_string(char *s, int l)
 {
 	int			i;
 	t_string	string;
-	
+
 	if (!s)
 	{
 		string.str = NULL;
