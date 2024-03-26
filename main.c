@@ -6,7 +6,7 @@
 /*   By: fnikzad <fnikzad@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/23 11:22:01 by fnikzad           #+#    #+#             */
-/*   Updated: 2024/03/25 13:54:31 by fnikzad          ###   ########.fr       */
+/*   Updated: 2024/03/25 15:17:58 by fnikzad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,48 @@ void	identifier(t_list_lexeme *list, t_lexer *lexer)
 	add_to_lex(list, create_lexeme(IDENTIFIERS, buffer, i));
 }
 
+void	quoted_str(t_list_lexeme *list, t_lexer *lexer)
+{
+	char	buffer[1000];
+	int		i;
+	
+	i = 0;
+	getcharacter(lexer);
+	while ((is_identifier(peekcharacter(lexer)) || is_dash(peekcharacter(lexer)) || is_less(peekcharacter(lexer))
+		|| is_greater(peekcharacter(lexer)) || is_expansion(peekcharacter(lexer))
+		|| is_whitespace(peekcharacter(lexer)) || is_single_quotes(peekcharacter(lexer))
+		|| is_pipes(peekcharacter(lexer))) && !(is_double_quotes(peekcharacter(lexer))))
+	{
+		buffer[i] = getcharacter(lexer);
+		i++;
+	}
+	buffer[i] = '\0';
+	if (is_double_quotes(peekcharacter(lexer)))
+		getcharacter(lexer);
+	add_to_lex(list, create_lexeme(D_QUOTES, buffer, i));
+}
+
+void	s_quoted_str(t_list_lexeme *list, t_lexer *lexer)
+{
+	char	buffer[1000];
+	int		i;
+	
+	i = 0;
+	getcharacter(lexer);
+	while ((is_identifier(peekcharacter(lexer)) || is_dash(peekcharacter(lexer)) || is_less(peekcharacter(lexer))
+		|| is_greater(peekcharacter(lexer)) || is_expansion(peekcharacter(lexer))
+		|| is_whitespace(peekcharacter(lexer)) || is_double_quotes(peekcharacter(lexer))
+		|| is_pipes(peekcharacter(lexer))) && !(is_single_quotes(peekcharacter(lexer))))
+	{
+		buffer[i] = getcharacter(lexer);
+		i++;
+	}
+	buffer[i] = '\0';
+	if (is_single_quotes(peekcharacter(lexer)))
+		getcharacter(lexer);
+	add_to_lex(list, create_lexeme(S_QUOTES, buffer, i));
+}
+
 void	lex(t_list_lexeme *list, t_lexer *lexer)
 {
 	char c;
@@ -108,13 +150,11 @@ void	lex(t_list_lexeme *list, t_lexer *lexer)
 		}
 		else if (is_double_quotes(peekcharacter(lexer)))
 		{
-			getcharacter(lexer);
-			add_to_lex(list, create_lexeme(D_QUOTES, "\"", 1));
+			quoted_str(list, lexer);
 		}
 		else if (is_single_quotes(peekcharacter(lexer)))
 		{
-			getcharacter(lexer);
-			add_to_lex(list, create_lexeme(S_QUOTES, "'", 1));
+			s_quoted_str(list, lexer);
 		}
 		else
 		{
@@ -146,7 +186,7 @@ int	main()
 			if (node->next != NULL)
 			{
 				printf("%s - ", get_token_name(lexeme->token));
-				// printf("%s - ", lexeme->str.str);
+				printf("%s - ", lexeme->str.str);
 			}
 			else
 				printf("%s - %s \n", get_token_name(lexeme->token), lexeme->str.str);

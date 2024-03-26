@@ -6,7 +6,7 @@
 /*   By: fnikzad <fnikzad@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/23 13:23:08 by fnikzad           #+#    #+#             */
-/*   Updated: 2024/03/25 13:12:31 by fnikzad          ###   ########.fr       */
+/*   Updated: 2024/03/25 15:06:13 by fnikzad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ int		is_pipes(char c) {
 
 int		is_double_quotes(char c)
 {
-	return (c == '"');
+	return (c == '\"');
 }
 
 int		is_single_quotes(char c)
