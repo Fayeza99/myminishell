@@ -6,7 +6,7 @@
 /*   By: asemsey <asemsey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 17:55:42 by asemsey           #+#    #+#             */
-/*   Updated: 2024/03/26 14:32:20 by asemsey          ###   ########.fr       */
+/*   Updated: 2024/03/26 16:48:27 by asemsey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static int	ft_tokens1(t_list_lexeme *list, t_lexer *lexer)
 {
-	char c;
+	char	c;
 
 	if (is_whitespace(peekcharacter(lexer)))
 	{

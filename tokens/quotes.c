@@ -6,7 +6,7 @@
 /*   By: asemsey <asemsey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 10:42:12 by asemsey           #+#    #+#             */
-/*   Updated: 2024/03/26 14:16:24 by asemsey          ###   ########.fr       */
+/*   Updated: 2024/03/26 16:56:48 by asemsey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,16 @@ void	quoted_str(t_list_lexeme *list, t_lexer *lexer)
 {
 	char	buffer[1000];
 	int		i;
-	
+
 	i = 0;
 	getcharacter(lexer);
-	while ((is_identifier(peekcharacter(lexer)) || is_dash(peekcharacter(lexer)) || is_less(peekcharacter(lexer))
-		|| is_greater(peekcharacter(lexer)) || is_expansion(peekcharacter(lexer))
-		|| is_whitespace(peekcharacter(lexer)) || is_single_quotes(peekcharacter(lexer))
-		|| is_pipes(peekcharacter(lexer))) && !(is_double_quotes(peekcharacter(lexer))))
+	while ((is_identifier(peekcharacter(lexer)) || is_dash(peekcharacter(lexer))
+			|| is_less(peekcharacter(lexer)) || is_greater(peekcharacter(lexer))
+			|| is_expansion(peekcharacter(lexer))
+			|| is_whitespace(peekcharacter(lexer))
+			|| is_single_quotes(peekcharacter(lexer))
+			|| is_pipes(peekcharacter(lexer)))
+		&& !(is_double_quotes(peekcharacter(lexer))))
 	{
 		buffer[i] = (char)getcharacter(lexer);
 		i++;
@@ -38,13 +41,16 @@ void	s_quoted_str(t_list_lexeme *list, t_lexer *lexer)
 {
 	char	buffer[1000];
 	int		i;
-	
+
 	i = 0;
 	getcharacter(lexer);
-	while ((is_identifier(peekcharacter(lexer)) || is_dash(peekcharacter(lexer)) || is_less(peekcharacter(lexer))
-		|| is_greater(peekcharacter(lexer)) || is_expansion(peekcharacter(lexer))
-		|| is_whitespace(peekcharacter(lexer)) || is_double_quotes(peekcharacter(lexer))
-		|| is_pipes(peekcharacter(lexer))) && !(is_single_quotes(peekcharacter(lexer))))
+	while ((is_identifier(peekcharacter(lexer)) || is_dash(peekcharacter(lexer))
+			|| is_less(peekcharacter(lexer)) || is_greater(peekcharacter(lexer))
+			|| is_expansion(peekcharacter(lexer))
+			|| is_whitespace(peekcharacter(lexer))
+			|| is_double_quotes(peekcharacter(lexer))
+			|| is_pipes(peekcharacter(lexer)))
+		&& !(is_single_quotes(peekcharacter(lexer))))
 	{
 		buffer[i] = (char)getcharacter(lexer);
 		i++;

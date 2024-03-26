@@ -6,17 +6,11 @@
 /*   By: asemsey <asemsey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/23 13:23:08 by fnikzad           #+#    #+#             */
-/*   Updated: 2024/03/26 14:34:02 by asemsey          ###   ########.fr       */
+/*   Updated: 2024/03/26 16:54:12 by asemsey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lexer.h"
-
-// // return the current char and skip to the next
-// char	*getcharacter_p(t_lexer *lexer)
-// {
-// 	return ((char *)lexer->current++);
-// }
 
 // return the current char and skip to the next
 char	getcharacter(t_lexer *lexer)
@@ -33,7 +27,8 @@ char	peekcharacter(t_lexer *lexer)
 // create a struct for the string to scan through
 t_lexer	create_lexer(const char *s)
 {
-	t_lexer lexer;
+	t_lexer	lexer;
+
 	lexer.current = s;
 	return (lexer);
 }
@@ -41,7 +36,7 @@ t_lexer	create_lexer(const char *s)
 // create a string-token tuple
 t_lexeme	*create_lexeme(t_tokens token, char *s, size_t len)
 {
-	t_lexeme *lex;
+	t_lexeme	*lex;
 
 	lex = (t_lexeme *)malloc(sizeof(t_lexeme));
 	lex->token = token;
@@ -54,7 +49,7 @@ const char	*get_token_name(t_tokens token)
 	char	*names[] =
 	{
 		"IDEFNTIFIERS",
-		"LESS", 
+		"LESS",
 		"GREATER",
 		"EXPANSION",
 		"PIPES",
@@ -66,4 +61,3 @@ const char	*get_token_name(t_tokens token)
 	};
 	return (names[token]);
 }
-

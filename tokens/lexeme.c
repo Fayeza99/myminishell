@@ -6,7 +6,7 @@
 /*   By: asemsey <asemsey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 14:58:31 by asemsey           #+#    #+#             */
-/*   Updated: 2024/03/26 14:29:24 by asemsey          ###   ########.fr       */
+/*   Updated: 2024/03/26 16:51:39 by asemsey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,19 +14,19 @@
 #include "lexer.h"
 
 // malloc the lexeme_list (initialize)
-t_list_lexeme *create_list()
+t_list_lexeme	*create_list(void)
 {
-	t_list_lexeme *list;
+	t_list_lexeme	*list;
 
 	list = (t_list_lexeme *)malloc(sizeof(t_list_lexeme));
 	list->first = NULL;
-	return (list);	
+	return (list);
 }
 
 // add a new item to lexeme_list
 int	add_to_lex(t_list_lexeme *list, t_lexeme *lex)
 {
-	t_list *node;
+	t_list	*node;
 
 	if (!list->first)
 		list->first = ft_lstnew(lex);
@@ -43,10 +43,11 @@ int	add_to_lex(t_list_lexeme *list, t_lexeme *lex)
 // free the lexeme_list
 void	delete_list(t_list_lexeme *list)
 {
+	t_list		*prev;
+	t_lexeme	*lexeme;
+
 	while (list->first)
 	{
-		t_list *prev;
-		t_lexeme *lexeme;
 		lexeme = list->first->content;
 		free(lexeme->str.str);
 		free(lexeme);
@@ -60,9 +61,10 @@ void	delete_list(t_list_lexeme *list)
 // save an alphabetical string in lexeme_list as IDENTIFIER
 int	identifier(t_list_lexeme *list, t_lexer *lexer)
 {
-	char buffer[1000];
+	char	buffer[1000];
+	int		i;
 
-	int i = 0;
+	i = 0;
 	while (is_identifier(peekcharacter(lexer)))
 	{
 		buffer[i] = (char)getcharacter(lexer);

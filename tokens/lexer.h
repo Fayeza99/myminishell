@@ -6,7 +6,7 @@
 /*   By: asemsey <asemsey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/23 12:58:06 by fnikzad           #+#    #+#             */
-/*   Updated: 2024/03/26 14:34:06 by asemsey          ###   ########.fr       */
+/*   Updated: 2024/03/26 16:54:52 by asemsey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,6 @@ typedef struct s_lexer
 }	t_lexer;
 
 void			add_tokens(t_list_lexeme *list, t_lexer *lexer);
-
 char			getcharacter(t_lexer *lexer);
 // char			*getcharacter_p(t_lexer *lexer);
 char			peekcharacter(t_lexer *lexer);
@@ -61,7 +60,7 @@ void			quoted_str(t_list_lexeme *list, t_lexer *lexer);
 void			s_quoted_str(t_list_lexeme *list, t_lexer *lexer);
 t_lexer			create_lexer(const char *s);
 t_lexeme		*create_lexeme(t_tokens token, char *s, size_t len);
-t_list_lexeme	*create_list();
+t_list_lexeme	*create_list(void);
 void			delete_list(t_list_lexeme *list);
 
 int				is_identifier(char c);
@@ -71,7 +70,7 @@ int				is_greater(char c);
 int				is_pipes(char c);
 int				is_dash(char c);
 int				is_expansion(char c);
-int				is_EOF(char c);
+int				is_eof(char c);
 int				is_double_quotes(char c);
 int				is_single_quotes(char c);
 
