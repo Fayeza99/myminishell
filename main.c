@@ -6,14 +6,14 @@
 /*   By: asemsey <asemsey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/23 11:22:01 by fnikzad           #+#    #+#             */
-/*   Updated: 2024/03/25 18:22:29 by asemsey          ###   ########.fr       */
+/*   Updated: 2024/03/26 10:42:33 by asemsey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include "tokens/lexer.h"
+#include "lexer.h"
 
-int	main(void)
+int	main()
 {
 	t_list_lexeme	*list;
 	t_lexer			lexer;
@@ -35,7 +35,7 @@ int	main(void)
 			if (node->next != NULL)
 			{
 				printf("%s - ", get_token_name(lexeme->token));
-				// printf("%s - ", lexeme->str.str);
+				printf("%s - ", lexeme->str.str);
 			}
 			else
 				printf("%s - %s \n", get_token_name(lexeme->token), lexeme->str.str);

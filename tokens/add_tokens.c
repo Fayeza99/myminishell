@@ -6,7 +6,7 @@
 /*   By: asemsey <asemsey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 17:55:42 by asemsey           #+#    #+#             */
-/*   Updated: 2024/03/25 18:23:59 by asemsey          ###   ########.fr       */
+/*   Updated: 2024/03/26 10:38:30 by asemsey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,13 @@ void	add_tokens(t_list_lexeme *list, t_lexer *lexer)
 		else if (is_expansion(peekcharacter(lexer)))
 			add_to_lex(list, create_lexeme(EXPANSION, getcharacter(lexer), 1));
 		else if (is_double_quotes(peekcharacter(lexer)))
-			add_to_lex(list, create_lexeme(D_QUOTES, getcharacter(lexer), 1));
+		{
+			quoted_str(list, lexer);
+		}
 		else if (is_single_quotes(peekcharacter(lexer)))
-			add_to_lex(list, create_lexeme(S_QUOTES, getcharacter(lexer), 1));
+		{
+			s_quoted_str(list, lexer);
+		}
 		else
 			add_to_lex(list, create_lexeme(UNEXPECTED, getcharacter(lexer), 1));
 	}
