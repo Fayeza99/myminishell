@@ -6,11 +6,11 @@
 /*   By: asemsey <asemsey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 14:50:53 by asemsey           #+#    #+#             */
-/*   Updated: 2024/03/26 16:48:51 by asemsey          ###   ########.fr       */
+/*   Updated: 2024/03/27 17:56:05 by asemsey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lexer.h"
+#include "../minishell.h"
 
 int	is_whitespace(char c)
 {

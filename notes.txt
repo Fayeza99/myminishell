@@ -8,6 +8,14 @@ done:
 
 -----------------------------------------------------------------------------
 
+OUTPUT OF PARSING
+
+t_mini contains everything
+	list of arguments with type arg or redir (one per pipe)
+	echo hello > out | ./
+
+-----------------------------------------------------------------------------
+
 HANDLING QUOTES
 -	' inside " is normal text but interpret $ !!!
 		( echo "'$USER'" -> 'fnikzad' )

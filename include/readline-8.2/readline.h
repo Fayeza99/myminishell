@@ -27,6 +27,7 @@ extern "C" {
 #endif
 
 #if defined (READLINE_LIBRARY)
+#  include <stdio.h>
 #  include "rlstdc.h"
 #  include "rltypedefs.h"
 #  include "keymaps.h"
