@@ -6,7 +6,7 @@
 /*   By: asemsey <asemsey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/23 11:22:01 by fnikzad           #+#    #+#             */
-/*   Updated: 2024/03/27 19:37:06 by asemsey          ###   ########.fr       */
+/*   Updated: 2024/03/28 11:34:42 by asemsey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,18 @@ void	print_command(char **cmd)
 int	read_command(t_mini *mini)
 {
 	mini->command = readline("minishell> ");
+	if (open_pipe(mini->command) == 2 || !*mini->command)
+		return (1);
+	while (open_quotes(mini->command) || open_pipe(mini->command) == 1)
+	{
+		mini->command = ft_strjoin(mini->command, readline("> ")); // leak!!!
+		if (open_pipe(mini->command) == 2)
+			return (1);
+	}
 	add_history(mini->command);
-	get_commands(mini);
-	print_command(mini->cmd_list);
+	printf("%s\n", mini->command);
+	// get_commands(mini);
+	// print_command(mini->cmd_list);
 	return (1);
 }
 

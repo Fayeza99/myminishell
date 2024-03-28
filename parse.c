@@ -6,7 +6,7 @@
 /*   By: asemsey <asemsey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/24 12:11:29 by fnikzad           #+#    #+#             */
-/*   Updated: 2024/03/27 19:34:27 by asemsey          ###   ########.fr       */
+/*   Updated: 2024/03/28 11:07:55 by asemsey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,12 @@ int	count_pipes(char *cmd)
 	while (cmd && *cmd)
 	{
 		if (*cmd == '|')
-			pipes++;
+		{
+			while (*cmd && is_whitespace(*cmd))
+				cmd++;
+			if (*cmd)
+				pipes++;
+		}
 		cmd++;
 	}
 	return (pipes);
@@ -54,9 +59,8 @@ void	get_commands(t_mini *mini)
 	int		i;
 	char	*cmd;
 
-	pipes = count_pipes(mini->command);
 	cmd = mini->command;
-	mini->cmd_list = (char **)malloc(pipes + 2);
+	pipes = 0;
 	if (!mini->cmd_list)
 		return ;
 	i = 0;
@@ -64,13 +68,11 @@ void	get_commands(t_mini *mini)
 	{
 		while (*cmd && is_whitespace(*cmd))
 			cmd++;
-		mini->cmd_list[i] = cmd;
+		mini->cmd_list[i++] = cmd;
 		while (*cmd && *cmd != '|')
 			cmd++;
 		*cmd = '\0';
-		if (*cmd)
-			cmd++;
-		i++;
+		cmd++;
 	}
 	mini->cmd_list[i] = NULL;
 }

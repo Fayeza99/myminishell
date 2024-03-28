@@ -6,7 +6,7 @@
 /*   By: asemsey <asemsey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/23 11:22:32 by fnikzad           #+#    #+#             */
-/*   Updated: 2024/03/27 19:29:05 by asemsey          ###   ########.fr       */
+/*   Updated: 2024/03/28 11:41:02 by asemsey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,8 @@ typedef struct s_cmd
 }	t_cmd;
 
 int			open_quotes(char *str);
+int			inside_quote(char *str, int pos);
+int			open_pipe(char *str);
 void		get_commands(t_mini *mini);
 int			get_argc(char *cmd);
 int			count_pipes(char *cmd);
