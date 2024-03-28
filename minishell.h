@@ -6,7 +6,7 @@
 /*   By: asemsey <asemsey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/23 11:22:32 by fnikzad           #+#    #+#             */
-/*   Updated: 2024/03/28 11:41:02 by asemsey          ###   ########.fr       */
+/*   Updated: 2024/03/28 14:05:40 by asemsey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,11 +44,11 @@ typedef struct s_mini
 	char	*command;
 	char	**cmd_list;
 	t_list	*current_cmd;
-	int		cmd_count;
 	int		exit_status;
 	char	**env;
 }	t_mini;
 
+// commands are segments separated by pipes
 typedef struct s_cmd
 {
 	char			**argv;
@@ -64,6 +64,9 @@ int			get_argc(char *cmd);
 int			count_pipes(char *cmd);
 
 int			is_whitespace(char c);
+int			ft_arrlen(char **s);
+char		**ft_arrdup(char **s);
+void		print_arr(char **cmd);
 
 // test 0 test 0 test
 //       ^      ^

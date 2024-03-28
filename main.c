@@ -6,26 +6,11 @@
 /*   By: asemsey <asemsey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/23 11:22:01 by fnikzad           #+#    #+#             */
-/*   Updated: 2024/03/28 11:34:42 by asemsey          ###   ########.fr       */
+/*   Updated: 2024/03/28 14:06:34 by asemsey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-// #include "tokens/lexer.h"
-
-// void	get_args(t_mini *mini, char *cmd)
-// {
-// 	mini->current_cmd->
-// }
-
-void	print_command(char **cmd)
-{
-	int	i;
-
-	i = 0;
-	while (cmd && cmd[i])
-		printf("%s\n", cmd[i++]);
-}
 
 int	read_command(t_mini *mini)
 {
@@ -34,14 +19,14 @@ int	read_command(t_mini *mini)
 		return (1);
 	while (open_quotes(mini->command) || open_pipe(mini->command) == 1)
 	{
-		mini->command = ft_strjoin(mini->command, readline("> ")); // leak!!!
+		mini->command = ft_strjoin(mini->command,\
+			ft_strjoin("\n", readline("> "))); // leak!!!
 		if (open_pipe(mini->command) == 2)
 			return (1);
 	}
 	add_history(mini->command);
-	printf("%s\n", mini->command);
-	// get_commands(mini);
-	// print_command(mini->cmd_list);
+	get_commands(mini);
+	print_arr(mini->cmd_list);
 	return (1);
 }
 
@@ -52,11 +37,10 @@ t_mini	*mini_init(char **env)
 	mini = (t_mini *)malloc(sizeof(t_mini));
 	if (!mini)
 		return (NULL);
-	mini->cmd_count = 0;
 	mini->cmd_list = NULL;
 	mini->command = NULL;
 	mini->current_cmd = NULL;
-	mini->env = env; // arrdup(env)
+	mini->env = ft_arrdup(env);
 	mini->exit_status = 0;
 	return (mini);
 }

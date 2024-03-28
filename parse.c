@@ -6,7 +6,7 @@
 /*   By: asemsey <asemsey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/24 12:11:29 by fnikzad           #+#    #+#             */
-/*   Updated: 2024/03/28 11:07:55 by asemsey          ###   ########.fr       */
+/*   Updated: 2024/03/28 14:03:33 by asemsey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,22 +17,26 @@ int	is_whitespace(char c)
 	return ((c >= 9 && c < 14) || c == 32);
 }
 
+// count pipes outside quotes
 int	count_pipes(char *cmd)
 {
 	int	pipes;
+	int	i;
 
 	pipes = 0;
-	while (cmd && *cmd)
+	i = 0;
+	while (cmd && cmd[i])
 	{
-		if (*cmd == '|')
+		if (cmd[i] == '|' && !inside_quote(cmd, i))
 		{
-			while (*cmd && is_whitespace(*cmd))
-				cmd++;
-			if (*cmd)
+			while (cmd[i] && is_whitespace(cmd[i]))
+				i++;
+			if (cmd[i])
 				pipes++;
 		}
-		cmd++;
+		i++;
 	}
+	// printf("pipes: %d\n", pipes);
 	return (pipes);
 }
 
@@ -56,23 +60,26 @@ int	get_argc(char *cmd)
 void	get_commands(t_mini *mini)
 {
 	int		pipes;
+	int		arg;
+	char	*last_cmd;
 	int		i;
-	char	*cmd;
 
-	cmd = mini->command;
-	pipes = 0;
+	pipes = count_pipes(mini->command);
+	mini->cmd_list = (char **)malloc(sizeof(char *) * (pipes + 2));
 	if (!mini->cmd_list)
 		return ;
-	i = 0;
-	while (i < pipes + 1)
+	arg = 0;
+	last_cmd = mini->command;
+	while (arg < pipes + 1)
 	{
-		while (*cmd && is_whitespace(*cmd))
-			cmd++;
-		mini->cmd_list[i++] = cmd;
-		while (*cmd && *cmd != '|')
-			cmd++;
-		*cmd = '\0';
-		cmd++;
+		i = 0;
+		while (last_cmd[i] && is_whitespace(last_cmd[i]))
+			i++;
+		mini->cmd_list[arg++] = &last_cmd[i];
+		while (last_cmd[i] && !(last_cmd[i] == '|' && inside_quote(last_cmd, i) == 0))
+			i++;
+		last_cmd[i++] = '\0';
+		last_cmd += i;
 	}
-	mini->cmd_list[i] = NULL;
+	mini->cmd_list[arg] = NULL;
 }
