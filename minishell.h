@@ -6,7 +6,7 @@
 /*   By: asemsey <asemsey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/23 11:22:32 by fnikzad           #+#    #+#             */
-/*   Updated: 2024/03/28 14:05:40 by asemsey          ###   ########.fr       */
+/*   Updated: 2024/03/28 17:58:52 by asemsey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,10 +51,17 @@ typedef struct s_mini
 // commands are segments separated by pipes
 typedef struct s_cmd
 {
+	char			*command;
 	char			**argv;
 	int				fd_in;
 	int				fd_out;
 }	t_cmd;
+
+t_mini		*mini_init(char **env);
+int			mini_free(t_mini *mini);
+t_cmd		*new_cmd(char *command);
+t_list		*create_cmdlst(char **s);
+void		ft_lstprint(t_list *lst);
 
 int			open_quotes(char *str);
 int			inside_quote(char *str, int pos);
@@ -67,6 +74,8 @@ int			is_whitespace(char c);
 int			ft_arrlen(char **s);
 char		**ft_arrdup(char **s);
 void		print_arr(char **cmd);
+void		ft_freearr(char **s);
+char		*ft_freejoin(char *s1, char *s2);
 
 // test 0 test 0 test
 //       ^      ^

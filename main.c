@@ -6,52 +6,50 @@
 /*   By: asemsey <asemsey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/23 11:22:01 by fnikzad           #+#    #+#             */
-/*   Updated: 2024/03/28 14:06:34 by asemsey          ###   ########.fr       */
+/*   Updated: 2024/03/28 18:38:08 by asemsey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+void	leak(void);
+
 int	read_command(t_mini *mini)
 {
+	if (mini->command)
+		free(mini->command);
 	mini->command = readline("minishell> ");
 	if (open_pipe(mini->command) == 2 || !*mini->command)
 		return (1);
 	while (open_quotes(mini->command) || open_pipe(mini->command) == 1)
 	{
-		mini->command = ft_strjoin(mini->command,\
-			ft_strjoin("\n", readline("> "))); // leak!!!
+		mini->command = ft_freejoin(mini->command,\
+			ft_freejoin(ft_strdup("\n"), readline("> ")));
 		if (open_pipe(mini->command) == 2)
 			return (1);
 	}
 	add_history(mini->command);
+	if (!ft_strncmp(mini->command, "exit", ft_strlen(mini->command)))
+		return (0);
 	get_commands(mini);
+	// mini->current_cmd = create_cmdlst(mini->cmd_list);
+	// ft_lstprint(mini->current_cmd);
 	print_arr(mini->cmd_list);
 	return (1);
 }
 
-t_mini	*mini_init(char **env)
+void	leak(void)
 {
-	t_mini	*mini;
-
-	mini = (t_mini *)malloc(sizeof(t_mini));
-	if (!mini)
-		return (NULL);
-	mini->cmd_list = NULL;
-	mini->command = NULL;
-	mini->current_cmd = NULL;
-	mini->env = ft_arrdup(env);
-	mini->exit_status = 0;
-	return (mini);
+	system("leaks minishell");
 }
 
 int	main(int argc, char **argv, char **env)
 {
 	t_mini	*mini;
-	int		exit;
 
 	(void)argc;
 	(void)argv;
+	atexit(leak);
 	mini = mini_init(env);
 	if (!mini)
 		return (EXIT_FAILURE);
@@ -59,10 +57,9 @@ int	main(int argc, char **argv, char **env)
 	{
 		if (!read_command(mini))
 			break ;
+		// leak();
 	}
-	exit = mini->exit_status;
-	// free_mini(mini);
-	return (exit);
+	return (mini_free(mini));
 }
 
 // int	main(int argc, char **argv, char **env)
@@ -100,3 +97,4 @@ int	main(int argc, char **argv, char **env)
 // 	clear_history();
 // 	free(list);
 // }
+

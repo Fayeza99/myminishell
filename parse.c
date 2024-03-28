@@ -6,7 +6,7 @@
 /*   By: asemsey <asemsey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/24 12:11:29 by fnikzad           #+#    #+#             */
-/*   Updated: 2024/03/28 14:03:33 by asemsey          ###   ########.fr       */
+/*   Updated: 2024/03/28 17:41:43 by asemsey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,25 +36,7 @@ int	count_pipes(char *cmd)
 		}
 		i++;
 	}
-	// printf("pipes: %d\n", pipes);
 	return (pipes);
-}
-
-int	get_argc(char *cmd)
-{
-	int	argc;
-
-	argc = 0;
-	while (cmd && *cmd)
-	{
-		while (is_whitespace(*cmd))
-			cmd++;
-		if (*cmd)
-			argc++;
-		while (!is_whitespace(*cmd))
-			cmd++;
-	}
-	return (argc);
 }
 
 void	get_commands(t_mini *mini)
@@ -83,3 +65,20 @@ void	get_commands(t_mini *mini)
 	}
 	mini->cmd_list[arg] = NULL;
 }
+
+// int	get_argc(char *cmd)
+// {
+// 	int	argc;
+
+// 	argc = 0;
+// 	while (cmd && *cmd)
+// 	{
+// 		while (is_whitespace(*cmd))
+// 			cmd++;
+// 		if (*cmd)
+// 			argc++;
+// 		while (!is_whitespace(*cmd))
+// 			cmd++;
+// 	}
+// 	return (argc);
+// }

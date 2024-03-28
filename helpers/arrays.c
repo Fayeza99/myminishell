@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   helpers.c                                          :+:      :+:    :+:   */
+/*   arrays.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: asemsey <asemsey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 12:40:37 by asemsey           #+#    #+#             */
-/*   Updated: 2024/03/28 14:06:10 by asemsey          ###   ########.fr       */
+/*   Updated: 2024/03/28 17:52:48 by asemsey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,14 +40,26 @@ char	**ft_arrdup(char **s)
 	return (new);
 }
 
-void	print_arr(char **cmd)
+void	ft_freearr(char **s)
 {
 	int	i;
 
-	if (!cmd)
+	i = 0;
+	if (!s)
+		return ;
+	while (s[i])
+		free(s[i++]);
+	free(s);
+}
+
+void	print_arr(char **s)
+{
+	int	i;
+
+	if (!s)
 		return ;
 	i = 0;
-	while (cmd[i])
-		printf("%s\n", cmd[i++]);
-	printf("%s\n", cmd[i]);
+	while (s[i])
+		printf("%s\n", s[i++]);
+	printf("%s\n", s[i]);
 }
