@@ -6,7 +6,7 @@
 /*   By: asemsey <asemsey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/24 12:11:29 by fnikzad           #+#    #+#             */
-/*   Updated: 2024/04/02 15:55:02 by asemsey          ###   ########.fr       */
+/*   Updated: 2024/04/02 15:58:17 by asemsey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,15 +48,11 @@ void	split_argv(char **argv)
 
 void	parse_cmd(t_cmd *cmd)
 {
-	// printf("parsing cmd...\n");
-	// printf("%s\n", cmd->command);
-	// turn command to argv
 	cmd->argv = get_argv_arr(cmd->command);
 	if (!cmd->argv)
 		return ;
 	split_argv(cmd->argv);
 	cmd->type = get_type_arr(cmd->argv);
-	// get argv types
 }
 
 // before: mini has full input string
