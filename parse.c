@@ -6,11 +6,45 @@
 /*   By: asemsey <asemsey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/24 12:11:29 by fnikzad           #+#    #+#             */
-/*   Updated: 2024/04/02 15:20:16 by asemsey          ###   ########.fr       */
+/*   Updated: 2024/04/02 15:47:49 by asemsey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+// void	split_redir(char *str)
+// {
+// 	while (str && *str && (*str == '<' || *str == '>'))
+// 		str++;
+// 	while (str && *str && is_whitespace(*str))
+// 		str++;
+// 	while (str && *str && !is_whitespace(*str))
+// 		str++;
+// 	*str = '\0';
+// }
+
+void	split_argv(char **argv)
+{
+	int		i;
+	char	*str;
+
+	i = 0;
+	while (argv[i])
+	{
+		str = argv[i];
+		// if (*str == '>' || *str == '<')
+		// 	split_redir(++str);
+		if (argv[i + 1])
+		{
+			str = argv[i + 1] - 1;
+			while (is_whitespace(*str))
+				str--;
+			str++;
+			*str = '\0';
+		}
+		i++;
+	}
+}
 
 void	parse_cmd(t_cmd *cmd)
 {
@@ -20,13 +54,14 @@ void	parse_cmd(t_cmd *cmd)
 	cmd->argv = get_argv_arr(cmd->command);
 	if (!cmd->argv)
 		return ;
-	// get argv types
+	split_argv(cmd->argv);
 	cmd->type = get_type_arr(cmd->argv);
+	// get argv types
 }
 
 // before: mini has full input string
 // after: all fields filled, fd on default, argv and types ready
-t_mini	*parse_input(t_mini *mini)
+void	parse_input(t_mini *mini)
 {
 	t_list	*lst;
 
@@ -38,7 +73,6 @@ t_mini	*parse_input(t_mini *mini)
 		parse_cmd((t_cmd *)lst->content);
 		lst = lst->next;
 	}
-	return (mini);
 }
 
 int	is_whitespace(char c)

@@ -6,7 +6,7 @@
 /*   By: asemsey <asemsey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/23 11:22:32 by fnikzad           #+#    #+#             */
-/*   Updated: 2024/04/02 15:08:33 by asemsey          ###   ########.fr       */
+/*   Updated: 2024/04/02 15:37:23 by asemsey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ typedef struct s_cmd
 
 t_mini		*mini_init(char **env);
 int			mini_free(t_mini *mini);
-t_mini		*parse_input(t_mini *mini);
+void		parse_input(t_mini *mini);
 
 t_cmd		*new_cmd(char *command);
 t_list		*create_cmdlst(char **s);

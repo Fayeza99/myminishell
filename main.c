@@ -6,7 +6,7 @@
 /*   By: asemsey <asemsey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/23 11:22:01 by fnikzad           #+#    #+#             */
-/*   Updated: 2024/04/02 15:23:31 by asemsey          ###   ########.fr       */
+/*   Updated: 2024/04/02 15:36:55 by asemsey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ void	display_struct(t_mini *mini)
 	lst = mini->current_cmd;
 	while (lst)
 	{
-		// printf("ok\n");
 		cmd = (t_cmd *)lst->content;
 		printf("next command:   %s\n", cmd->command);
 		printf("args:\n");
@@ -49,7 +48,7 @@ int	read_command(t_mini *mini)
 	add_history(mini->command);
 	if (!ft_strncmp(mini->command, "exit", ft_strlen(mini->command)))
 		return (0);
-	mini = parse_input(mini);
+	parse_input(mini);
 	display_struct(mini);
 	return (1);
 }
