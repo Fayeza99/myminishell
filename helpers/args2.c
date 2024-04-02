@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   args2.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asemsey <asemsey@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fnikzad <fnikzad@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/31 15:49:45 by asemsey           #+#    #+#             */
-/*   Updated: 2024/04/02 15:12:52 by asemsey          ###   ########.fr       */
+/*   Updated: 2024/04/02 15:52:58 by fnikzad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ t_type	*get_type_arr(char **argv)
 	t_type	*type;
 
 	i = 0;
-	printf("getting types...\n");
+	// printf("getting types...\n");
 	type = (t_type *)malloc(sizeof(t_type) * (ft_arrlen(argv)));
 	if (!type)
 		return (NULL);

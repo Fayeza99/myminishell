@@ -6,7 +6,7 @@
 /*   By: fnikzad <fnikzad@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 11:53:12 by fnikzad           #+#    #+#             */
-/*   Updated: 2024/04/02 14:08:04 by fnikzad          ###   ########.fr       */
+/*   Updated: 2024/04/02 15:07:30 by fnikzad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,8 @@ int	ex_pwd(char **args)
 // {
 // 	// if(ft_strcmp(shell->argv[0], "cd") == 0)
 // }
+
+
 
 void	exec_cmd(t_mini *cmds)
 {

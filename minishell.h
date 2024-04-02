@@ -6,7 +6,7 @@
 /*   By: asemsey <asemsey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/23 11:22:32 by fnikzad           #+#    #+#             */
-/*   Updated: 2024/04/02 15:37:23 by asemsey          ###   ########.fr       */
+/*   Updated: 2024/04/02 15:54:48 by asemsey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,7 @@ char		*ft_freejoin(char *s1, char *s2);
 
 void	exec_cmd(t_mini *cmds);
 int		ex_export(t_mini *shell, char **args);
+void	pipes(t_mini *shell);
 
 
 #endif
