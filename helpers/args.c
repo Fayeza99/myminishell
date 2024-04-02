@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   args.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asemsey <asemsey@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fnikzad <fnikzad@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/30 12:57:56 by asemsey           #+#    #+#             */
-/*   Updated: 2024/04/02 15:12:39 by asemsey          ###   ########.fr       */
+/*   Updated: 2024/04/02 15:52:49 by fnikzad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ char	**get_argv_arr(char *cmd)
 	int		skip;
 	char	*tmp;
 
-	printf("getting argv...\n");
+	// printf("getting argv...\n");
 	argv = NULL;
 	if (!cmd || !*cmd || !valid_redir(cmd))
 		return (NULL);

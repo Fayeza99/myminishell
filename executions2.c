@@ -6,7 +6,7 @@
 /*   By: fnikzad <fnikzad@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 14:26:05 by fnikzad           #+#    #+#             */
-/*   Updated: 2024/04/02 15:30:10 by fnikzad          ###   ########.fr       */
+/*   Updated: 2024/04/02 15:37:03 by fnikzad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void	pipes(t_mini *shell)
 			dup2(fd[1], 1);
 			close(fd[0]);
 			close(fd[1]);
-			execve(find_path(cmd), cmd->argv, shell->env);
+			execve(find_path((char *)cmd), cmd->argv, shell->env);
 			exit(1);
 		}
 		pid2 = fork();
@@ -62,7 +62,7 @@ void	pipes(t_mini *shell)
 			dup2(fd[0], 0);
 			close(fd[0]);
 			close(fd[1]);
-			execve(find_path(cmd), cmd->argv, shell->env);
+			execve(find_path((char *)cmd), cmd->argv, shell->env);
 			exit(1);
 		}
 		close(fd[1]);

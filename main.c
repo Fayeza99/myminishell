@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asemsey <asemsey@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fnikzad <fnikzad@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/23 11:22:01 by fnikzad           #+#    #+#             */
-/*   Updated: 2024/04/02 15:23:31 by asemsey          ###   ########.fr       */
+/*   Updated: 2024/04/02 15:50:29 by fnikzad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int	read_command(t_mini *mini)
 	if (!ft_strncmp(mini->command, "exit", ft_strlen(mini->command)))
 		return (0);
 	mini = parse_input(mini);
-	display_struct(mini);
+	// display_struct(mini);
 	return (1);
 }
 
@@ -65,7 +65,7 @@ int	main(int argc, char **argv, char **env)
 
 	(void)argc;
 	(void)argv;
-	atexit(leak);
+	// atexit(leak);
 	mini = mini_init(env); 
 	if (!mini)
 		return (EXIT_FAILURE);
@@ -73,7 +73,8 @@ int	main(int argc, char **argv, char **env)
 	{
 		if (!read_command(mini))
 			break ;
-	// exec_cmd(mini);
+		pipes(mini);
+		// exec_cmd(mini);
 		// leak();
 	}
 	return (mini_free(mini));

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asemsey <asemsey@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fnikzad <fnikzad@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/24 12:11:29 by fnikzad           #+#    #+#             */
-/*   Updated: 2024/04/02 15:20:16 by asemsey          ###   ########.fr       */
+/*   Updated: 2024/04/02 15:53:19 by fnikzad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	parse_cmd(t_cmd *cmd)
 {
-	printf("parsing cmd...\n");
+	// printf("parsing cmd...\n");
 	// printf("%s\n", cmd->command);
 	// turn command to argv
 	cmd->argv = get_argv_arr(cmd->command);
@@ -76,7 +76,7 @@ void	get_commands(t_mini *mini)
 	char	*last_cmd;
 	int		i;
 
-	printf("getting cmd...\n");
+	// printf("getting cmd...\n");
 	pipes = count_pipes(mini->command);
 	mini->cmd_list = (char **)malloc(sizeof(char *) * (pipes + 2));
 	if (!mini->cmd_list)
