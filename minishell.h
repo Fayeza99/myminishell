@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fnikzad <fnikzad@student.42.fr>            +#+  +:+       +#+        */
+/*   By: asemsey <asemsey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/23 11:22:32 by fnikzad           #+#    #+#             */
-/*   Updated: 2024/04/02 14:21:18 by fnikzad          ###   ########.fr       */
+/*   Updated: 2024/04/02 15:08:33 by asemsey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,13 +62,16 @@ typedef struct s_cmd
 
 t_mini		*mini_init(char **env);
 int			mini_free(t_mini *mini);
+t_mini		*parse_input(t_mini *mini);
 
 t_cmd		*new_cmd(char *command);
 t_list		*create_cmdlst(char **s);
 void		ft_cmdprint(t_list *lst);
+char		**get_argv_arr(char *cmd);
+t_type		*get_type_arr(char **argv);
+void		print_argv(char **s, t_type *type);
 // t_arg		*new_arg(char *arg);
 // t_list		*get_argv(char *cmd);
-char		**get_argv_arr(char *cmd);
 // void		ft_argprint(t_list *lst);
 
 int			open_quotes(char *str);

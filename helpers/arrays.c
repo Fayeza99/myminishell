@@ -6,7 +6,7 @@
 /*   By: asemsey <asemsey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 12:40:37 by asemsey           #+#    #+#             */
-/*   Updated: 2024/03/31 12:18:58 by asemsey          ###   ########.fr       */
+/*   Updated: 2024/04/02 15:00:33 by asemsey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,5 +85,20 @@ void	print_arr(char **s)
 	i = 0;
 	while (s[i])
 		printf("%s\n", s[i++]);
+	printf("%s\n", s[i]);
+}
+
+void	print_argv(char **s, t_type *type)
+{
+	int	i;
+
+	if (!s)
+		return ;
+	i = 0;
+	while (s[i])
+	{
+		printf("%s   -   %d\n", s[i], type[i]);
+		i++;
+	}
 	printf("%s\n", s[i]);
 }

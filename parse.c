@@ -6,11 +6,40 @@
 /*   By: asemsey <asemsey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/24 12:11:29 by fnikzad           #+#    #+#             */
-/*   Updated: 2024/03/30 13:00:09 by asemsey          ###   ########.fr       */
+/*   Updated: 2024/04/02 15:20:16 by asemsey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void	parse_cmd(t_cmd *cmd)
+{
+	printf("parsing cmd...\n");
+	// printf("%s\n", cmd->command);
+	// turn command to argv
+	cmd->argv = get_argv_arr(cmd->command);
+	if (!cmd->argv)
+		return ;
+	// get argv types
+	cmd->type = get_type_arr(cmd->argv);
+}
+
+// before: mini has full input string
+// after: all fields filled, fd on default, argv and types ready
+t_mini	*parse_input(t_mini *mini)
+{
+	t_list	*lst;
+
+	get_commands(mini);
+	mini->current_cmd = create_cmdlst(mini->cmd_list);
+	lst = mini->current_cmd;
+	while (lst)
+	{
+		parse_cmd((t_cmd *)lst->content);
+		lst = lst->next;
+	}
+	return (mini);
+}
 
 int	is_whitespace(char c)
 {
@@ -39,6 +68,7 @@ int	count_pipes(char *cmd)
 	return (pipes);
 }
 
+// saves command list in mini
 void	get_commands(t_mini *mini)
 {
 	int		pipes;
@@ -46,6 +76,7 @@ void	get_commands(t_mini *mini)
 	char	*last_cmd;
 	int		i;
 
+	printf("getting cmd...\n");
 	pipes = count_pipes(mini->command);
 	mini->cmd_list = (char **)malloc(sizeof(char *) * (pipes + 2));
 	if (!mini->cmd_list)
