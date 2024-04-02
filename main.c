@@ -6,7 +6,7 @@
 /*   By: asemsey <asemsey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/23 11:22:01 by fnikzad           #+#    #+#             */
-/*   Updated: 2024/03/28 18:38:08 by asemsey          ###   ########.fr       */
+/*   Updated: 2024/03/31 13:32:44 by asemsey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,21 @@
 
 void	leak(void);
 
+// void	show_prompt(t_mini *mini)
+// {
+// 	t_cmd	*cmd;
+// 	t_arg	*arg;
+
+// 	while ()
+// 	{
+// 		cmd = (t_cmd *)mini->current_cmd->content;
+		
+// 	}
+// }
+
 int	read_command(t_mini *mini)
 {
+	t_cmd	*cmd;
 	if (mini->command)
 		free(mini->command);
 	mini->command = readline("minishell> ");
@@ -32,9 +45,10 @@ int	read_command(t_mini *mini)
 	if (!ft_strncmp(mini->command, "exit", ft_strlen(mini->command)))
 		return (0);
 	get_commands(mini);
-	// mini->current_cmd = create_cmdlst(mini->cmd_list);
-	// ft_lstprint(mini->current_cmd);
-	print_arr(mini->cmd_list);
+	mini->current_cmd = create_cmdlst(mini->cmd_list);
+	cmd = (t_cmd *)mini->current_cmd->content;
+	cmd->argv = get_argv(cmd->command);
+	ft_argprint(cmd->argv);
 	return (1);
 }
 

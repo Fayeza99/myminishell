@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fnikzad <fnikzad@student.42.fr>            +#+  +:+       +#+        */
+/*   By: asemsey <asemsey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/08 18:00:29 by fnikzad           #+#    #+#             */
-/*   Updated: 2024/02/21 13:39:10 by fnikzad          ###   ########.fr       */
+/*   Updated: 2024/03/31 12:42:27 by asemsey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ int			ft_strcmp(char *s1, char *s2);
 
 int			ft_isspace(char c);
 char		**ft_argv(const char *str);
+int			skip_quote(char *str);
 
 t_list		*ft_lstnew(void *content);
 void		ft_lstadd_front(t_list **lst, t_list *new);
