@@ -1,10 +1,8 @@
 to-do:
--	pipes
+-	linked list commands
+-	linked list argv
+-	expand variables
 done:
--	Error for unclosed quotes (created leaks... oops)
--	do not remove quotes inside quotes!!!
--	quote handling (see below)
--	$VAR$VAR2
 
 -----------------------------------------------------------------------------
 

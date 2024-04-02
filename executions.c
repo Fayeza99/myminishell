@@ -6,11 +6,16 @@
 /*   By: fnikzad <fnikzad@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 11:53:12 by fnikzad           #+#    #+#             */
-/*   Updated: 2024/04/01 16:58:15 by fnikzad          ###   ########.fr       */
+/*   Updated: 2024/04/02 14:08:04 by fnikzad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+// t_cmd *cmd = mini->current_cmd->content;
+// t_cmd *cmd2 = mini->current_cmd->next->content;
+// printf("%s\n%s\n", cmd->command, cmd2->command);
+
 
 int	ex_cd(char **args, t_mini *shell)
 {

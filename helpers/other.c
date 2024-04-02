@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   other.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asemsey <asemsey@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fnikzad <fnikzad@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 17:52:01 by asemsey           #+#    #+#             */
-/*   Updated: 2024/03/28 18:31:37 by asemsey          ###   ########.fr       */
+/*   Updated: 2024/04/02 14:21:46 by fnikzad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	ft_lstprint(t_list *lst)
+void	ft_cmdprint(t_list *lst)
 {
 	t_cmd	*cont;
 
@@ -23,6 +23,18 @@ void	ft_lstprint(t_list *lst)
 		lst = lst->next;
 	}
 }
+
+// void	ft_argprint(t_list *lst)
+// {
+// 	t_arg	*cont;
+
+// 	while (lst)
+// 	{
+// 		cont = (t_arg *)lst->content;
+// 		printf("%s, %d\n", cont->arg, cont->type);
+// 		lst = lst->next;
+// 	}
+// }
 
 char	*ft_freejoin(char *s1, char *s2)
 {

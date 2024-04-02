@@ -6,7 +6,7 @@
 /*   By: fnikzad <fnikzad@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/23 11:22:01 by fnikzad           #+#    #+#             */
-/*   Updated: 2024/04/01 12:57:54 by fnikzad          ###   ########.fr       */
+/*   Updated: 2024/04/02 14:18:55 by fnikzad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,10 @@
 
 void	leak(void);
 
+
 int	read_command(t_mini *mini)
 {
+	t_cmd	*cmd;
 	if (mini->command)
 		free(mini->command);
 	mini->command = readline("minishell> ");
@@ -32,9 +34,9 @@ int	read_command(t_mini *mini)
 	if (!ft_strncmp(mini->command, "exit", ft_strlen(mini->command)))
 		return (0);
 	get_commands(mini);
-	// mini->current_cmd = create_cmdlst(mini->cmd_list);
-	// ft_lstprint(mini->current_cmd);
-	print_arr(mini->cmd_list);
+	mini->current_cmd = create_cmdlst(mini->cmd_list);
+	cmd = (t_cmd *)mini->current_cmd->content;
+	// cmd->argv = get_argv(cmd->command);
 	return (1);
 }
 
@@ -62,40 +64,4 @@ int	main(int argc, char **argv, char **env)
 	}
 	return (mini_free(mini));
 }
-
-// int	main(int argc, char **argv, char **env)
-// {
-// 	t_list_lexeme	*list;
-// 	t_lexer			lexer;
-// 	t_list			*node;
-// 	t_lexeme		*lexeme;
-// 	char			*s;
-
-// 	list = create_list();
-// 	while (1)
-// 	{
-// 		s = readline("minishell> ");
-// 		add_history(s);
-// 		printf("%d\n", open_quotes(s));
-// 		lexer.current = s;
-// 		add_tokens(list, &lexer);
-// 		node = list->first;
-// 		while (node)
-// 		{
-// 			lexeme = node->content;
-// 			if (node->next != NULL)
-// 			{
-// 				printf("%s - ", get_token_name(lexeme->token));
-// 				printf("%s - ", lexeme->str.str);
-// 			}
-// 			else
-// 				printf("%s - %s \n", get_token_name(lexeme->token), lexeme->str.str);
-// 			node = node->next;
-// 		}
-// 		free(s);
-// 		delete_list(list);
-// 	}
-// 	clear_history();
-// 	free(list);
-// }
 

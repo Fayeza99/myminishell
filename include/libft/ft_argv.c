@@ -6,7 +6,7 @@
 /*   By: asemsey <asemsey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/13 12:26:45 by fnikzad           #+#    #+#             */
-/*   Updated: 2024/02/25 18:09:46 by asemsey          ###   ########.fr       */
+/*   Updated: 2024/03/31 12:42:11 by asemsey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 // !!! undefined behaviour for unclosed quotes !!!
 
-static int	skip_quote(char *str)
+int	skip_quote(char *str)
 {
 	int		i;
 	char	c;
@@ -110,7 +110,7 @@ char	**ft_argv(const char *str)
 // int main()
 // {
 // 	int i = 0;
-// 	const char *input = "cd  \'\'\'  \'";
+// 	const char *input = "echo hello>test";
 
 // 	// printf("-%d-\n", count(input));
 // 	printf("string:   %s\n", input);
