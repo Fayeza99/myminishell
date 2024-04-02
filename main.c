@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asemsey <asemsey@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fnikzad <fnikzad@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/23 11:22:01 by fnikzad           #+#    #+#             */
-/*   Updated: 2024/03/28 18:38:08 by asemsey          ###   ########.fr       */
+/*   Updated: 2024/04/01 12:57:54 by fnikzad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,13 +50,14 @@ int	main(int argc, char **argv, char **env)
 	(void)argc;
 	(void)argv;
 	atexit(leak);
-	mini = mini_init(env);
+	mini = mini_init(env); 
 	if (!mini)
 		return (EXIT_FAILURE);
 	while (1)
 	{
 		if (!read_command(mini))
 			break ;
+	exec_cmd(mini);
 		// leak();
 	}
 	return (mini_free(mini));

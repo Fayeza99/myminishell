@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asemsey <asemsey@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fnikzad <fnikzad@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 17:33:50 by asemsey           #+#    #+#             */
-/*   Updated: 2024/03/28 18:14:17 by asemsey          ###   ########.fr       */
+/*   Updated: 2024/04/02 11:04:53 by fnikzad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,5 +74,3 @@ t_mini	*mini_init(char **env)
 	mini->exit_status = 0;
 	return (mini);
 }
-
-
