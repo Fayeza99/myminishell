@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   args2.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fnikzad <fnikzad@student.42.fr>            +#+  +:+       +#+        */
+/*   By: asemsey <asemsey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/31 15:49:45 by asemsey           #+#    #+#             */
-/*   Updated: 2024/04/02 14:20:25 by fnikzad          ###   ########.fr       */
+/*   Updated: 2024/04/02 15:12:52 by asemsey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,35 @@
 // 	free(argv);
 // 	return (args);
 // }
+
+t_type	*get_type_arr(char **argv)
+{
+	int		i;
+	t_type	*type;
+
+	i = 0;
+	printf("getting types...\n");
+	type = (t_type *)malloc(sizeof(t_type) * (ft_arrlen(argv)));
+	if (!type)
+		return (NULL);
+	while (argv && argv[i])
+	{
+		if (ft_strlen(argv[i]) < 2)
+			type[i] = ARG;
+		else if (argv[i][0] == argv[i][1] && argv[i][0] == '<')
+			type[i] = HEREDOC;
+		else if (argv[i][0] == argv[i][1] && argv[i][0] == '>')
+			type[i] = APPEND;
+		else if (argv[i][0] != argv[i][1] && argv[i][0] == '>')
+			type[i] = OUT;
+		else if (argv[i][0] != argv[i][1] && argv[i][0] == '<')
+			type[i] = IN;
+		else
+			type[i] = ARG;
+		i++;
+	}
+	return (type);
+}
 
 int	check_redir(char *str)
 {

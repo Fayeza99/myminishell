@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fnikzad <fnikzad@student.42.fr>            +#+  +:+       +#+        */
+/*   By: asemsey <asemsey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/23 11:22:01 by fnikzad           #+#    #+#             */
-/*   Updated: 2024/04/02 14:18:55 by fnikzad          ###   ########.fr       */
+/*   Updated: 2024/04/02 15:23:31 by asemsey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,26 @@
 
 void	leak(void);
 
+void	display_struct(t_mini *mini)
+{
+	t_list	*lst;
+	t_cmd	*cmd;
+
+	printf("\n--displaying struct--\n");
+	lst = mini->current_cmd;
+	while (lst)
+	{
+		// printf("ok\n");
+		cmd = (t_cmd *)lst->content;
+		printf("next command:   %s\n", cmd->command);
+		printf("args:\n");
+		print_argv(cmd->argv, cmd->type);
+		lst = lst->next;
+	}
+}
 
 int	read_command(t_mini *mini)
 {
-	t_cmd	*cmd;
 	if (mini->command)
 		free(mini->command);
 	mini->command = readline("minishell> ");
@@ -33,10 +49,8 @@ int	read_command(t_mini *mini)
 	add_history(mini->command);
 	if (!ft_strncmp(mini->command, "exit", ft_strlen(mini->command)))
 		return (0);
-	get_commands(mini);
-	mini->current_cmd = create_cmdlst(mini->cmd_list);
-	cmd = (t_cmd *)mini->current_cmd->content;
-	// cmd->argv = get_argv(cmd->command);
+	mini = parse_input(mini);
+	display_struct(mini);
 	return (1);
 }
 
@@ -59,7 +73,7 @@ int	main(int argc, char **argv, char **env)
 	{
 		if (!read_command(mini))
 			break ;
-	exec_cmd(mini);
+	// exec_cmd(mini);
 		// leak();
 	}
 	return (mini_free(mini));
