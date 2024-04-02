@@ -6,7 +6,7 @@
 /*   By: fnikzad <fnikzad@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/23 11:22:32 by fnikzad           #+#    #+#             */
-/*   Updated: 2024/04/02 14:21:18 by fnikzad          ###   ########.fr       */
+/*   Updated: 2024/04/02 14:27:15 by fnikzad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,7 @@ char		*ft_freejoin(char *s1, char *s2);
 
 void	exec_cmd(t_mini *cmds);
 int		ex_export(t_mini *shell, char **args);
+void	pipes(t_mini *shell);
 
 
 #endif
