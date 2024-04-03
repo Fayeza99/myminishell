@@ -6,7 +6,7 @@
 /*   By: asemsey <asemsey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 17:52:01 by asemsey           #+#    #+#             */
-/*   Updated: 2024/04/02 18:52:26 by asemsey          ###   ########.fr       */
+/*   Updated: 2024/04/03 16:13:47 by asemsey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ char	*ft_expand(char *command, char **env)
 	// char	*quotes;
 
 	var = add_variables(env, command);
+	if (!var)
+		return (NULL);
 	free(command);
 	// quotes = remove_quotes(var);
 	// free(var);

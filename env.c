@@ -6,7 +6,7 @@
 /*   By: asemsey <asemsey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 16:09:23 by asemsey           #+#    #+#             */
-/*   Updated: 2024/04/02 18:54:37 by asemsey          ###   ########.fr       */
+/*   Updated: 2024/04/03 17:14:20 by asemsey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,36 +15,87 @@
 int		var_len(char **env, char *str);
 int		var_cat(char **env, char **new, char *name, int max_len);
 int		valid_var(char c, int index);
+int		in_env(char *name, char **env, int free_name);
 char	*var_name(char *str);
 
 // add all $ variables to a str
 char	*add_variables(char **env, char *str)
 {
-	char	*new;
-	int		len[3];
+	(void)env;
+	(void)str;
+	// count the added variables plus strings between (ft)
+	// malloc array
+	// while i < arrlen
+	// 	if not $ copy to arr[i] until $
+	// 	else
+	// 		if var exists strdup ft_getenv
+	// 		if $ ft_itoa getpid()
+	// 		if no var strdup "$"
+	// arr[i] = NULL
+	// new = ft_arrjoin(arr)
+	return (NULL);
+}
 
-	len[0] = var_len(env, str) + 1;
-	if (len[0] - 1 < 1)
-		return (NULL);
-	new = (char *)malloc(sizeof(char) * (len[0]));
-	if (!new)
-		return (NULL);
-	len[1] = 0;
-	len[2] = 0;
-	while (str && str[len[2]])
+// add all $ variables to a str
+// char	*add_variables(char **env, char *str)
+// {
+// 	char	*new;
+// 	int		len[3];
+
+// 	len[0] = var_len(env, str) + 1;
+// 	if (len[0] - 1 < 1)
+// 		return (NULL);
+// 	new = (char *)malloc(sizeof(char) * (len[0]));
+// 	if (!new)
+// 		return (NULL);
+// 	len[1] = 0;
+// 	len[2] = 0;
+// 	while (str && str[len[2]])
+// 	{
+// 		if (str[len[2]] == '$' && inside_quote(str, len[2]) != 1 && in_env(var_name(str[len[2] + 1]), env, 1))
+// 		{
+// 			new[len[1]] = '\0';
+// 			len[2]++;
+// 			len[2] += var_cat(env, &new, var_name(&str[len[2]]), len[0]);
+// 			len[1] = ft_strlen(new);
+// 		}
+// 		else
+// 			new[len[1]++] = str[len[2]++];
+// 	}
+// 	new[len[1]] = '\0';
+// 	return (new);
+// }
+
+int	count_var_arr(char *str, char **env)
+{
+	int	count;
+
+	count = 0;
+	while (str && *str)
 	{
-		if (str[len[2]] == '$' && inside_quote(str, len[2]) != 1)
+		if (*str == '$')
 		{
-			new[len[1]] = '\0';
-			len[2]++;
-			len[2] += var_cat(env, &new, var_name(&str[len[2]]), len[0]);
-			len[1] = ft_strlen(new);
+			str++;
+			if (*str && !is_whitespace(*str) && !in_env(var_name(str), env, 1))
+				str++;
+			else
+				count++;
+			if (*str == '$')
+				str++;
+			else
+			{
+				if (valid_var(*str, 0))
+					str++;
+				while (valid_var(*str, 1))
+					str++;
+			}
+			if (*str)
+				count++;
 		}
 		else
-			new[len[1]++] = *str++;
+			str++;
 	}
-	new[len[1]] = '\0';
-	return (new);
+	return (count);
 }
 
 // result not malloced
@@ -87,10 +138,9 @@ int	var_len(char **env, char *str)
 			name = var_name(&str[++i]);
 			var = ft_getenv(name, env);
 			if (!var)
-				return (free(name), -1);
+				continue ;
 			len += ft_strlen(var);
 			i += ft_strlen(name);
-			// free(var);
 			free(name);
 			continue ;
 		}
@@ -133,6 +183,18 @@ char	*var_name(char *str)
 	return (name);
 }
 
+int	in_env(char *name, char **env, int free_name)
+{
+	char	*var;
+
+	var = ft_getenv(name, env);
+	if (free_name)
+		free(name);
+	if (!var)
+		return (0);
+	return (1);
+}
+
 // 1 for valid variable character
 int	valid_var(char c, int index)
 {
@@ -149,3 +211,13 @@ int	valid_var(char c, int index)
 	return (1);
 }
 
+// int	main(int argc, char **argv, char **env)
+// {
+// 	(void)argc;
+// 	(void)argv;
+// 	char **new_env = ft_arrdup(env);
+// 	// char *new = add_variables(new_env, "\"\'$USER$USER\'\"");
+// 	// printf("--%s--\n", new);
+// 	printf("--%d--\n", count_var_arr("heyyyyyy", new_env));
+// 	return 0;
+// }
