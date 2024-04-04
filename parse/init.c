@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fnikzad <fnikzad@student.42.fr>            +#+  +:+       +#+        */
+/*   By: asemsey <asemsey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 17:33:50 by asemsey           #+#    #+#             */
-/*   Updated: 2024/04/02 13:57:02 by fnikzad          ###   ########.fr       */
+/*   Updated: 2024/04/04 10:26:08 by asemsey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../minishell.h"
 
 t_list	*create_cmdlst(char **s)
 {

@@ -6,22 +6,11 @@
 /*   By: asemsey <asemsey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/24 12:11:29 by fnikzad           #+#    #+#             */
-/*   Updated: 2024/04/02 15:58:17 by asemsey          ###   ########.fr       */
+/*   Updated: 2024/04/04 10:52:52 by asemsey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
-
-// void	split_redir(char *str)
-// {
-// 	while (str && *str && (*str == '<' || *str == '>'))
-// 		str++;
-// 	while (str && *str && is_whitespace(*str))
-// 		str++;
-// 	while (str && *str && !is_whitespace(*str))
-// 		str++;
-// 	*str = '\0';
-// }
+#include "../minishell.h"
 
 void	split_argv(char **argv)
 {
@@ -32,8 +21,6 @@ void	split_argv(char **argv)
 	while (argv[i])
 	{
 		str = argv[i];
-		// if (*str == '>' || *str == '<')
-		// 	split_redir(++str);
 		if (argv[i + 1])
 		{
 			str = argv[i + 1] - 1;

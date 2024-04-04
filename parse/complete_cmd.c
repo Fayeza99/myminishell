@@ -6,11 +6,11 @@
 /*   By: asemsey <asemsey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 16:59:10 by asemsey           #+#    #+#             */
-/*   Updated: 2024/04/02 17:21:35 by asemsey          ###   ########.fr       */
+/*   Updated: 2024/04/04 10:25:39 by asemsey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../minishell.h"
 
 // 0 - none | 1 - s_quote open | 2 - d_quote open
 int	open_quotes(char *str)
