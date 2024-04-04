@@ -3,42 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   args2.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fnikzad <fnikzad@student.42.fr>            +#+  +:+       +#+        */
+/*   By: asemsey <asemsey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/31 15:49:45 by asemsey           #+#    #+#             */
-/*   Updated: 2024/04/02 15:52:58 by fnikzad          ###   ########.fr       */
+/*   Updated: 2024/04/04 09:38:50 by asemsey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-
-// t_arg	*new_arg(char *arg)
-// {
-// 	t_arg	*new;
-
-// 	new = (t_arg *)malloc(sizeof(t_arg));
-// 	if (!new)
-// 		return (NULL);
-// 	new->arg = arg;
-// 	new->type = ARG;
-// 	return (new);
-// }
-
-// t_list	*get_argv(char *cmd)
-// {
-// 	char	**argv;
-// 	t_list	*args;
-// 	int		i;
-
-// 	argv = get_argv_arr(cmd);
-// 	i = 0;
-// 	if (argv && argv[0])
-// 		args = ft_lstnew((void *)new_arg(argv[i++]));
-// 	while (argv && argv[i])
-// 		ft_lstadd_back(&args, ft_lstnew((void *)new_arg(argv[i++])));
-// 	free(argv);
-// 	return (args);
-// }
 
 t_type	*get_type_arr(char **argv)
 {
@@ -106,3 +78,31 @@ int	valid_redir(char *str)
 	}
 	return (1);
 }
+
+// t_arg	*new_arg(char *arg)
+// {
+// 	t_arg	*new;
+
+// 	new = (t_arg *)malloc(sizeof(t_arg));
+// 	if (!new)
+// 		return (NULL);
+// 	new->arg = arg;
+// 	new->type = ARG;
+// 	return (new);
+// }
+
+// t_list	*get_argv(char *cmd)
+// {
+// 	char	**argv;
+// 	t_list	*args;
+// 	int		i;
+
+// 	argv = get_argv_arr(cmd);
+// 	i = 0;
+// 	if (argv && argv[0])
+// 		args = ft_lstnew((void *)new_arg(argv[i++]));
+// 	while (argv && argv[i])
+// 		ft_lstadd_back(&args, ft_lstnew((void *)new_arg(argv[i++])));
+// 	free(argv);
+// 	return (args);
+// }

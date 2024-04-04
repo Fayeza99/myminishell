@@ -6,7 +6,7 @@
 /*   By: fnikzad <fnikzad@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/23 11:22:32 by fnikzad           #+#    #+#             */
-/*   Updated: 2024/04/04 13:07:38 by fnikzad          ###   ########.fr       */
+/*   Updated: 2024/04/04 13:16:20 by fnikzad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,16 +81,20 @@ int			count_pipes(char *cmd);
 int			valid_redir(char *str);
 
 int			is_whitespace(char c);
+char		*ft_freejoin(char *s1, char *s2);
 int			ft_arrlen(char **s);
 char		**ft_arr_add(char **s, char *add);
+char		**ft_arr_realloc(char **s, char *add);
 char		**ft_arrdup(char **s);
+char		*ft_arrjoin(char **s);
 void		print_arr(char **cmd);
 void		ft_freearr(char **s);
-char		*ft_freejoin(char *s1, char *s2);
 
 char		*add_variables(char **env, char *str);
 char		*ft_getenv(char *name, char **env);
 char		*ft_expand(char *command, char **env);
+char		*env_next(char *str, char **env, int *skip, int inquotes);
+int			in_env(char *name, char **env, int free_name);
 
 // exec
 

@@ -6,7 +6,7 @@
 /*   By: asemsey <asemsey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 12:34:45 by asemsey           #+#    #+#             */
-/*   Updated: 2024/03/25 14:40:17 by asemsey          ###   ########.fr       */
+/*   Updated: 2024/04/03 17:40:01 by asemsey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,37 @@ char	*var_name(char *str);
 int		valid_var_name(char c, int index);
 int		var_len(t_mini *shell, char *str);
 int		var_cat(t_mini *shell, char **new, char *name, int max_len);
+
+
+// add all $ variables to a str
+// char	*add_variables(char **env, char *str)
+// {
+// 	char	*new;
+// 	int		len[3];
+
+// 	len[0] = var_len(env, str) + 1;
+// 	if (len[0] - 1 < 1)
+// 		return (NULL);
+// 	new = (char *)malloc(sizeof(char) * (len[0]));
+// 	if (!new)
+// 		return (NULL);
+// 	len[1] = 0;
+// 	len[2] = 0;
+// 	while (str && str[len[2]])
+// 	{
+// 		if (str[len[2]] == '$' && inside_quote(str, len[2]) != 1 && in_env(var_name(str[len[2] + 1]), env, 1))
+// 		{
+// 			new[len[1]] = '\0';
+// 			len[2]++;
+// 			len[2] += var_cat(env, &new, var_name(&str[len[2]]), len[0]);
+// 			len[1] = ft_strlen(new);
+// 		}
+// 		else
+// 			new[len[1]++] = str[len[2]++];
+// 	}
+// 	new[len[1]] = '\0';
+// 	return (new);
+// }
 
 // add all $ variables to a str
 char	*add_variables(t_mini *shell, char *str)

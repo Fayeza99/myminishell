@@ -6,7 +6,7 @@
 /*   By: asemsey <asemsey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 12:40:37 by asemsey           #+#    #+#             */
-/*   Updated: 2024/04/02 15:00:33 by asemsey          ###   ########.fr       */
+/*   Updated: 2024/04/04 10:35:21 by asemsey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,10 +39,32 @@ char	**ft_arr_add(char **s, char *add)
 		new[i] = s[i];
 		i++;
 	}
-	// printf("%d\n", i);
 	new[i++] = add;
 	new[i] = NULL;
 	free(s);
+	return (new);
+}
+
+// malloced strings
+char	**ft_arr_realloc(char **s, char *add)
+{
+	char	**new;
+	int		i;
+
+	if (!add)
+		return (s);
+	new = (char **)malloc(sizeof(char *) * (ft_arrlen(s) + 2));
+	if (!new)
+		return (NULL);
+	i = 0;
+	while (s && s[i])
+	{
+		new[i] = ft_strdup(s[i]);
+		i++;
+	}
+	new[i++] = ft_strdup(add);
+	new[i] = NULL;
+	ft_freearr(s);
 	return (new);
 }
 
@@ -61,6 +83,22 @@ char	**ft_arrdup(char **s)
 		i++;
 	}
 	new[i] = NULL;
+	return (new);
+}
+
+// frees s
+char	*ft_arrjoin(char **s)
+{
+	char	*new;
+	int		i;
+
+	if (!s || !s[0])
+		return (NULL);
+	i = 0;
+	new = NULL;
+	while (s[i])
+		new = ft_freejoin(new, s[i++]);
+	free_all(s);
 	return (new);
 }
 
@@ -97,7 +135,7 @@ void	print_argv(char **s, t_type *type)
 	i = 0;
 	while (s[i])
 	{
-		printf("%s   -   %d\n", s[i], type[i]);
+		printf("%s---%d\n", s[i], type[i]);
 		i++;
 	}
 	printf("%s\n", s[i]);
