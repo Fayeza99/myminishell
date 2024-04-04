@@ -6,7 +6,7 @@
 /*   By: asemsey <asemsey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/23 11:22:32 by fnikzad           #+#    #+#             */
-/*   Updated: 2024/04/02 15:54:48 by asemsey          ###   ########.fr       */
+/*   Updated: 2024/04/02 18:38:41 by asemsey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,8 @@ typedef struct s_cmd
 // 	t_type	type;
 // }	t_arg;
 
+// parse
+
 t_mini		*mini_init(char **env);
 int			mini_free(t_mini *mini);
 void		parse_input(t_mini *mini);
@@ -70,9 +72,6 @@ void		ft_cmdprint(t_list *lst);
 char		**get_argv_arr(char *cmd);
 t_type		*get_type_arr(char **argv);
 void		print_argv(char **s, t_type *type);
-// t_arg		*new_arg(char *arg);
-// t_list		*get_argv(char *cmd);
-// void		ft_argprint(t_list *lst);
 
 int			open_quotes(char *str);
 int			inside_quote(char *str, int pos);
@@ -89,14 +88,15 @@ void		print_arr(char **cmd);
 void		ft_freearr(char **s);
 char		*ft_freejoin(char *s1, char *s2);
 
-// test 0 test 0 test
-//       ^      ^
+char		*add_variables(char **env, char *str);
+char		*ft_getenv(char *name, char **env);
+char		*ft_expand(char *command, char **env);
 
+// exec
 
-
-void	exec_cmd(t_mini *cmds);
-int		ex_export(t_mini *shell, char **args);
-void	pipes(t_mini *shell);
+void		exec_cmd(t_mini *cmds);
+int			ex_export(t_mini *shell, char **args);
+void		pipes(t_mini *shell);
 
 
 #endif

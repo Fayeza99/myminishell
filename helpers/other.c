@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   other.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fnikzad <fnikzad@student.42.fr>            +#+  +:+       +#+        */
+/*   By: asemsey <asemsey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 17:52:01 by asemsey           #+#    #+#             */
-/*   Updated: 2024/04/02 14:21:46 by fnikzad          ###   ########.fr       */
+/*   Updated: 2024/04/03 16:13:47 by asemsey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,17 +24,19 @@ void	ft_cmdprint(t_list *lst)
 	}
 }
 
-// void	ft_argprint(t_list *lst)
-// {
-// 	t_arg	*cont;
+char	*ft_expand(char *command, char **env)
+{
+	char	*var;
+	// char	*quotes;
 
-// 	while (lst)
-// 	{
-// 		cont = (t_arg *)lst->content;
-// 		printf("%s, %d\n", cont->arg, cont->type);
-// 		lst = lst->next;
-// 	}
-// }
+	var = add_variables(env, command);
+	if (!var)
+		return (NULL);
+	free(command);
+	// quotes = remove_quotes(var);
+	// free(var);
+	return (var);
+}
 
 char	*ft_freejoin(char *s1, char *s2)
 {

@@ -6,7 +6,7 @@
 /*   By: asemsey <asemsey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 16:59:10 by asemsey           #+#    #+#             */
-/*   Updated: 2024/03/28 13:58:05 by asemsey          ###   ########.fr       */
+/*   Updated: 2024/04/02 17:21:35 by asemsey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,9 @@ int	inside_quote(char *str, int pos)
 			s_quote = 1;
 		i++;
 	}
-	if (s_quote == 1 || d_quote == 1)
+	if (s_quote)
 		return (1);
+	if (d_quote)
+		return (2);
 	return (0);
 }
