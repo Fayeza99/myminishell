@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fnikzad <fnikzad@student.42.fr>            +#+  +:+       +#+        */
+/*   By: asemsey <asemsey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/23 11:22:32 by fnikzad           #+#    #+#             */
-/*   Updated: 2024/04/04 13:16:20 by fnikzad          ###   ########.fr       */
+/*   Updated: 2024/04/04 13:22:48 by asemsey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ void		print_arr(char **cmd);
 void		ft_freearr(char **s);
 
 char		*add_variables(char **env, char *str);
-char		*ft_getenv(char *name, char **env);
+char		*ft_getenv(char *name, char **env, int freename);
 char		*ft_expand(char *command, char **env);
 char		*env_next(char *str, char **env, int *skip, int inquotes);
 int			in_env(char *name, char **env, int free_name);
