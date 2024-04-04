@@ -6,12 +6,13 @@
 /*   By: asemsey <asemsey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/24 12:11:29 by fnikzad           #+#    #+#             */
-/*   Updated: 2024/04/04 13:52:31 by asemsey          ###   ########.fr       */
+/*   Updated: 2024/04/04 14:09:20 by asemsey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
+// nullterminate the command string so the arguments are split
 void	split_argv(char **argv)
 {
 	int		i;
@@ -29,12 +30,32 @@ void	split_argv(char **argv)
 	}
 }
 
+void	remove_quotes(char **argv)
+{
+	char	*str;
+	int		i;
+
+	i = 0;
+	while (argv && argv[i])
+	{
+		if (*argv[i] == '\'' || *argv[i] == '\"')
+		{
+			str = ++argv[i];
+			while (*str)
+				str++;
+			*(str - 1) = '\0';
+		}
+		i++;
+	}
+}
+
 void	parse_cmd(t_cmd *cmd)
 {
 	cmd->argv = get_argv_arr(cmd->command);
 	if (!cmd->argv)
 		return ;
 	split_argv(cmd->argv);
+	remove_quotes(cmd->argv);
 	cmd->type = get_type_arr(cmd->argv);
 }
 

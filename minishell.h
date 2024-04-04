@@ -6,7 +6,7 @@
 /*   By: asemsey <asemsey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/23 11:22:32 by fnikzad           #+#    #+#             */
-/*   Updated: 2024/04/04 13:22:48 by asemsey          ###   ########.fr       */
+/*   Updated: 2024/04/04 14:32:11 by asemsey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,21 +49,16 @@ typedef struct s_cmd
 	char	*command;
 	char	**argv;
 	t_type	*type;
-	// t_list	*args;
 	int		fd_in;
 	int		fd_out;
 }	t_cmd;
 
-// typedef struct s_arg
-// {
-// 	char	*arg;
-// 	t_type	type;
-// }	t_arg;
 
 // parse
 
 t_mini		*mini_init(char **env);
 int			mini_free(t_mini *mini);
+int			micro_free(t_mini *mini);
 void		parse_input(t_mini *mini);
 
 t_cmd		*new_cmd(char *command);

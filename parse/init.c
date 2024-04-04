@@ -6,7 +6,7 @@
 /*   By: asemsey <asemsey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 17:33:50 by asemsey           #+#    #+#             */
-/*   Updated: 2024/04/04 13:52:18 by asemsey          ###   ########.fr       */
+/*   Updated: 2024/04/04 14:28:57 by asemsey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,8 +59,10 @@ void	*ft_delcmd(void *cmd)
 	t_cmd	*c;
 
 	c = (t_cmd *)cmd;
-	// ft_freearr(c->argv);
-	free(c);
+	free(c->argv);
+	printf("ok\n");
+	// free(c->type);
+	// free(c);
 	return (NULL);
 }
 
@@ -74,6 +76,19 @@ int	mini_free(t_mini *mini)
 	ft_freearr(mini->env);
 	ft_lstclear(&mini->current_cmd, ft_delcmd(&mini->current_cmd));
 	free(mini);
+	return (exit);
+}
+
+int	micro_free(t_mini *mini)
+{
+	int	exit;
+
+	exit = mini->exit_status;
+	free(mini->command);
+	free(mini->cmd_list);
+	// ft_freearr(mini->env);
+	ft_lstclear(&mini->current_cmd, ft_delcmd(&mini->current_cmd));
+	// free(mini);
 	return (exit);
 }
 

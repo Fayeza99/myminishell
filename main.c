@@ -6,7 +6,7 @@
 /*   By: asemsey <asemsey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/23 11:22:01 by fnikzad           #+#    #+#             */
-/*   Updated: 2024/04/04 13:53:16 by asemsey          ###   ########.fr       */
+/*   Updated: 2024/04/04 14:29:24 by asemsey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,13 +48,13 @@ int	read_command(t_mini *mini)
 			return (1);
 	}
 	add_history(mini->command);
-	if (!ft_strncmp(mini->command, "exit", ft_strlen(mini->command)))
+	if (!ft_strcmp(mini->command, "exit"))
 		return (0);
 	printf("old---%s\n", mini->command);
 	mini->command = ft_expand(mini->command, mini->env);
 	printf("new---%s\n", mini->command);
 	parse_input(mini);
-	// display_struct(mini);
+	display_struct(mini);
 	return (1);
 }
 
@@ -69,7 +69,7 @@ int	main(int argc, char **argv, char **env)
 
 	(void)argc;
 	(void)argv;
-	// atexit(leak);
+	atexit(leak);
 	mini = mini_init(env);
 	if (!mini)
 		return (EXIT_FAILURE);
@@ -79,6 +79,7 @@ int	main(int argc, char **argv, char **env)
 			break ;
 		// pipes(mini);
 		// exec_cmd(mini);
+		// micro_free(mini);
 		// leak();
 	}
 	return (mini_free(mini));
