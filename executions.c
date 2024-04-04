@@ -6,7 +6,7 @@
 /*   By: fnikzad <fnikzad@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 11:53:12 by fnikzad           #+#    #+#             */
-/*   Updated: 2024/04/02 15:07:30 by fnikzad          ###   ########.fr       */
+/*   Updated: 2024/04/03 12:21:05 by fnikzad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,6 +108,7 @@ void	exec_cmd(t_mini *cmds)
 			return ;
 		}
 		execve(cmd, new_c, cmds->env);
+		// pipes(cmds);
 	}
 	waitpid(pid, 0, 0);
 
