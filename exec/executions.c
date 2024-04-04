@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   executions.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asemsey <asemsey@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fnikzad <fnikzad@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 11:53:12 by fnikzad           #+#    #+#             */
-/*   Updated: 2024/04/04 13:10:30 by asemsey          ###   ########.fr       */
+/*   Updated: 2024/04/04 13:20:43 by fnikzad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../minishell.h"
 
 // t_cmd *cmd = mini->current_cmd->content;
 // t_cmd *cmd2 = mini->current_cmd->next->content;

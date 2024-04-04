@@ -6,29 +6,39 @@
 /*   By: fnikzad <fnikzad@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 13:06:55 by fnikzad           #+#    #+#             */
-/*   Updated: 2024/04/04 13:13:06 by fnikzad          ###   ########.fr       */
+/*   Updated: 2024/04/04 13:23:02 by fnikzad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../minishell.h"
 
-// void	pipes2(t_mini *shell)
-// {
-// 	t_list	*lst;
-// 	int		fd[2];
-// 	int		pid;
+void	pipes2(t_mini *shell)
+{
+	t_list	*lst;
+	int		fd[2];
+	int		pid;
+	int		pid2;
 
-// 	lst = shell->current_cmd;
-// 	while (lst)
-// 	{
-// 		if (!lst->next)
-// 		{
-// 			pid = fork();
-// 			if (!pid)
-// 			{
+	pipe(fd);
+	lst = shell->current_cmd;
+	while (lst)
+	{
+		if (!lst->next)
+		{
+			pid = fork();
+			if (!pid)
+			{
 				
-// 			}
-// 		}
-// 		lst = lst->next;
-// 	}
-// }
+			}
+		}
+		else
+		{
+			pid2 = fork();
+			if (!pid2)
+			{
+				
+			}
+		}
+		lst = lst->next;
+	}
+}

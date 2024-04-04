@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   executions2.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asemsey <asemsey@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fnikzad <fnikzad@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 14:26:05 by fnikzad           #+#    #+#             */
-/*   Updated: 2024/04/04 13:11:28 by asemsey          ###   ########.fr       */
+/*   Updated: 2024/04/04 13:20:35 by fnikzad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../minishell.h"
 
 char *find_path(char *s)
 {
