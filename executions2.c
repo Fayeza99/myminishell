@@ -6,7 +6,7 @@
 /*   By: fnikzad <fnikzad@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 14:26:05 by fnikzad           #+#    #+#             */
-/*   Updated: 2024/04/04 12:36:36 by fnikzad          ###   ########.fr       */
+/*   Updated: 2024/04/04 13:06:25 by fnikzad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,52 +153,52 @@ sleep(3);
 // 	}
 // }
 
-// int execute(t_cmd *cmd, t_mini *shell, int stdin)
-// {
-// 	dup2(stdin, STDIN_FILENO);
-// 	close(stdin);
-// 	execve(find_path(cmd->argv[0]), cmd->argv, shell->env);
-// 	return (1);
-// }
+int execute(t_cmd *cmd, t_mini *shell, int stdin)
+{
+	dup2(stdin, STDIN_FILENO);
+	close(stdin);
+	execve(find_path(cmd->argv[0]), cmd->argv, shell->env);
+	return (1);
+}
 
-// void	pipes(t_mini *shell)
-// {
-// 	t_list	*lst;
-// 	int		fd[2];
-// 	int		stdin;
+void	pipes(t_mini *shell)
+{
+	t_list	*lst;
+	int		fd[2];
+	int		stdin;
 
-// 	stdin = dup(STDIN_FILENO);
-// 	lst = shell->current_cmd;
-// 	while (lst)
-// 	{
-// 		if (!lst->next)
-// 		{
-// 			if (!fork())
-// 			{
-// 				(void) execute((t_cmd *) lst->content, shell, stdin);
-// 				// error
-// 			}
-// 			while (waitpid(-1 , 0, WUNTRACED) != -1)
-// 				;			
-// 			dup2(stdin, STDIN_FILENO);
-// 			close(stdin);
-// 		}
-// 		else
-// 		{
-// 			pipe(fd);
-// 			if (!fork())
-// 			{
-// 				close(fd[0]);
-// 				dup2(fd[1], STDOUT_FILENO);
-// 				close(fd[1]);
-// 				(void) execute((t_cmd *) lst->content, shell, stdin);
-// 				// error
-// 			}
-// 			close(fd[1]);
-// 			close(stdin);
-// 			stdin = fd[0];
-// 		}
-// 		lst = lst->next;
-// 	}
-// 	close(stdin);
-// }
+	stdin = dup(STDIN_FILENO);
+	lst = shell->current_cmd;
+	while (lst)
+	{
+		if (!lst->next)
+		{
+			if (!fork())
+			{
+				(void) execute((t_cmd *) lst->content, shell, stdin);
+				// error
+			}
+			while (waitpid(-1 , 0, WUNTRACED) != -1)
+				;			
+			dup2(stdin, STDIN_FILENO);
+			close(stdin);
+		}
+		else
+		{
+			pipe(fd);
+			if (!fork())
+			{
+				close(fd[0]);
+				dup2(fd[1], STDOUT_FILENO);
+				close(fd[1]);
+				(void) execute((t_cmd *) lst->content, shell, stdin);
+				// error
+			}
+			close(fd[1]);
+			close(stdin);
+			stdin = fd[0];
+		}
+		lst = lst->next;
+	}
+	close(stdin);
+}
