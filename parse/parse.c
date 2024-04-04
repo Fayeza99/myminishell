@@ -6,7 +6,7 @@
 /*   By: asemsey <asemsey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/24 12:11:29 by fnikzad           #+#    #+#             */
-/*   Updated: 2024/04/04 14:09:20 by asemsey          ###   ########.fr       */
+/*   Updated: 2024/04/04 19:50:41 by asemsey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ void	parse_input(t_mini *mini)
 	t_list	*lst;
 
 	get_commands(mini);
-	mini->current_cmd = create_cmdlst(mini->cmd_list);
+	mini->current_cmd = create_cmdlst(mini->cmd_arr);
 	lst = mini->current_cmd;
 	while (lst)
 	{
@@ -112,8 +112,8 @@ void	get_commands(t_mini *mini)
 
 	// printf("getting cmd...\n");
 	pipes = count_pipes(mini->command);
-	mini->cmd_list = (char **)malloc(sizeof(char *) * (pipes + 2));
-	if (!mini->cmd_list)
+	mini->cmd_arr = (char **)malloc(sizeof(char *) * (pipes + 2));
+	if (!mini->cmd_arr)
 		return ;
 	arg = 0;
 	last_cmd = mini->command;
@@ -122,11 +122,11 @@ void	get_commands(t_mini *mini)
 		i = 0;
 		while (last_cmd[i] && is_whitespace(last_cmd[i]))
 			i++;
-		mini->cmd_list[arg++] = &last_cmd[i];
+		mini->cmd_arr[arg++] = &last_cmd[i];
 		while (last_cmd[i] && !(last_cmd[i] == '|' && inside_quote(last_cmd, i) == 0))
 			i++;
 		last_cmd[i++] = '\0';
 		last_cmd += i;
 	}
-	mini->cmd_list[arg] = NULL;
+	mini->cmd_arr[arg] = NULL;
 }

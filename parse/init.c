@@ -6,7 +6,7 @@
 /*   By: asemsey <asemsey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 17:33:50 by asemsey           #+#    #+#             */
-/*   Updated: 2024/04/04 14:28:57 by asemsey          ###   ########.fr       */
+/*   Updated: 2024/04/04 22:27:29 by asemsey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ t_list	*create_cmdlst(char **s)
 	char	*str;
 	int		i;
 
-	i = 0;
 	if (s && s[0])
 	{
 		str = s[0] + ft_strlen(s[0]) - 1;
@@ -26,8 +25,9 @@ t_list	*create_cmdlst(char **s)
 			str--;
 		str++;
 		*str = '\0';
-		lst = ft_lstnew((void *)new_cmd(s[i++]));
+		lst = ft_lstnew((void *)new_cmd(s[0]));
 	}
+	i = 1;
 	while (s && s[i])
 	{
 		str = s[i] + ft_strlen(s[i]) - 1;
@@ -60,49 +60,59 @@ void	*ft_delcmd(void *cmd)
 
 	c = (t_cmd *)cmd;
 	free(c->argv);
-	printf("ok\n");
-	// free(c->type);
-	// free(c);
+	free(c->type);
+	free(c);
 	return (NULL);
 }
 
 int	mini_free(t_mini *mini)
 {
 	int	exit;
+	t_list	*lst;
 
 	exit = mini->exit_status;
 	free(mini->command);
-	free(mini->cmd_list);
+	free(mini->cmd_arr);
+	while (mini->current_cmd)
+	{
+		lst = mini->current_cmd;
+		ft_delcmd(lst->content);
+		mini->current_cmd = mini->current_cmd->next;
+		free(lst);
+	}
 	ft_freearr(mini->env);
-	ft_lstclear(&mini->current_cmd, ft_delcmd(&mini->current_cmd));
 	free(mini);
 	return (exit);
 }
 
 int	micro_free(t_mini *mini)
 {
-	int	exit;
+	int		exit;
+	t_list	*lst;
 
 	exit = mini->exit_status;
 	free(mini->command);
-	free(mini->cmd_list);
-	// ft_freearr(mini->env);
-	ft_lstclear(&mini->current_cmd, ft_delcmd(&mini->current_cmd));
-	// free(mini);
+	free(mini->cmd_arr);
+	while (mini->current_cmd)
+	{
+		lst = mini->current_cmd;
+		ft_delcmd(lst->content);
+		mini->current_cmd = mini->current_cmd->next;
+		free(lst);
+	}
 	return (exit);
 }
 
-t_mini	*mini_init(char **env)
+t_mini	*mini_init(void)
 {
 	t_mini	*mini;
 
 	mini = (t_mini *)malloc(sizeof(t_mini));
 	if (!mini)
 		return (NULL);
-	mini->cmd_list = NULL;
+	mini->cmd_arr = NULL;
 	mini->command = NULL;
 	mini->current_cmd = NULL;
-	mini->env = ft_arrdup(env);
 	mini->exit_status = 0;
 	return (mini);
 }

@@ -6,7 +6,7 @@
 /*   By: asemsey <asemsey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 17:44:38 by asemsey           #+#    #+#             */
-/*   Updated: 2024/04/04 13:23:39 by asemsey          ###   ########.fr       */
+/*   Updated: 2024/04/04 21:10:12 by asemsey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,34 +29,6 @@ char	*add_variables(char **env, char *str)
 	}
 	return (ft_arrjoin(sub));
 }
-
-// // add all $ variables to a str
-// char	*add_variables(char **env, char *str)
-// {
-// 	int		count;
-// 	int		i[2];
-// 	char	**sub;
-// 	char	*new;
-
-// 	count = env_substrs(str, env);
-// 	sub = (char **)malloc(sizeof(char *) * (count + 1));
-// 	if (!sub)
-// 		return (NULL);
-// 	i[0] = 0;
-// 	while (i[0] < count)
-// 	{
-// 		sub[i[0]++] = env_next(str, env, &i[1]);
-// 		str += i[1];
-// 	}
-// 	sub[count] = NULL;
-// 	return (ft_arrjoin(sub));
-// }
-
-// 	if not $ copy to arr[i] until $
-// 	else
-// 		if var exists strdup ft_getenv
-// 		if $ ft_itoa getpid()
-// 		if no var strdup "$"
 
 // result not malloced
 char	*ft_getenv(char *name, char **env, int freename)
@@ -85,7 +57,7 @@ char	*ft_getenv(char *name, char **env, int freename)
 	return (NULL);
 }
 
-// result not malloced
+// result malloced
 char	*ft_copyenv(char *name, char **env)
 {
 	int		i;

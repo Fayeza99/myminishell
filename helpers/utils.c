@@ -6,7 +6,7 @@
 /*   By: asemsey <asemsey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 17:52:01 by asemsey           #+#    #+#             */
-/*   Updated: 2024/04/04 10:38:29 by asemsey          ###   ########.fr       */
+/*   Updated: 2024/04/04 20:37:36 by asemsey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,14 +27,11 @@ void	ft_cmdprint(t_list *lst)
 char	*ft_expand(char *command, char **env)
 {
 	char	*var;
-	// char	*quotes;
 
 	var = add_variables(env, command);
 	if (!var)
 		return (NULL);
 	free(command);
-	// quotes = remove_quotes(var);
-	// free(var);
 	return (var);
 }
 
