@@ -6,12 +6,13 @@
 /*   By: asemsey <asemsey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/31 15:49:45 by asemsey           #+#    #+#             */
-/*   Updated: 2024/04/04 09:38:50 by asemsey          ###   ########.fr       */
+/*   Updated: 2024/04/04 13:36:35 by asemsey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
+// see t_type enum in minishell.h
 t_type	*get_type_arr(char **argv)
 {
 	int		i;

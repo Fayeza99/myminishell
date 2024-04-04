@@ -6,17 +6,13 @@
 /*   By: asemsey <asemsey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/23 11:22:01 by fnikzad           #+#    #+#             */
-/*   Updated: 2024/04/04 13:27:55 by asemsey          ###   ########.fr       */
+/*   Updated: 2024/04/04 13:53:16 by asemsey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-// problem: replacing $ when in quotes, $ sign stays after the variable???
-// echo $$ should print the pid of the shell
-
-// echo "$USER"
-// echo "asemsey$
+// problem: empty arg before pipe
 
 void	leak(void);
 
@@ -54,11 +50,11 @@ int	read_command(t_mini *mini)
 	add_history(mini->command);
 	if (!ft_strncmp(mini->command, "exit", ft_strlen(mini->command)))
 		return (0);
-	printf("%s\n", mini->command);
+	printf("old---%s\n", mini->command);
 	mini->command = ft_expand(mini->command, mini->env);
-	printf("%s\n", mini->command);
+	printf("new---%s\n", mini->command);
 	parse_input(mini);
-	display_struct(mini);
+	// display_struct(mini);
 	return (1);
 }
 
