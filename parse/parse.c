@@ -6,7 +6,7 @@
 /*   By: asemsey <asemsey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/24 12:11:29 by fnikzad           #+#    #+#             */
-/*   Updated: 2024/04/04 10:52:52 by asemsey          ###   ########.fr       */
+/*   Updated: 2024/04/04 13:52:31 by asemsey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,17 +18,13 @@ void	split_argv(char **argv)
 	char	*str;
 
 	i = 0;
-	while (argv[i])
+	while (argv[i] && argv[i + 1])
 	{
-		str = argv[i];
-		if (argv[i + 1])
-		{
-			str = argv[i + 1] - 1;
-			while (is_whitespace(*str))
-				str--;
-			str++;
-			*str = '\0';
-		}
+		str = argv[i + 1] - 1;
+		while (is_whitespace(*str))
+			str--;
+		str++;
+		*str = '\0';
 		i++;
 	}
 }

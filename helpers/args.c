@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   args.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fnikzad <fnikzad@student.42.fr>            +#+  +:+       +#+        */
+/*   By: asemsey <asemsey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/30 12:57:56 by asemsey           #+#    #+#             */
-/*   Updated: 2024/04/02 15:52:49 by fnikzad          ###   ########.fr       */
+/*   Updated: 2024/04/04 13:35:32 by asemsey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ char	*next_arg(char *cmd, int *i)
 	return (next);
 }
 
+// create an argv array (no nullterminations)
 char	**get_argv_arr(char *cmd)
 {
 	char	**argv;

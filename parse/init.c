@@ -6,7 +6,7 @@
 /*   By: asemsey <asemsey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 17:33:50 by asemsey           #+#    #+#             */
-/*   Updated: 2024/04/04 10:26:08 by asemsey          ###   ########.fr       */
+/*   Updated: 2024/04/04 13:52:18 by asemsey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,28 @@
 t_list	*create_cmdlst(char **s)
 {
 	t_list	*lst;
+	char	*str;
 	int		i;
 
 	i = 0;
 	if (s && s[0])
+	{
+		str = s[0] + ft_strlen(s[0]) - 1;
+		while (is_whitespace(*str))
+			str--;
+		str++;
+		*str = '\0';
 		lst = ft_lstnew((void *)new_cmd(s[i++]));
+	}
 	while (s && s[i])
+	{
+		str = s[i] + ft_strlen(s[i]) - 1;
+		while (is_whitespace(*str))
+			str--;
+		str++;
+		*str = '\0';
 		ft_lstadd_back(&lst, ft_lstnew((void *)new_cmd(s[i++])));
+	}
 	return (lst);
 }
 
