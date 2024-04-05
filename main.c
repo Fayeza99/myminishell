@@ -6,36 +6,18 @@
 /*   By: fnikzad <fnikzad@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/23 11:22:01 by fnikzad           #+#    #+#             */
-/*   Updated: 2024/04/05 14:20:41 by fnikzad          ###   ########.fr       */
+/*   Updated: 2024/04/05 20:23:32 by fnikzad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-// problem: empty arg before pipe
-
 void	leak(void);
 
-void	display_struct(t_mini *mini)
+int	read_command(t_mini *mini)
 {
-	t_list	*lst;
-	t_cmd	*cmd;
-
-	printf("\n--displaying struct--\n");
-	lst = mini->current_cmd;
-	while (lst)
-	{
-		cmd = (t_cmd *)lst->content;
-		printf("next command:   %s\n", cmd->command);
-		printf("args:\n");
-		print_argv(cmd->argv, cmd->type);
-		lst = lst->next;
-	}
-}
-int read_command(t_mini *mini)
-{
-    char    *tmp;
-    char    *endl;
+	char	*tmp;
+	char	*endl;
 
     mini->command = readline("minishell> ");
     if (open_pipe(mini->command) == 2 || !*mini->command)
@@ -59,7 +41,6 @@ int read_command(t_mini *mini)
     return (1);
 }
 
-
 void	leak(void)
 {
 	system("leaks minishell");
@@ -80,7 +61,7 @@ int	main(int argc, char **argv, char **env)
 	{
 		if (!read_command(mini))
 			break ;
-		exec_pipes(mini);
+		pipes(mini);
 		// exec_cmd(mini);
 		micro_free(mini);
 		// leak();

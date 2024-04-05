@@ -1,0 +1,26 @@
+==26234== LEAK SUMMARY:
+==26234==    definitely lost: 6,320 bytes in 65 blocks
+==26234==    indirectly lost: 1,212 bytes in 21 blocks
+==26234==      possibly lost: 0 bytes in 0 blocks
+==26234==    still reachable: 305,742 bytes in 220 blocks
+==26234==         suppressed: 10,502 bytes in 78 blocks
+==26234== 
+==26234== ERROR SUMMARY: 13 errors from 13 contexts (suppressed: 4 from 4)
+==26234== 
+==26234== 1 errors in context 1 of 13:
+==26234== Conditional jump or move depends on uninitialised value(s)
+==26234==    at 0x10000527F: ft_freearr (arrays.c:112)
+==26234==    by 0x100004B2B: mini_free (init.c:75)
+==26234==    by 0x100004010: main (main.c:84)
+==26234== 
+==26234== 
+==26234== 1 errors in context 2 of 13:
+==26234== Invalid write of size 8
+==26234==    at 0x100005318: ft_arrdup (arrays.c:80)
+==26234==    by 0x100004C1A: mini_init (init.c:103)
+==26234==    by 0x100003FCD: main (main.c:71)
+==26234==  Address 0x1008b9700 is 304 bytes inside a block of size 305 alloc'd
+==26234==    at 0x100128505: malloc (in /Users/asemsey/.brew/Cellar/valgrind/HEAD-d14be1d/libexec/valgrind/vgpreload_memcheck-amd64-darwin.so)
+==26234==    by 0x1000052D9: ft_arrdup (arrays.c:76)
+==26234==    by 0x100004C1A: mini_init (init.c:103)
+==26234==    by 0x100003FCD: main (main.c:71)

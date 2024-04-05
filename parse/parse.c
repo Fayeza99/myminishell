@@ -6,29 +6,11 @@
 /*   By: asemsey <asemsey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/24 12:11:29 by fnikzad           #+#    #+#             */
-/*   Updated: 2024/04/04 19:50:41 by asemsey          ###   ########.fr       */
+/*   Updated: 2024/04/05 14:14:24 by asemsey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-
-// nullterminate the command string so the arguments are split
-void	split_argv(char **argv)
-{
-	int		i;
-	char	*str;
-
-	i = 0;
-	while (argv[i] && argv[i + 1])
-	{
-		str = argv[i + 1] - 1;
-		while (is_whitespace(*str))
-			str--;
-		str++;
-		*str = '\0';
-		i++;
-	}
-}
 
 void	remove_quotes(char **argv)
 {
@@ -75,11 +57,6 @@ void	parse_input(t_mini *mini)
 	}
 }
 
-int	is_whitespace(char c)
-{
-	return ((c >= 9 && c < 14) || c == 32);
-}
-
 // count pipes outside quotes
 int	count_pipes(char *cmd)
 {
@@ -110,7 +87,6 @@ void	get_commands(t_mini *mini)
 	char	*last_cmd;
 	int		i;
 
-	// printf("getting cmd...\n");
 	pipes = count_pipes(mini->command);
 	mini->cmd_arr = (char **)malloc(sizeof(char *) * (pipes + 2));
 	if (!mini->cmd_arr)
@@ -123,7 +99,8 @@ void	get_commands(t_mini *mini)
 		while (last_cmd[i] && is_whitespace(last_cmd[i]))
 			i++;
 		mini->cmd_arr[arg++] = &last_cmd[i];
-		while (last_cmd[i] && !(last_cmd[i] == '|' && inside_quote(last_cmd, i) == 0))
+		while (last_cmd[i] && !(last_cmd[i] == '|'
+				&& inside_quote(last_cmd, i) == 0))
 			i++;
 		last_cmd[i++] = '\0';
 		last_cmd += i;

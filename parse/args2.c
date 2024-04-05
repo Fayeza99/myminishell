@@ -6,7 +6,7 @@
 /*   By: asemsey <asemsey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/31 15:49:45 by asemsey           #+#    #+#             */
-/*   Updated: 2024/04/04 13:36:35 by asemsey          ###   ########.fr       */
+/*   Updated: 2024/04/05 14:07:35 by asemsey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ t_type	*get_type_arr(char **argv)
 	t_type	*type;
 
 	i = 0;
-	// printf("getting types...\n");
 	type = (t_type *)malloc(sizeof(t_type) * (ft_arrlen(argv)));
 	if (!type)
 		return (NULL);
@@ -79,31 +78,3 @@ int	valid_redir(char *str)
 	}
 	return (1);
 }
-
-// t_arg	*new_arg(char *arg)
-// {
-// 	t_arg	*new;
-
-// 	new = (t_arg *)malloc(sizeof(t_arg));
-// 	if (!new)
-// 		return (NULL);
-// 	new->arg = arg;
-// 	new->type = ARG;
-// 	return (new);
-// }
-
-// t_list	*get_argv(char *cmd)
-// {
-// 	char	**argv;
-// 	t_list	*args;
-// 	int		i;
-
-// 	argv = get_argv_arr(cmd);
-// 	i = 0;
-// 	if (argv && argv[0])
-// 		args = ft_lstnew((void *)new_arg(argv[i++]));
-// 	while (argv && argv[i])
-// 		ft_lstadd_back(&args, ft_lstnew((void *)new_arg(argv[i++])));
-// 	free(argv);
-// 	return (args);
-// }
