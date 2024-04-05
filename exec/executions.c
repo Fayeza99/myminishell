@@ -6,7 +6,7 @@
 /*   By: fnikzad <fnikzad@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 11:53:12 by fnikzad           #+#    #+#             */
-/*   Updated: 2024/04/04 13:29:02 by fnikzad          ###   ########.fr       */
+/*   Updated: 2024/04/05 13:46:03 by fnikzad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,14 @@ void	exec_cmd(t_mini *cmds)
 	char **all_paths;
 	char *path;
 	char *cmd;
+	// t_cmd *cm;
 
+	// cm = (t_cmd *) cmds->current_cmd->content;
+	// if (ft_strcmp(cm->argv[0], "cd") == 0)
+	// {
+	// 	ex_cd(cm->argv, cmds);
+	// 	return ;
+	// }
 	path = getenv("PATH");
 	all_paths = ft_split(path, ':');
 	new_c = ft_split(cmds->command, ' ');

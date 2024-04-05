@@ -6,7 +6,7 @@
 /*   By: fnikzad <fnikzad@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 14:26:05 by fnikzad           #+#    #+#             */
-/*   Updated: 2024/04/04 13:57:41 by fnikzad          ###   ########.fr       */
+/*   Updated: 2024/04/05 13:13:38 by fnikzad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,42 +35,42 @@ char *find_path(char *s)
 	return (cmd);
 }
 
-void	pipes(t_mini *shell)
-{
-	t_cmd	*cmd;
-	int		fd[2];
-	int		pid;
-	int		pid2;
+// void	pipes(t_mini *shell)
+// {
+// 	t_cmd	*cmd;
+// 	int		fd[2];
+// 	int		pid;
+// 	int		pid2;
 
-	if (shell->current_cmd->next)
-	{
-		cmd = (t_cmd *) shell->current_cmd->content;
-		pipe(fd);
-		pid = fork();
-		if (!pid)
-		{
-			dup2(fd[1], 1);
-			close(fd[0]);
-			close(fd[1]);
-			execve(find_path((char *)cmd), cmd->argv, shell->env);
-			// exit(1);
-		}
-		pid2 = fork();
-		if (!pid2)
-		{
-			cmd = (t_cmd *) shell->current_cmd->next;
-			dup2(fd[0], 0);
-			close(fd[0]);
-			close(fd[1]);
-			execve(find_path((char *)cmd), cmd->argv, shell->env);
-			// exit(1);
-		}
-		close(fd[1]);
-		close(fd[0]);
-		waitpid(pid, NULL, 0);
-		waitpid(pid2, NULL, 0);
-	}
-}
+// 	if (shell->current_cmd->next)
+// 	{
+// 		cmd = (t_cmd *) shell->current_cmd->content;
+// 		pipe(fd);
+// 		pid = fork();
+// 		if (!pid)
+// 		{
+// 			dup2(fd[1], 1);
+// 			close(fd[0]);
+// 			close(fd[1]);
+// 			execve(find_path((char *)cmd), cmd->argv, shell->env);
+// 			exit(1);
+// 		}
+// 		pid2 = fork();
+// 		if (!pid2)
+// 		{
+// 			cmd = (t_cmd *) shell->current_cmd->next;
+// 			dup2(fd[0], 0);
+// 			close(fd[0]);
+// 			close(fd[1]);
+// 			execve(find_path((char *)cmd), cmd->argv, shell->env);
+// 			exit(1);
+// 		}
+// 		close(fd[1]);
+// 		close(fd[0]);
+// 		waitpid(pid, NULL, 0);
+// 		waitpid(pid2, NULL, 0);
+// 	}
+// }
 
 
 
@@ -111,6 +111,62 @@ void	pipes(t_mini *shell)
 // }
 
 
+
+void rando(char ** arr)
+{
+	int i = 0;
+
+	while (arr[i])
+	{
+dprintf(2, "%s\n", arr[i]);
+		i++;
+	}
+}
+
+void	pipes(t_mini *shell)
+{
+	t_cmd	*cmd;
+	int		fd[2];
+	int		pid;
+	int		pid2;
+
+	if (shell->current_cmd->next)
+	{
+		cmd = (t_cmd *) shell->current_cmd->content;
+		pipe(fd);
+		pid = fork();
+		if (!pid)
+		{
+printf("<%s>\n", cmd->argv[0]);
+			dup2(fd[1], 1);
+			close(fd[0]);
+			close(fd[1]);
+// sleep(3);
+			execve(find_path(cmd->argv[0]), cmd->argv, shell->env);
+printf("<%s>\n", cmd->argv[0]);
+
+			// rando(cmd->argv);
+			// printf("kdjfk\n");
+			// exit(1);
+		}
+		pid2 = fork();
+		if (!pid2)
+		{
+			shell->current_cmd = shell->current_cmd->next;
+			cmd = (t_cmd *) shell->current_cmd->next;
+			dup2(fd[0], 0);
+			close(fd[0]);
+			close(fd[1]);
+			execve(find_path(cmd->argv[0]), cmd->argv, shell->env);
+			// printf("kdjfk\n");
+			// exit(1);
+		}
+		close(fd[1]);
+		close(fd[0]);
+		waitpid(pid, NULL, 0);
+		waitpid(pid2, NULL, 0);
+	}
+}
 
 // void	pipes(t_mini *shell)
 // {

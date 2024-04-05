@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   arrays.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asemsey <asemsey@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fnikzad <fnikzad@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 12:40:37 by asemsey           #+#    #+#             */
-/*   Updated: 2024/04/04 21:09:50 by asemsey          ###   ########.fr       */
+/*   Updated: 2024/04/05 19:38:12 by fnikzad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,9 @@ int	ft_arrlen(char **s)
 	int	i;
 
 	i = 0;
-	while (s && s[i])
-		i++;
+	if (s)
+		while (s && s[i])
+			i++;
 	return (i);
 }
 
@@ -73,6 +74,7 @@ char	**ft_arrdup(char **s)
 	char	**new;
 	int		i;
 
+// dprintf(2, "len = %d\n", ft_arrlen(s));
 	new = (char **)malloc(sizeof(char *) * ft_arrlen(s) + 1);
 	if (!new)
 		return (NULL);
@@ -82,6 +84,7 @@ char	**ft_arrdup(char **s)
 		new[i] = ft_strdup(s[i]);
 		i++;
 	}
+// dprintf(2, "i = %d\n", i);
 	new[i] = NULL;
 	return (new);
 }

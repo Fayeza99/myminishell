@@ -6,7 +6,7 @@
 /*   By: fnikzad <fnikzad@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/23 11:22:01 by fnikzad           #+#    #+#             */
-/*   Updated: 2024/04/05 13:04:46 by fnikzad          ###   ########.fr       */
+/*   Updated: 2024/04/05 14:20:41 by fnikzad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ int read_command(t_mini *mini)
     parse_input(mini);
     if (!ft_strcmp(mini->command, "exit"))
         return (0);
-    display_struct(mini);
+    // display_struct(mini);
     return (1);
 }
 
@@ -69,7 +69,7 @@ int	main(int argc, char **argv, char **env)
 {
 	t_mini	*mini;
 
-	atexit(leak);
+	// atexit(leak);
 	(void)argc;
 	(void)argv;
 	mini = mini_init();
@@ -80,7 +80,7 @@ int	main(int argc, char **argv, char **env)
 	{
 		if (!read_command(mini))
 			break ;
-		pipes(mini);
+		exec_pipes(mini);
 		// exec_cmd(mini);
 		micro_free(mini);
 		// leak();

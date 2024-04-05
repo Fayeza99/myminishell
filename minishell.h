@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asemsey <asemsey@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fnikzad <fnikzad@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/23 11:22:32 by fnikzad           #+#    #+#             */
-/*   Updated: 2024/04/04 21:49:30 by asemsey          ###   ########.fr       */
+/*   Updated: 2024/04/05 19:06:47 by fnikzad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,15 @@ void		exec_cmd(t_mini *cmds);
 int			ex_export(t_mini *shell, char **args);
 void		pipes(t_mini *shell);
 char		*find_path(char *s);
+
+
+void	exec_pipes(t_mini *shell);
+int	ex_cd(char **args, t_mini *shell);
+int	ex_echo(t_mini *shell);
+int	ex_pwd(char **args);
+int	ex_unset(t_mini *shell);
+
+
 
 
 #endif

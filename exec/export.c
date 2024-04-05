@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asemsey <asemsey@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fnikzad <fnikzad@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 16:53:28 by fnikzad           #+#    #+#             */
-/*   Updated: 2024/04/04 13:20:30 by asemsey          ###   ########.fr       */
+/*   Updated: 2024/04/05 19:43:49 by fnikzad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ int	ex_export(t_mini *shell, char **args)
 			l = 0;
 			while (shell->env[l])
 			{
-				if (ft_strncmp(shell->env[l], args[j], ft_strchr(args[j], '=') - args[j]) == 0)
+				if (ft_strncmp(shell->env[l], args[j], ft_strchr(args[j], '=') - args[j] + 1) == 0)
 				{
 					free (shell->env[l]);
 					shell->env[l] = ft_strdup(args[j++]);
@@ -124,8 +124,7 @@ int	ex_export(t_mini *shell, char **args)
 			l = 0;
 			while (shell->env[l])
 			{
-				
-				if (ft_strncmp(shell->env[l], args[j], ft_strchr(args[j], '=') - args[j]) == 0)
+				if (ft_strncmp(shell->env[l], args[j], ft_strchr(args[j], '=') - args[j] + 1) == 0)
 				{
 					free (shell->env[l]);
 					shell->env[l] = ft_strdup(args[j++]);
