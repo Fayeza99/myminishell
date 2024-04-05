@@ -6,7 +6,7 @@
 /*   By: asemsey <asemsey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 12:40:37 by asemsey           #+#    #+#             */
-/*   Updated: 2024/04/04 10:35:21 by asemsey          ###   ########.fr       */
+/*   Updated: 2024/04/04 21:09:50 by asemsey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	ft_arrlen(char **s)
 	return (i);
 }
 
-// no malloced strings!!! just pointer
+// adds a new string to an array, not malloced strings
 char	**ft_arr_add(char **s, char *add)
 {
 	char	**new;
@@ -45,7 +45,7 @@ char	**ft_arr_add(char **s, char *add)
 	return (new);
 }
 
-// malloced strings
+// adds a new string to an array, malloced strings
 char	**ft_arr_realloc(char **s, char *add)
 {
 	char	**new;
@@ -62,7 +62,7 @@ char	**ft_arr_realloc(char **s, char *add)
 		new[i] = ft_strdup(s[i]);
 		i++;
 	}
-	new[i++] = ft_strdup(add);
+	new[i++] = add;
 	new[i] = NULL;
 	ft_freearr(s);
 	return (new);
@@ -86,7 +86,7 @@ char	**ft_arrdup(char **s)
 	return (new);
 }
 
-// frees s
+// (frees s)
 char	*ft_arrjoin(char **s)
 {
 	char	*new;
@@ -98,7 +98,7 @@ char	*ft_arrjoin(char **s)
 	new = NULL;
 	while (s[i])
 		new = ft_freejoin(new, s[i++]);
-	free_all(s);
+	ft_freearr(s);
 	return (new);
 }
 

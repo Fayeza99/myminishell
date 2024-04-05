@@ -6,7 +6,7 @@
 /*   By: asemsey <asemsey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 16:09:23 by asemsey           #+#    #+#             */
-/*   Updated: 2024/04/04 13:23:53 by asemsey          ###   ########.fr       */
+/*   Updated: 2024/04/04 21:53:58 by asemsey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ char	*env_next(char *str, char **env, int *skip, int inquotes)
 		else if ((!*name && !is_whitespace(*str)) || !in_env(name, env, 0))
 			return (free(name), ft_strdup(""));
 		else if (in_env(name, env, 0))
-			return (ft_strdup(ft_getenv(env_getname(str), env, 1)));
+			return (free(name), ft_strdup(ft_getenv(env_getname(str), env, 1)));
 	}
 	if (!*str)
 		return (NULL);
