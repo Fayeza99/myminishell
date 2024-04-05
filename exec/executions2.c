@@ -6,7 +6,7 @@
 /*   By: fnikzad <fnikzad@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 14:26:05 by fnikzad           #+#    #+#             */
-/*   Updated: 2024/04/04 13:53:29 by fnikzad          ###   ########.fr       */
+/*   Updated: 2024/04/04 13:57:41 by fnikzad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,42 +35,42 @@ char *find_path(char *s)
 	return (cmd);
 }
 
-// void	pipes(t_mini *shell)
-// {
-// 	t_cmd	*cmd;
-// 	int		fd[2];
-// 	int		pid;
-// 	int		pid2;
+void	pipes(t_mini *shell)
+{
+	t_cmd	*cmd;
+	int		fd[2];
+	int		pid;
+	int		pid2;
 
-// 	if (shell->current_cmd->next)
-// 	{
-// 		cmd = (t_cmd *) shell->current_cmd->content;
-// 		pipe(fd);
-// 		pid = fork();
-// 		if (!pid)
-// 		{
-// 			dup2(fd[1], 1);
-// 			close(fd[0]);
-// 			close(fd[1]);
-// 			execve(find_path((char *)cmd), cmd->argv, shell->env);
-// 			exit(1);
-// 		}
-// 		pid2 = fork();
-// 		if (!pid2)
-// 		{
-// 			cmd = (t_cmd *) shell->current_cmd->next;
-// 			dup2(fd[0], 0);
-// 			close(fd[0]);
-// 			close(fd[1]);
-// 			execve(find_path((char *)cmd), cmd->argv, shell->env);
-// 			exit(1);
-// 		}
-// 		close(fd[1]);
-// 		close(fd[0]);
-// 		waitpid(pid, NULL, 0);
-// 		waitpid(pid2, NULL, 0);
-// 	}
-// }
+	if (shell->current_cmd->next)
+	{
+		cmd = (t_cmd *) shell->current_cmd->content;
+		pipe(fd);
+		pid = fork();
+		if (!pid)
+		{
+			dup2(fd[1], 1);
+			close(fd[0]);
+			close(fd[1]);
+			execve(find_path((char *)cmd), cmd->argv, shell->env);
+			// exit(1);
+		}
+		pid2 = fork();
+		if (!pid2)
+		{
+			cmd = (t_cmd *) shell->current_cmd->next;
+			dup2(fd[0], 0);
+			close(fd[0]);
+			close(fd[1]);
+			execve(find_path((char *)cmd), cmd->argv, shell->env);
+			// exit(1);
+		}
+		close(fd[1]);
+		close(fd[0]);
+		waitpid(pid, NULL, 0);
+		waitpid(pid2, NULL, 0);
+	}
+}
 
 
 
@@ -112,44 +112,44 @@ char *find_path(char *s)
 
 
 
-void	pipes(t_mini *shell)
-{
-	t_cmd	*cmd;
-	int		fd[2];
-	int		pid;
-	int		pid2;
+// void	pipes(t_mini *shell)
+// {
+// 	t_cmd	*cmd;
+// 	int		fd[2];
+// 	int		pid;
+// 	int		pid2;
 
-	while (shell->current_cmd)
-	{
-		cmd = (t_cmd *) shell->current_cmd;
-		pipe(fd);
-		pid = fork();
-		if (!pid)
-		{
-			if (pid2 != -1)
-			{
-				dup2(fd[0], STDIN_FILENO);
-				close(fd[1]);
-			}
-			if (shell->current_cmd->next)
-			{
-				dup2(fd[1], STDOUT_FILENO);
-			}
-			close(fd[0]);
-			close(fd[1]);
+// 	while (shell->current_cmd)
+// 	{
+// 		cmd = (t_cmd *) shell->current_cmd;
+// 		pipe(fd);
+// 		pid = fork();
+// 		if (!pid)
+// 		{
+// 			if (pid2 != -1)
+// 			{
+// 				dup2(fd[0], STDIN_FILENO);
+// 				close(fd[1]);
+// 			}
+// 			if (shell->current_cmd->next)
+// 			{
+// 				dup2(fd[1], STDOUT_FILENO);
+// 			}
+// 			close(fd[0]);
+// 			close(fd[1]);
 			
-			execve(cmd->argv[0], cmd->argv, shell->env);
-			exit(1);
-		}
-		else
-		{
-			if (shell->current_cmd->next)
-			{
-				close(fd[1]);
-			}
-			waitpid(pid, NULL, 0);
-		}
-		shell->current_cmd = shell->current_cmd->next;
-		pid2 = pid;
-	}
-}
+// 			execve(cmd->argv[0], cmd->argv, shell->env);
+// 			exit(1);
+// 		}
+// 		else
+// 		{
+// 			if (shell->current_cmd->next)
+// 			{
+// 				close(fd[1]);
+// 			}
+// 			waitpid(pid, NULL, 0);
+// 		}
+// 		shell->current_cmd = shell->current_cmd->next;
+// 		pid2 = pid;
+// 	}
+// }
