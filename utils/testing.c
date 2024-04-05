@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   testing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: asemsey <asemsey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/28 17:52:01 by asemsey           #+#    #+#             */
-/*   Updated: 2024/04/05 13:38:13 by asemsey          ###   ########.fr       */
+/*   Created: 2024/04/05 14:06:25 by asemsey           #+#    #+#             */
+/*   Updated: 2024/04/05 14:16:32 by asemsey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,35 +24,31 @@ void	ft_cmdprint(t_list *lst)
 	}
 }
 
-char	*ft_expand(t_mini *mini, char *command, char **env)
+void	print_arr(char **s)
 {
-	char	*var;
+	int	i;
 
-	var = add_variables(mini, env, command);
-	if (!var)
-		return (NULL);
-	free(command);
-	return (var);
+	if (!s)
+		return ;
+	i = 0;
+	while (s[i])
+		printf("%s\n", s[i++]);
+	printf("%s\n", s[i]);
 }
 
-char	*ft_freejoin(char *s1, char *s2)
+void	display_struct(t_mini *mini)
 {
-	int		i;
-	char	*s3;
+	t_list	*lst;
+	t_cmd	*cmd;
 
-	i = 1;
-	if (s1)
-		i += ft_strlen(s1);
-	if (s2)
-		i += ft_strlen(s2);
-	s3 = (char *)malloc(sizeof(char) * i);
-	if (s3 == 0)
-		return (0);
-	s3[0] = '\0';
-	if (s1 && s1[0] != 0)
-		ft_strlcat(s3, s1, i);
-	if (s2 && s2[0] != 0)
-		ft_strlcat(s3, s2, i);
-	free(s1);
-	return (s3);
+	printf("\n--displaying struct--\n");
+	lst = mini->current_cmd;
+	while (lst)
+	{
+		cmd = (t_cmd *)lst->content;
+		printf("next command:   %s\n", cmd->command);
+		printf("args:\n");
+		print_arr(cmd->argv);
+		lst = lst->next;
+	}
 }

@@ -6,7 +6,7 @@
 /*   By: asemsey <asemsey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 17:33:50 by asemsey           #+#    #+#             */
-/*   Updated: 2024/04/04 22:27:29 by asemsey          ###   ########.fr       */
+/*   Updated: 2024/04/05 14:12:25 by asemsey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,55 +52,6 @@ t_cmd	*new_cmd(char *command)
 	new->fd_in = STDIN_FILENO;
 	new->fd_out = STDOUT_FILENO;
 	return (new);
-}
-
-void	*ft_delcmd(void *cmd)
-{
-	t_cmd	*c;
-
-	c = (t_cmd *)cmd;
-	free(c->argv);
-	free(c->type);
-	free(c);
-	return (NULL);
-}
-
-int	mini_free(t_mini *mini)
-{
-	int	exit;
-	t_list	*lst;
-
-	exit = mini->exit_status;
-	free(mini->command);
-	free(mini->cmd_arr);
-	while (mini->current_cmd)
-	{
-		lst = mini->current_cmd;
-		ft_delcmd(lst->content);
-		mini->current_cmd = mini->current_cmd->next;
-		free(lst);
-	}
-	ft_freearr(mini->env);
-	free(mini);
-	return (exit);
-}
-
-int	micro_free(t_mini *mini)
-{
-	int		exit;
-	t_list	*lst;
-
-	exit = mini->exit_status;
-	free(mini->command);
-	free(mini->cmd_arr);
-	while (mini->current_cmd)
-	{
-		lst = mini->current_cmd;
-		ft_delcmd(lst->content);
-		mini->current_cmd = mini->current_cmd->next;
-		free(lst);
-	}
-	return (exit);
 }
 
 t_mini	*mini_init(void)

@@ -6,7 +6,7 @@
 /*   By: asemsey <asemsey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 16:09:23 by asemsey           #+#    #+#             */
-/*   Updated: 2024/04/05 13:36:58 by asemsey          ###   ########.fr       */
+/*   Updated: 2024/04/05 14:01:46 by asemsey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,24 +14,14 @@
 
 int		env_validchar(char c, int index);
 char	*env_getname(char *str);
-
-char	*env_special(t_mini *mini, char c)
-{
-	if (c == '$')
-		return (ft_itoa((int)getpid()));
-	if (c == '?')
-		return (ft_itoa(mini->exit_status));
-	return (NULL);
-}
+char	*env_special(t_mini *mini, char c);
 
 // copy the next portion of the expanded command
-char	*env_next(t_mini *mini, char *str, char **env, int *skip, int inquotes)
+char	*env_next(t_mini *mini, char *str, int *skip, int inquotes)
 {
-	char	*next;
 	char	*name;
 
 	*skip = 1;
-	next = NULL;
 	if (*str == '$')
 	{
 		str++;
@@ -42,16 +32,27 @@ char	*env_next(t_mini *mini, char *str, char **env, int *skip, int inquotes)
 		*skip += ft_strlen(name);
 		if (*name && (*name == '$' || *name == '?'))
 			return (free(name), env_special(mini, *name));
-		else if ((!*name && !is_whitespace(*str)) || !in_env(name, env, 0))
+		else if ((!*name && !is_whitespace(*str))
+			|| !in_env(name, mini->env, 0))
 			return (free(name), ft_strdup(""));
-		else if (in_env(name, env, 0))
-			return (free(name), ft_strdup(ft_getenv(env_getname(str), env, 1)));
+		else if (in_env(name, mini->env, 0))
+			return (free(name), ft_strdup(ft_getenv(env_getname(str) \
+				, mini->env, 1)));
 	}
 	if (!*str)
 		return (NULL);
 	while (str[*skip] && str[*skip] != '$')
 		(*skip)++;
 	return (ft_substr(str, 0, *skip));
+}
+
+char	*env_special(t_mini *mini, char c)
+{
+	if (c == '$')
+		return (ft_itoa((int)getpid()));
+	if (c == '?')
+		return (ft_itoa(mini->exit_status));
+	return (NULL);
 }
 
 // get the name of the next var in str

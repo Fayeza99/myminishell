@@ -1,24 +1,13 @@
-# **************************************************************************** #
-#                                                                              #
-#                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: asemsey <asemsey@student.42.fr>            +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2024/02/20 15:14:32 by asemsey           #+#    #+#              #
-#    Updated: 2024/04/04 21:34:40 by asemsey          ###   ########.fr        #
-#                                                                              #
-# **************************************************************************** #
-
 NAME		=	minishell
 CFLAGS		=	-Wall -Wextra -Werror -Ofast
 RL			=	-lreadline
 LIBFT_PATH	=	include/libft
 LIBFT		=	$(LIBFT_PATH)/libft.a
 
-PARSE		=	parse/parse.c parse/complete_cmd.c parse/init.c\
+PARSE		=	parse/args.c parse/args2.c parse/complete_cmd.c parse/free.c\
+				parse/init.c parse/parse.c\
 				env/env_help.c env/ft_env.c\
-				helpers/arrays.c helpers/utils.c helpers/args.c helpers/args2.c
+				utils/arrays.c utils/utils.c utils/testing.c
 EXEC		=	exec/export.c exec/executions.c exec/executions2.c exec/executions3.c
 SRC			=	main.c $(PARSE) $(EXEC)
 

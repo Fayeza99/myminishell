@@ -6,32 +6,14 @@
 /*   By: asemsey <asemsey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/23 11:22:01 by fnikzad           #+#    #+#             */
-/*   Updated: 2024/04/05 13:40:12 by asemsey          ###   ########.fr       */
+/*   Updated: 2024/04/05 14:27:37 by asemsey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-// problem: empty arg before pipe
-
 void	leak(void);
 
-void	display_struct(t_mini *mini)
-{
-	t_list	*lst;
-	t_cmd	*cmd;
-
-	printf("\n--displaying struct--\n");
-	lst = mini->current_cmd;
-	while (lst)
-	{
-		cmd = (t_cmd *)lst->content;
-		printf("next command:   %s\n", cmd->command);
-		printf("args:\n");
-		print_argv(cmd->argv, cmd->type);
-		lst = lst->next;
-	}
-}
 int	read_command(t_mini *mini)
 {
 	char	*tmp;
@@ -51,14 +33,13 @@ int	read_command(t_mini *mini)
 			return (1);
 	}
 	add_history(mini->command);
-	mini->command = ft_expand(mini, mini->command, mini->env);
+	mini->command = ft_expand(mini, mini->command);
 	parse_input(mini);
 	if (!ft_strcmp(mini->command, "exit"))
 		return (0);
 	// display_struct(mini);
 	return (1);
 }
-
 
 void	leak(void)
 {
