@@ -6,7 +6,7 @@
 /*   By: asemsey <asemsey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 17:52:01 by asemsey           #+#    #+#             */
-/*   Updated: 2024/04/04 20:37:36 by asemsey          ###   ########.fr       */
+/*   Updated: 2024/04/05 13:38:13 by asemsey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,11 @@ void	ft_cmdprint(t_list *lst)
 	}
 }
 
-char	*ft_expand(char *command, char **env)
+char	*ft_expand(t_mini *mini, char *command, char **env)
 {
 	char	*var;
 
-	var = add_variables(env, command);
+	var = add_variables(mini, env, command);
 	if (!var)
 		return (NULL);
 	free(command);

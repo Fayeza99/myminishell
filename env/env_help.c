@@ -6,7 +6,7 @@
 /*   By: asemsey <asemsey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 16:09:23 by asemsey           #+#    #+#             */
-/*   Updated: 2024/04/04 21:53:58 by asemsey          ###   ########.fr       */
+/*   Updated: 2024/04/05 13:36:58 by asemsey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,17 @@
 int		env_validchar(char c, int index);
 char	*env_getname(char *str);
 
+char	*env_special(t_mini *mini, char c)
+{
+	if (c == '$')
+		return (ft_itoa((int)getpid()));
+	if (c == '?')
+		return (ft_itoa(mini->exit_status));
+	return (NULL);
+}
+
 // copy the next portion of the expanded command
-char	*env_next(char *str, char **env, int *skip, int inquotes)
+char	*env_next(t_mini *mini, char *str, char **env, int *skip, int inquotes)
 {
 	char	*next;
 	char	*name;
@@ -31,8 +40,8 @@ char	*env_next(char *str, char **env, int *skip, int inquotes)
 			return (ft_strdup("$"));
 		name = env_getname(str);
 		*skip += ft_strlen(name);
-		if (*name && *name == '$')
-			return (free(name), ft_itoa((int)getpid()));
+		if (*name && (*name == '$' || *name == '?'))
+			return (free(name), env_special(mini, *name));
 		else if ((!*name && !is_whitespace(*str)) || !in_env(name, env, 0))
 			return (free(name), ft_strdup(""));
 		else if (in_env(name, env, 0))
@@ -51,10 +60,10 @@ char	*env_getname(char *str)
 	char	*name;
 	int		i;
 
-	if (!env_validchar(*str, 0) && *str != '$')
+	if (!env_validchar(*str, 0) && *str != '$' && *str != '?')
 		return (NULL);
 	i = 0;
-	if (*str == '$')
+	if (*str == '$' || *str == '?')
 		i++;
 	while (env_validchar(str[i], i))
 		i++;

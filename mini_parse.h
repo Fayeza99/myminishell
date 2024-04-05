@@ -6,7 +6,7 @@
 /*   By: asemsey <asemsey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 19:21:28 by asemsey           #+#    #+#             */
-/*   Updated: 2024/04/04 21:47:05 by asemsey          ###   ########.fr       */
+/*   Updated: 2024/04/05 13:38:25 by asemsey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,10 +86,10 @@ void		print_arr(char **cmd);
 
 // env
 
-char		*add_variables(char **env, char *str);
+char		*add_variables(t_mini *mini, char **env, char *str);
 char		*ft_getenv(char *name, char **env, int freename);
-char		*ft_expand(char *command, char **env);
-char		*env_next(char *str, char **env, int *skip, int inquotes);
+char		*ft_expand(t_mini *mini, char *command, char **env);
+char		*env_next(t_mini *mini, char *str, char **env, int *skip, int inquotes);
 int			in_env(char *name, char **env, int free_name);
 // void		ft_cmdprint(t_list *lst);
 

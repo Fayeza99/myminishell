@@ -6,14 +6,14 @@
 /*   By: asemsey <asemsey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 17:44:38 by asemsey           #+#    #+#             */
-/*   Updated: 2024/04/04 21:10:12 by asemsey          ###   ########.fr       */
+/*   Updated: 2024/04/05 13:37:39 by asemsey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
 // add all $ variables to a str
-char	*add_variables(char **env, char *str)
+char	*add_variables(t_mini *mini, char **env, char *str)
 {
 	int		skip;
 	int		i;
@@ -23,7 +23,7 @@ char	*add_variables(char **env, char *str)
 	i = 0;
 	while (str && str[i])
 	{
-		sub = ft_arr_realloc(sub, env_next(&str[i], env, &skip,\
+		sub = ft_arr_realloc(sub, env_next(mini, &str[i], env, &skip,\
 			inside_quote(str, i) == 1));
 		i += skip;
 	}
