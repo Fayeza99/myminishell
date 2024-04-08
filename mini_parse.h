@@ -6,7 +6,7 @@
 /*   By: asemsey <asemsey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 19:21:28 by asemsey           #+#    #+#             */
-/*   Updated: 2024/04/05 14:27:24 by asemsey          ###   ########.fr       */
+/*   Updated: 2024/04/08 11:35:57 by asemsey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,8 @@ int			in_env(char *name, char **env, int free_name);
 
 char		**get_argv_arr(char *cmd);
 void		split_argv(char **argv);
+char		*remove_quotes(char *str);
+char		**finalize_argv(char **old);
 t_type		*get_type_arr(char **argv);
 
 // utils
@@ -91,5 +93,7 @@ char		**ft_arrdup(char **s);
 char		*ft_arrjoin(char **s);
 void		ft_freearr(char **s);
 void		print_arr(char **cmd);
+
+void		display_struct(t_mini *mini);
 
 #endif

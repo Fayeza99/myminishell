@@ -6,29 +6,38 @@
 /*   By: asemsey <asemsey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/24 12:11:29 by fnikzad           #+#    #+#             */
-/*   Updated: 2024/04/05 14:14:24 by asemsey          ###   ########.fr       */
+/*   Updated: 2024/04/08 11:37:22 by asemsey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	remove_quotes(char **argv)
+char	*remove_quotes(char *str)
 {
-	char	*str;
+	char	*new;
+	char	*result;
+	char	quote;
 	int		i;
 
 	i = 0;
-	while (argv && argv[i])
+	new = (char *)malloc(sizeof(char) * (ft_strlen(str) + 1));
+	if (!new)
+		return (NULL);
+	while (str && *str)
 	{
-		if (*argv[i] == '\'' || *argv[i] == '\"')
+		if (*str == '\'' || *str == '\"')
 		{
-			str = ++argv[i];
-			while (*str)
-				str++;
-			*(str - 1) = '\0';
+			quote = *str++;
+			while (*str && *str != quote)
+				new[i++] = *str++;
+			str++;
 		}
-		i++;
+		else
+			new[i++] = *str++;
 	}
+	new[i] = '\0';
+	result = ft_strdup(new);
+	return (free(new), result);
 }
 
 void	parse_cmd(t_cmd *cmd)
@@ -37,8 +46,8 @@ void	parse_cmd(t_cmd *cmd)
 	if (!cmd->argv)
 		return ;
 	split_argv(cmd->argv);
-	remove_quotes(cmd->argv);
 	cmd->type = get_type_arr(cmd->argv);
+	cmd->argv = finalize_argv(cmd->argv);
 }
 
 // before: mini has full input string

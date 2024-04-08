@@ -6,7 +6,7 @@
 /*   By: asemsey <asemsey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/31 15:49:45 by asemsey           #+#    #+#             */
-/*   Updated: 2024/04/05 14:07:35 by asemsey          ###   ########.fr       */
+/*   Updated: 2024/04/08 11:34:02 by asemsey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,4 +77,24 @@ int	valid_redir(char *str)
 			str++;
 	}
 	return (1);
+}
+
+// replace old with new argv without quotes
+char	**finalize_argv(char **old)
+{
+	char	**new;
+	int		i;
+
+	i = 0;
+	new = (char **)malloc(sizeof(char *) * (ft_arrlen(old) + 1));
+	if (!new)
+		return (NULL);
+	while (old[i])
+	{
+		new[i] = remove_quotes(old[i]);
+		i++;
+	}
+	new[i] = NULL;
+	free(old);
+	return (new);
 }
