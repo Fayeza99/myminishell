@@ -3,35 +3,34 @@
 /*                                                        :::      ::::::::   */
 /*   executions2.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fnikzad <fnikzad@student.42.fr>            +#+  +:+       +#+        */
+/*   By: asemsey <asemsey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 14:26:05 by fnikzad           #+#    #+#             */
-/*   Updated: 2024/04/05 13:13:38 by fnikzad          ###   ########.fr       */
+/*   Updated: 2024/04/08 15:07:39 by asemsey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-char *find_path(char *s)
+char	*find_path(char *s)
 {
-	char	*path;
 	char	**all_path;
 	char	*cmd;
 	int		i;
 	char	*tmp;
-	
-	path = getenv("PATH");
-	all_path = ft_split(path, ':');
+
+	all_path = ft_split(getenv("PATH"), ':');
 	i = 0;
 	tmp = ft_strjoin("/", s);
 	while (all_path[i])
 	{
-		cmd = ft_strjoin(all_path[i], tmp);
+		cmd = ft_strjoin(all_path[i++], tmp);
 		if (access(cmd, X_OK) == 0)
 			break;
-		free (cmd);
-		i++;
+		free(cmd);
 	}
+	free(tmp);
+	ft_freearr(all_path);
 	return (cmd);
 }
 
@@ -72,8 +71,6 @@ char *find_path(char *s)
 // 	}
 // }
 
-
-
 // void	pipes(t_mini *shell)
 // {
 // 	t_cmd	*cmd;
@@ -112,13 +109,13 @@ char *find_path(char *s)
 
 
 
-void rando(char ** arr)
+void	rando(char ** arr)
 {
 	int i = 0;
 
 	while (arr[i])
 	{
-dprintf(2, "%s\n", arr[i]);
+		dprintf(2, "%s\n", arr[i]);
 		i++;
 	}
 }

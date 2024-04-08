@@ -6,7 +6,7 @@
 /*   By: asemsey <asemsey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 19:21:28 by asemsey           #+#    #+#             */
-/*   Updated: 2024/04/08 11:35:57 by asemsey          ###   ########.fr       */
+/*   Updated: 2024/04/08 13:34:57 by asemsey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ char		*add_variables(t_mini *mini, char *str);
 char		*env_next(t_mini *mini, char *str, int *skip, int inquotes);
 char		*ft_getenv(char *name, char **env, int freename);
 int			in_env(char *name, char **env, int free_name);
+int			env_validchar(char c, int index);
 
 // argv
 
