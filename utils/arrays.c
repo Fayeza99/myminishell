@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   arrays.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fnikzad <fnikzad@student.42.fr>            +#+  +:+       +#+        */
+/*   By: asemsey <asemsey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 12:40:37 by asemsey           #+#    #+#             */
-/*   Updated: 2024/04/05 20:22:48 by fnikzad          ###   ########.fr       */
+/*   Updated: 2024/04/08 10:49:32 by asemsey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,22 +86,6 @@ char	**ft_arrdup(char **s)
 	return (new);
 }
 
-// (frees s)
-char	*ft_arrjoin(char **s)
-{
-	char	*new;
-	int		i;
-
-	if (!s || !s[0])
-		return (NULL);
-	i = 0;
-	new = NULL;
-	while (s[i])
-		new = ft_freejoin(new, s[i++]);
-	ft_freearr(s);
-	return (new);
-}
-
 void	ft_freearr(char **s)
 {
 	int	i;
@@ -112,31 +96,4 @@ void	ft_freearr(char **s)
 	while (s[i])
 		free(s[i++]);
 	free(s);
-}
-
-void	print_arr(char **s)
-{
-	int	i;
-
-	if (!s)
-		return ;
-	i = 0;
-	while (s[i])
-		printf("%s\n", s[i++]);
-	printf("%s\n", s[i]);
-}
-
-void	print_argv(char **s, t_type *type)
-{
-	int	i;
-
-	if (!s)
-		return ;
-	i = 0;
-	while (s[i])
-	{
-		printf("%s---%d\n", s[i], type[i]);
-		i++;
-	}
-	printf("%s\n", s[i]);
 }
