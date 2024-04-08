@@ -6,7 +6,7 @@
 /*   By: asemsey <asemsey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/23 11:22:32 by fnikzad           #+#    #+#             */
-/*   Updated: 2024/04/08 13:34:48 by asemsey          ###   ########.fr       */
+/*   Updated: 2024/04/08 15:56:25 by asemsey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,10 @@
 // }	t_cmd;
 
 void	leak(void);
+
+void	mini_handler(int sig, siginfo_t *info, void *context);
+void	disable_raw_mode(struct termios *original_termios);
+void	enable_raw_mode(struct termios *original_termios);
 
 // exec
 

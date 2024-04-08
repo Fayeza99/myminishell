@@ -6,7 +6,7 @@
 /*   By: asemsey <asemsey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/23 11:22:01 by fnikzad           #+#    #+#             */
-/*   Updated: 2024/04/08 15:08:16 by asemsey          ###   ########.fr       */
+/*   Updated: 2024/04/08 16:26:49 by asemsey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,10 @@ int	read_command(t_mini *mini)
 	char	*endl;
 
 	mini->command = readline("minishell> ");
-	if (open_pipe(mini->command) == 2 || !*mini->command)
-		return (1);
+	if (!mini->command)
+		return (0);
+	if (!*mini->command || open_pipe(mini->command) == 2)
+		return (free(mini->command), 2);
 	while (open_quotes(mini->command) || open_pipe(mini->command) == 1)
 	{
 		tmp = readline("> ");
@@ -33,7 +35,7 @@ int	read_command(t_mini *mini)
 		free(endl);
 		free(tmp);
 		if (open_pipe(mini->command) == 2)
-			return (1);
+			return (free(mini->command), 2);
 	}
 	add_history(mini->command);
 	mini->command = ft_expand(mini, mini->command);
@@ -46,9 +48,10 @@ int	read_command(t_mini *mini)
 
 int	main(int argc, char **argv, char **env)
 {
-	t_mini	*mini;
+	t_mini				*mini;
+	struct sigaction	sa;
+	int					status;
 
-	// atexit(leak);
 	(void)argc;
 	(void)argv;
 	mini = mini_init();
@@ -57,9 +60,12 @@ int	main(int argc, char **argv, char **env)
 	mini->env = ft_arrdup(env);
 	while (1)
 	{
-		if (!read_command(mini))
+		status = read_command(mini);
+		if (!status)
 			break ;
-		pipes(mini);
+		if (status == 2)
+			continue ;
+		// pipes(mini);
 		// exec_cmd(mini);
 		micro_free(mini);
 		// leak();
@@ -68,3 +74,41 @@ int	main(int argc, char **argv, char **env)
 	rl_clear_history();
 	return (1);
 }
+
+// int	main(int argc, char **argv, char **env)
+// {
+// 	t_mini				*mini;
+// 	struct sigaction	sa;
+// 	int					status;
+// 	// struct termios		original_termios;
+
+// 	// atexit(leak);
+// 	sa.sa_sigaction = mini_handler;
+// 	sa.sa_flags = 0;
+// 	sigaction(SIGINT, &sa, NULL);
+// 	sigaction(SIGQUIT, &sa, NULL);
+// 	sigaction(SIGTERM, &sa, NULL);
+// 	// enable_raw_mode(&original_termios);
+// 	(void)argc;
+// 	(void)argv;
+// 	mini = mini_init();
+// 	if (!mini)
+// 		return (EXIT_FAILURE);
+// 	mini->env = ft_arrdup(env);
+// 	while (1)
+// 	{
+// 		status = read_command(mini);
+// 		if (!status)
+// 			break ;
+// 		if (status == 2)
+// 			continue ;
+// 		// pipes(mini);
+// 		// exec_cmd(mini);
+// 		micro_free(mini);
+// 		// leak();
+// 	}
+// 	mini_free(mini);
+// 	rl_clear_history();
+// 	// disable_raw_mode(&original_termios);
+// 	return (1);
+// }

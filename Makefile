@@ -6,7 +6,7 @@
 #    By: asemsey <asemsey@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/20 15:14:32 by asemsey           #+#    #+#              #
-#    Updated: 2024/04/08 11:38:04 by asemsey          ###   ########.fr        #
+#    Updated: 2024/04/08 15:28:02 by asemsey          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,7 @@ PARSE		=	parse/args.c parse/args2.c parse/complete_cmd.c parse/free.c\
 				utils/arrays.c utils/utils.c utils/testing.c
 EXEC		=	exec/export.c exec/executions.c exec/executions2.c\
 				exec/executions3.c exec/executions4.c exec/builtins.c exec/unset.c
-SRC			=	main.c $(PARSE) $(EXEC)
+SRC			=	main.c signals.c $(PARSE) $(EXEC)
 
 all: $(NAME)
 
