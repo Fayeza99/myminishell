@@ -6,7 +6,7 @@
 /*   By: asemsey <asemsey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 19:21:28 by asemsey           #+#    #+#             */
-/*   Updated: 2024/04/15 15:34:49 by asemsey          ###   ########.fr       */
+/*   Updated: 2024/04/15 15:56:39 by asemsey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ typedef struct s_mini
 	char	*command;
 	char	**cmd_arr;
 	t_list	*current_cmd;
-	int		exit_status;
+	long		exit_status;
 	int		*pids;
 	char	**env;
 }	t_mini;

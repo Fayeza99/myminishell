@@ -6,13 +6,11 @@
 /*   By: fnikzad <fnikzad@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 13:06:55 by fnikzad           #+#    #+#             */
-/*   Updated: 2024/04/14 17:25:46 by fnikzad          ###   ########.fr       */
+/*   Updated: 2024/04/15 13:49:29 by fnikzad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-
-
 
 int		count_cmd(t_mini *shell)
 {
@@ -27,7 +25,6 @@ int		count_cmd(t_mini *shell)
 	}
 	return (i);
 }
-
 
 int	**malloc_pipes(t_mini *shell)
 {
@@ -173,7 +170,7 @@ void	only_pipe(t_mini *shell)
 	waitpid(pid2, NULL, 0);
 }
 
-void	exec_helper(t_mini *shell, int **fd, char **s, int i)
+void	exec_helper(t_mini *shell, int **fd, char **s, int i, t_cmd *cmd)
 {
 	if (i == 0)
 	{
@@ -206,10 +203,22 @@ void	exec_helper(t_mini *shell, int **fd, char **s, int i)
 	// printf("HOw many time huh?\n");
 // t_cmd *cmd = (t_cmd *) shell->current_cmd->content;
 // dprintf(2, "in = %d ---- out = %d\n", cmd->fd_in, cmd->fd_out);
+	if (cmd->fd_in != STDIN_FILENO)
+	{
+		dup2(cmd->fd_in, STDIN_FILENO);
+		close(cmd->fd_in);
+	}
+	if (cmd->fd_out != STDOUT_FILENO)
+	{
+		dup2(cmd->fd_out, STDOUT_FILENO);
+		close(cmd->fd_out);
+	}
 	if (built_ins(shell))
 		;
 	else
+	{
 		execve(find_path(s[0]), s, shell->env);
+	}
 }
 
 void	forker(t_mini *shell, int i)
@@ -237,7 +246,9 @@ void	multi_pipe(t_mini *shell)
 	{
 		forker(shell, i);
 		if (!shell->pids[i])
-			exec_helper(shell, fd, cmd->argv, i);
+		{
+			exec_helper(shell, fd, cmd->argv, i, cmd);
+		}
 		else
 		{
 			i++;
@@ -267,13 +278,9 @@ void m_exec(t_mini *shell)
 		exec_without_pipe(shell);
 		return;
 	}
-	// if (count_cmd(shell) == 1)
-	// {
-	// 	only_pipe(shell);
-	// 	return ;
-	// }
 	else
 	{
+		// printf("exit :%d\n", shell->exit_status);
 		multi_pipe(shell);
 	}
     // return ;

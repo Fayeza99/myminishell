@@ -9,7 +9,7 @@ PARSE		=	parse/args.c parse/args2.c parse/complete_cmd.c parse/free.c\
 				env/env_help.c env/ft_env.c\
 				utils/arrays.c utils/utils.c utils/testing.c utils/ft_lst.c
 EXEC		=	exec/export.c exec/executions.c exec/executions2.c\
-				exec/executions3.c exec/executions4.c exec/builtins.c exec/unset.c
+				exec/executions3.c exec/executions4.c exec/builtins.c exec/unset.c exec/exit.c
 SRC			=	main.c signals.c $(PARSE) $(EXEC)
 
 all: $(NAME)
