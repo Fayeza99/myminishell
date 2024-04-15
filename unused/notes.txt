@@ -1,8 +1,4 @@
 to-do:
--	linked list commands
--	linked list argv
--	expand variables
-done:
 
 -----------------------------------------------------------------------------
 
