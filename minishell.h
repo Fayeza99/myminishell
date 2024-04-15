@@ -6,7 +6,7 @@
 /*   By: asemsey <asemsey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/23 11:22:32 by fnikzad           #+#    #+#             */
-/*   Updated: 2024/04/08 15:56:25 by asemsey          ###   ########.fr       */
+/*   Updated: 2024/04/15 13:35:26 by asemsey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,9 @@ int	ex_pwd(char **args);
 int	ex_unset(t_mini *shell);
 
 
+void	m_exec(t_mini *shell);
+
+int		built_ins(t_mini *shell);
 
 
 #endif

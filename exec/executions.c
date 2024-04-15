@@ -6,7 +6,7 @@
 /*   By: fnikzad <fnikzad@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 11:53:12 by fnikzad           #+#    #+#             */
-/*   Updated: 2024/04/05 13:46:03 by fnikzad          ###   ########.fr       */
+/*   Updated: 2024/04/14 17:12:12 by fnikzad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,55 +67,49 @@ int	ex_pwd(char **args)
 	return (0);
 }
 
-// void	exec_builtins(t_mini *shell)
+
+// void	exec_cmd(t_mini *cmds)
 // {
-// 	// if(ft_strcmp(shell->argv[0], "cd") == 0)
-// }
+// 	char **new_c;
+// 	char **all_paths;
+// 	char *path;
+// 	char *cmd;
+// 	// t_cmd *cm;
 
-
-
-void	exec_cmd(t_mini *cmds)
-{
-	char **new_c;
-	char **all_paths;
-	char *path;
-	char *cmd;
-	// t_cmd *cm;
-
-	// cm = (t_cmd *) cmds->current_cmd->content;
-	// if (ft_strcmp(cm->argv[0], "cd") == 0)
-	// {
-	// 	ex_cd(cm->argv, cmds);
-	// 	return ;
-	// }
-	path = getenv("PATH");
-	all_paths = ft_split(path, ':');
-	new_c = ft_split(cmds->command, ' ');
-	ex_cd(new_c, cmds);
-	ex_export(cmds, new_c);
-	int k = 0;
-	char *temp;
-	pid_t pid = fork();
-	if (!pid)
-	{
+// 	// cm = (t_cmd *) cmds->current_cmd->content;
+// 	// if (ft_strcmp(cm->argv[0], "cd") == 0)
+// 	// {
+// 	// 	ex_cd(cm->argv, cmds);
+// 	// 	return ;
+// 	// }
+// 	path = getenv("PATH");
+// 	all_paths = ft_split(path, ':');
+// 	new_c = ft_split(cmds->command, ' ');
+// 	ex_cd(new_c, cmds);
+// 	ex_export(cmds, new_c);
+// 	int k = 0;
+// 	char *temp;
+// 	pid_t pid = fork();
+// 	if (!pid)
+// 	{
 		
-		k = 0;
-		temp = ft_strjoin("/", new_c[0]);
-		while (all_paths[k])
-		{
-			cmd = ft_strjoin(all_paths[k], temp);
-			if (access(cmd, X_OK) == 0)
-				break;
-			k++;
-			free (cmd);
-		}
-		if (all_paths[k] == NULL)
-		{
-			printf("cmd not found");
-			return ;
-		}
-		execve(cmd, new_c, cmds->env);
-	}
-	waitpid(pid, 0, 0);
+// 		k = 0;
+// 		temp = ft_strjoin("/", new_c[0]);
+// 		while (all_paths[k])
+// 		{
+// 			cmd = ft_strjoin(all_paths[k], temp);
+// 			if (access(cmd, X_OK) == 0)
+// 				break;
+// 			k++;
+// 			free (cmd);
+// 		}
+// 		if (all_paths[k] == NULL)
+// 		{
+// 			printf("cmd not found");
+// 			return ;
+// 		}
+// 		execve(cmd, new_c, cmds->env);
+// 	}
+// 	waitpid(pid, 0, 0);
 
-}
+// }
