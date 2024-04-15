@@ -6,7 +6,7 @@
 /*   By: asemsey <asemsey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 14:06:25 by asemsey           #+#    #+#             */
-/*   Updated: 2024/04/05 14:16:32 by asemsey          ###   ########.fr       */
+/*   Updated: 2024/04/15 15:39:13 by asemsey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void	display_struct(t_mini *mini)
 	while (lst)
 	{
 		cmd = (t_cmd *)lst->content;
-		printf("next command:   %s\n", cmd->command);
+		printf("next command: fd_in %d, fd_out %d\n", cmd->fd_in, cmd->fd_out);
 		printf("args:\n");
 		print_arr(cmd->argv);
 		lst = lst->next;

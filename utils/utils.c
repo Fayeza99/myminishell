@@ -6,7 +6,7 @@
 /*   By: asemsey <asemsey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 17:52:01 by asemsey           #+#    #+#             */
-/*   Updated: 2024/04/08 10:49:38 by asemsey          ###   ########.fr       */
+/*   Updated: 2024/04/15 14:45:09 by asemsey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,16 @@
 int	is_whitespace(char c)
 {
 	return ((c >= 9 && c < 14) || c == 32);
+}
+
+int	ft_arrlen(char **s)
+{
+	int	i;
+
+	i = 0;
+	while (s && s[i])
+		i++;
+	return (i);
 }
 
 char	*ft_freejoin(char *s1, char *s2)

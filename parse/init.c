@@ -6,7 +6,7 @@
 /*   By: asemsey <asemsey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 17:33:50 by asemsey           #+#    #+#             */
-/*   Updated: 2024/04/05 14:12:25 by asemsey          ###   ########.fr       */
+/*   Updated: 2024/04/15 13:49:53 by asemsey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,16 +18,7 @@ t_list	*create_cmdlst(char **s)
 	char	*str;
 	int		i;
 
-	if (s && s[0])
-	{
-		str = s[0] + ft_strlen(s[0]) - 1;
-		while (is_whitespace(*str))
-			str--;
-		str++;
-		*str = '\0';
-		lst = ft_lstnew((void *)new_cmd(s[0]));
-	}
-	i = 1;
+	i = 0;
 	while (s && s[i])
 	{
 		str = s[i] + ft_strlen(s[i]) - 1;
@@ -35,7 +26,10 @@ t_list	*create_cmdlst(char **s)
 			str--;
 		str++;
 		*str = '\0';
-		ft_lstadd_back(&lst, ft_lstnew((void *)new_cmd(s[i++])));
+		if (!i)
+			lst = ft_lstnew((void *)new_cmd(s[i++]));
+		else
+			ft_lstadd_back(&lst, ft_lstnew((void *)new_cmd(s[i++])));
 	}
 	return (lst);
 }

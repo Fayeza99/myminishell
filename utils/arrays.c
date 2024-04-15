@@ -6,21 +6,11 @@
 /*   By: asemsey <asemsey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 12:40:37 by asemsey           #+#    #+#             */
-/*   Updated: 2024/04/08 10:49:32 by asemsey          ###   ########.fr       */
+/*   Updated: 2024/04/15 14:44:25 by asemsey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-
-int	ft_arrlen(char **s)
-{
-	int	i;
-
-	i = 0;
-	while (s && s[i])
-		i++;
-	return (i);
-}
 
 // adds a new string to an array, not malloced strings
 char	**ft_arr_add(char **s, char *add)

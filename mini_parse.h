@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mini_parse.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fnikzad <fnikzad@student.42.fr>            +#+  +:+       +#+        */
+/*   By: asemsey <asemsey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 19:21:28 by asemsey           #+#    #+#             */
-/*   Updated: 2024/04/14 14:23:26 by fnikzad          ###   ########.fr       */
+/*   Updated: 2024/04/15 15:34:49 by asemsey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ typedef struct s_mini
 typedef struct s_cmd
 {
 	char	*command;
+	t_list	*args;
 	char	**argv;
 	t_type	*type;
 	int		fd_in;
@@ -81,11 +82,15 @@ int			env_validchar(char c, int index);
 char		**get_argv_arr(char *cmd);
 void		split_argv(char **argv);
 char		*remove_quotes(char *str);
-char		**finalize_argv(char **old);
+t_list		*lst_argv(char **old);
 t_type		*get_type_arr(char **argv);
+void		set_cmd_fd(t_cmd *cmd);
 
 // utils
 
+void		ft_lst_remove(t_list **lst, t_list *rem, void (*del)(void *));
+char		**ft_lst_toarr(t_list *lst);
+void		ft_lst_delall(t_list **lst, void (*del)(void *));
 int			is_whitespace(char c);
 char		*ft_freejoin(char *s1, char *s2);
 int			ft_arrlen(char **s);

@@ -6,7 +6,7 @@
 /*   By: asemsey <asemsey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 14:11:41 by asemsey           #+#    #+#             */
-/*   Updated: 2024/04/08 11:34:50 by asemsey          ###   ########.fr       */
+/*   Updated: 2024/04/15 15:54:02 by asemsey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ void	*ft_delcmd(void *cmd)
 
 	c = (t_cmd *)cmd;
 	ft_freearr(c->argv);
-	free(c->type);
 	free(c);
 	return (NULL);
 }

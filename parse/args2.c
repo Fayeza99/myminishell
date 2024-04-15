@@ -6,7 +6,7 @@
 /*   By: asemsey <asemsey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/31 15:49:45 by asemsey           #+#    #+#             */
-/*   Updated: 2024/04/08 11:34:02 by asemsey          ###   ########.fr       */
+/*   Updated: 2024/04/15 14:10:01 by asemsey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,21 +80,19 @@ int	valid_redir(char *str)
 }
 
 // replace old with new argv without quotes
-char	**finalize_argv(char **old)
+t_list	*lst_argv(char **old)
 {
-	char	**new;
+	t_list	*new;
 	int		i;
 
 	i = 0;
-	new = (char **)malloc(sizeof(char *) * (ft_arrlen(old) + 1));
-	if (!new)
-		return (NULL);
 	while (old[i])
 	{
-		new[i] = remove_quotes(old[i]);
-		i++;
+		if (!i)
+			new = ft_lstnew(remove_quotes(old[i++]));
+		else
+			ft_lstadd_back(&new, ft_lstnew(remove_quotes(old[i++])));
 	}
-	new[i] = NULL;
 	free(old);
 	return (new);
 }

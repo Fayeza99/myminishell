@@ -6,7 +6,7 @@
 /*   By: asemsey <asemsey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/24 12:11:29 by fnikzad           #+#    #+#             */
-/*   Updated: 2024/04/08 11:37:22 by asemsey          ###   ########.fr       */
+/*   Updated: 2024/04/15 15:38:13 by asemsey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,11 +47,16 @@ void	parse_cmd(t_cmd *cmd)
 		return ;
 	split_argv(cmd->argv);
 	cmd->type = get_type_arr(cmd->argv);
-	cmd->argv = finalize_argv(cmd->argv);
+	cmd->args = lst_argv(cmd->argv);
+	set_cmd_fd(cmd);
+	cmd->argv = ft_lst_toarr(cmd->args);
+	ft_lst_delall(&cmd->args, NULL);
+	free(cmd->type);
 }
 
 // before: mini has full input string
-// after: all fields filled, fd on default, argv and types ready
+// after: all fields filled, fd on open files, argv ready
+// heredoc is still there as a normal arg
 void	parse_input(t_mini *mini)
 {
 	t_list	*lst;
@@ -88,7 +93,7 @@ int	count_pipes(char *cmd)
 	return (pipes);
 }
 
-// saves command list in mini
+// saves command array in mini
 void	get_commands(t_mini *mini)
 {
 	int		pipes;
