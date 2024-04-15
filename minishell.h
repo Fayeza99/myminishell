@@ -6,7 +6,7 @@
 /*   By: fnikzad <fnikzad@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/23 11:22:32 by fnikzad           #+#    #+#             */
-/*   Updated: 2024/04/14 17:17:03 by fnikzad          ###   ########.fr       */
+/*   Updated: 2024/04/15 14:18:52 by fnikzad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ int	ex_unset(t_mini *shell);
 void m_exec(t_mini *shell);
 
 int		built_ins(t_mini *shell);
+int		ft_exit(t_mini *shell);
 
 
 #endif

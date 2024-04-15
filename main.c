@@ -6,7 +6,7 @@
 /*   By: fnikzad <fnikzad@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/23 11:22:01 by fnikzad           #+#    #+#             */
-/*   Updated: 2024/04/14 11:24:51 by fnikzad          ###   ########.fr       */
+/*   Updated: 2024/04/15 14:54:53 by fnikzad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,8 @@ int	read_command(t_mini *mini)
 	add_history(mini->command);
 	mini->command = ft_expand(mini, mini->command);
 	parse_input(mini);
-	if (!ft_strcmp(mini->command, "exit"))
-		return (0);
+	// if (!ft_strcmp(mini->command, "exit"))
+	// 	return (0);
 	// display_struct(mini);
 	return (1);
 }

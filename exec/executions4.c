@@ -6,7 +6,7 @@
 /*   By: fnikzad <fnikzad@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 13:17:15 by fnikzad           #+#    #+#             */
-/*   Updated: 2024/04/14 17:17:18 by fnikzad          ###   ########.fr       */
+/*   Updated: 2024/04/15 14:31:36 by fnikzad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,51 +41,10 @@ int		built_ins(t_mini *shell)
 		ex_unset(shell);
 		return (1);
 	}
-	return (0);
-}
-
-
-void	exec_pipes(t_mini *shell)
-{
-	t_cmd	*cmd;
-	int		fd[2];
-	int		pid;
-	int		pid2 = -1;
-	
-	if (built_ins(shell) != 0)
-		return ;
-	while (shell->current_cmd)
+	if (ft_strcmp(cmd->argv[0], "exit") == 0)
 	{
-		cmd = shell->current_cmd->content;
-		
-		pipe (fd);
-		pid = fork();
-		if (!pid)
-		{
-			if (pid2 != -1)
-			{
-				dup2(pid2, 0);
-				close(pid2);
-			}
-			if (shell->current_cmd->next)
-			{
-				dup2(fd[1], 1);
-			}
-			close(fd[0]);
-			execve(find_path(cmd->argv[0]), cmd->argv, shell->env);
-			exit(1);
-		}
-		else
-		{
-			if (pid2 != -1)
-			{
-				close (pid2);
-			}
-			pid2 = fd[0];
-			close(fd[1]);
-			waitpid(pid, NULL, 0);
-			shell->current_cmd = shell->current_cmd->next;
-		}
-		
+		ft_exit(shell);
+		return (1);
 	}
+	return (0);
 }

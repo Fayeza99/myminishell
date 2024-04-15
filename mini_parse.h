@@ -6,7 +6,7 @@
 /*   By: fnikzad <fnikzad@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 19:21:28 by asemsey           #+#    #+#             */
-/*   Updated: 2024/04/14 14:23:26 by fnikzad          ###   ########.fr       */
+/*   Updated: 2024/04/15 14:25:40 by fnikzad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ typedef struct s_mini
 	char	*command;
 	char	**cmd_arr;
 	t_list	*current_cmd;
-	int		exit_status;
+	long		exit_status;
 	int		*pids;
 	char	**env;
 }	t_mini;
