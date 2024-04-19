@@ -6,7 +6,7 @@
 /*   By: asemsey <asemsey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 19:21:28 by asemsey           #+#    #+#             */
-/*   Updated: 2024/04/15 15:56:39 by asemsey          ###   ########.fr       */
+/*   Updated: 2024/04/19 14:28:25 by asemsey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,12 +29,21 @@ typedef enum e_type
 	APPEND,
 }	t_type;
 
+typedef enum e_err
+{
+	S_QUOTE = 1 << 0,
+	D_QUOTE = 1 << 1,
+	PIPE = 1 << 2,
+	DPIPE = 1 << 3,
+	REDIR = 1 << 4,
+}	t_err;
+
 typedef struct s_mini
 {
 	char	*command;
 	char	**cmd_arr;
 	t_list	*current_cmd;
-	long		exit_status;
+	int		exit_status;
 	int		*pids;
 	char	**env;
 }	t_mini;
@@ -62,11 +71,13 @@ t_list		*create_cmdlst(char **s);
 
 // errors
 
-int			open_quotes(char *str);
+int			get_flag(char *str);
 int			inside_quote(char *str, int pos);
-int			open_pipe(char *str);
 int			count_pipes(char *cmd);
 int			valid_redir(char *str);
+int			ft_error(int flag, char *str);
+// int			open_quotes(char *str);
+// int			open_pipe(char *str);
 
 // env
 

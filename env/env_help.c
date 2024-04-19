@@ -6,7 +6,7 @@
 /*   By: asemsey <asemsey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 16:09:23 by asemsey           #+#    #+#             */
-/*   Updated: 2024/04/05 14:01:46 by asemsey          ###   ########.fr       */
+/*   Updated: 2024/04/18 13:01:22 by asemsey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ char	*env_next(t_mini *mini, char *str, int *skip, int inquotes)
 			|| inquotes)
 			return (ft_strdup("$"));
 		name = env_getname(str);
+		printf("name: --%s--\n", name);
 		*skip += ft_strlen(name);
 		if (*name && (*name == '$' || *name == '?'))
 			return (free(name), env_special(mini, *name));
@@ -64,10 +65,10 @@ char	*env_getname(char *str)
 	if (!env_validchar(*str, 0) && *str != '$' && *str != '?')
 		return (NULL);
 	i = 0;
-	if (*str == '$' || *str == '?')
-		i++;
 	while (env_validchar(str[i], i))
 		i++;
+	if (*str == '$' || *str == '?')
+		i = 1;
 	i++;
 	name = (char *)malloc(sizeof(char) * (i));
 	if (!name)

@@ -6,89 +6,97 @@
 /*   By: asemsey <asemsey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 16:59:10 by asemsey           #+#    #+#             */
-/*   Updated: 2024/04/04 10:25:39 by asemsey          ###   ########.fr       */
+/*   Updated: 2024/04/19 14:27:57 by asemsey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-// 0 - none | 1 - s_quote open | 2 - d_quote open
-int	open_quotes(char *str)
-{
-	int	d_quote;
-	int	s_quote;
-
-	s_quote = 0;
-	d_quote = 0;
-	while (str && *str)
-	{
-		if (*str == '\"' && d_quote)
-			d_quote = 0;
-		else if (*str == '\"' && !d_quote && !s_quote)
-			d_quote = 1;
-		else if (*str == '\'' && s_quote)
-			s_quote = 0;
-		else if (*str == '\'' && !s_quote && !d_quote)
-			s_quote = 1;
-		str++;
-	}
-	if (s_quote)
-		return (1);
-	if (d_quote)
-		return (2);
-	return (0);
-}
-
-// 0 - ok | 1 - incomplete(prompt again) | 2 - empty pipe(error)
-int	open_pipe(char *str)
-{
-	int	open;
-	int	i;
-
-	open = 0;
-	i = 0;
-	while (str && str[i] && is_whitespace(str[i]))
-		i++;
-	if (str[i] && str[i] == '|')
-		return (2);
-	while (str && str[i])
-	{
-		if (open && str[i] == '|' && !inside_quote(str, i))
-			return (2);
-		else if (open && !is_whitespace(str[i]) && !inside_quote(str, i))
-			open = 0;
-		else if (str[i] == '|' && !inside_quote(str, i))
-			open = 1;
-		i++;
-	}
-	return (open);
-}
-
-// like open_quotes but at position of string
+// check open quotes at position of string
 int	inside_quote(char *str, int pos)
 {
-	int	d_quote;
-	int	s_quote;
+	int	flag;
 	int	i;
 
-	s_quote = 0;
-	d_quote = 0;
+	flag = 0;
 	i = 0;
 	while (str && str[i] && i < pos)
 	{
-		if (str[i] == '\"' && d_quote)
-			d_quote = 0;
-		else if (str[i] == '\"' && !d_quote && !s_quote)
-			d_quote = 1;
-		else if (str[i] == '\'' && s_quote)
-			s_quote = 0;
-		else if (str[i] == '\'' && !s_quote && !d_quote)
-			s_quote = 1;
+		if (str[i] == '\'' && !(flag & D_QUOTE))
+			flag ^= S_QUOTE;
+		else if (str[i] == '\"' && !(flag & S_QUOTE))
+			flag ^= D_QUOTE;
 		i++;
 	}
-	if (s_quote)
-		return (1);
-	if (d_quote)
-		return (2);
-	return (0);
+	return (flag);
+}
+
+int	check_redir(char *str)
+{
+	int	skip;
+
+	skip = 1;
+	str++;
+	if (*str == '>' || *str == '<')
+	{
+		if (*str != *(str - 1))
+			return (0);
+		skip = 2;
+	}
+	while (*str && is_whitespace(*str))
+		str++;
+	if ((!*str) || ((*str == '\"' || *str == '\'') && *str == *(str + 1))
+		|| *str == '|' || *str == '>' || *str == '<')
+		return (0);
+	return (skip);
+}
+
+int	valid_redir(char *str)
+{
+	int	redir;
+	int	i;
+
+	i = 0;
+	while (str && str[i])
+	{
+		if ((str[i] == '>' || str[i] == '<') && !inside_quote(str, i))
+		{
+			redir = check_redir(&str[i]);
+			if (!redir)
+				return (0);
+			i += redir;
+		}
+		else
+			i++;
+	}
+	return (1);
+}
+
+// flag: 1 is s_quote, 2 is d_quote, 4 is pipe, 8 is error
+int	get_flag(char *str)
+{
+	int		flag;
+
+	flag = 0;
+	if (!valid_redir(str))
+		return (REDIR);
+	while (str && *str && is_whitespace(*str))
+		str++;
+	if (str && *str && *str == '|')
+		return (DPIPE);
+	while (str && *str)
+	{
+		if (*str == '\'' && !(flag & D_QUOTE))
+			flag ^= S_QUOTE;
+		else if (*str == '\"' && !(flag & S_QUOTE))
+			flag ^= D_QUOTE;
+		else if ((flag & PIPE) && *str == '|' && !(flag & D_QUOTE || flag & S_QUOTE))
+			return (DPIPE);
+		else if ((flag & PIPE) && !is_whitespace(*str) && !(flag & D_QUOTE || flag & S_QUOTE))
+			flag ^= PIPE;
+		else if (*str == '|' && !(flag & D_QUOTE || flag & S_QUOTE))
+			flag |= PIPE;
+		str++;
+	}
+	return (flag);
 }

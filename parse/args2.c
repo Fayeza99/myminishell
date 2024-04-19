@@ -6,7 +6,7 @@
 /*   By: asemsey <asemsey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/31 15:49:45 by asemsey           #+#    #+#             */
-/*   Updated: 2024/04/15 14:10:01 by asemsey          ###   ########.fr       */
+/*   Updated: 2024/04/17 13:59:06 by asemsey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,44 +39,6 @@ t_type	*get_type_arr(char **argv)
 		i++;
 	}
 	return (type);
-}
-
-int	check_redir(char *str)
-{
-	int	skip;
-
-	skip = 1;
-	str++;
-	if (*str == '>' || *str == '<')
-	{
-		if (*str != *(str - 1))
-			return (0);
-		skip = 2;
-	}
-	while (*str && is_whitespace(*str))
-		str++;
-	if ((!*str) || ((*str == '\"' || *str == '\'') && *str == *(str + 1)))
-		return (0);
-	return (skip);
-}
-
-int	valid_redir(char *str)
-{
-	int	redir;
-
-	while (str && *str)
-	{
-		if (*str == '>' || *str == '<')
-		{
-			redir = check_redir(str);
-			if (!redir)
-				return (0);
-			str += redir;
-		}
-		else
-			str++;
-	}
-	return (1);
 }
 
 // replace old with new argv without quotes
