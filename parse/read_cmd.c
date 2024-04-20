@@ -6,7 +6,7 @@
 /*   By: asemsey <asemsey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 12:31:29 by asemsey           #+#    #+#             */
-/*   Updated: 2024/04/19 14:28:50 by asemsey          ###   ########.fr       */
+/*   Updated: 2024/04/20 12:24:15 by asemsey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	check_cmd(char **str)
 	while (1)
 	{
 		flag = get_flag(*str);
-		if (flag & 8 || flag & 16)
+		if (flag & DPIPE || flag & REDIR)
 			return (ft_error(flag, *str));
 		if (flag)
 			reprompt(str, flag);
@@ -48,10 +48,13 @@ int	read_command(t_mini *mini)
 	if (!mini->command)
 		return (0);
 	if (!check_cmd(&mini->command))
-		return (0);
+	{
+		add_history(mini->command);
+		return (free(mini->command), 2);
+	}
 	add_history(mini->command);
 	mini->command = ft_expand(mini, mini->command);
 	parse_input(mini);
-	display_struct(mini);
+	// display_struct(mini);
 	return (1);
 }

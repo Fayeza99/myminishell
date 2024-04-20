@@ -6,7 +6,7 @@
 /*   By: asemsey <asemsey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 13:31:27 by asemsey           #+#    #+#             */
-/*   Updated: 2024/04/15 15:54:24 by asemsey          ###   ########.fr       */
+/*   Updated: 2024/04/20 12:11:30 by asemsey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	get_fd(char *str, t_type type, int *fd_in, int *fd_out)
 	if ((type == IN || type == HEREDOC) && *fd_in != STDIN_FILENO)
 		close(*fd_in);
 	if (type == IN)
-		*fd_out = open(str, O_RDONLY);
+		*fd_in = open(str, O_RDONLY);
 }
 
 void	set_cmd_fd(t_cmd *cmd)
