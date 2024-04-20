@@ -6,7 +6,7 @@
 /*   By: asemsey <asemsey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 16:59:10 by asemsey           #+#    #+#             */
-/*   Updated: 2024/04/20 12:23:43 by asemsey          ###   ########.fr       */
+/*   Updated: 2024/04/20 13:26:33 by asemsey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ int	check_redir(char *str)
 	{
 		if (*str != *(str - 1))
 			return (0);
+		str++;
 		skip = 2;
 	}
 	while (*str && is_whitespace(*str))
