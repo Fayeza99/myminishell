@@ -6,7 +6,7 @@
 /*   By: asemsey <asemsey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 12:31:29 by asemsey           #+#    #+#             */
-/*   Updated: 2024/04/21 13:34:27 by asemsey          ###   ########.fr       */
+/*   Updated: 2024/04/22 11:34:43 by asemsey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,8 @@ int	check_cmd(char **str)
 int	read_command(t_mini *mini)
 {
 	mini->command = readline("minishell> ");
-	if (!mini->command)
-		return (0);
+	if (!mini->command || !*mini->command)
+		return (2);
 	if (!check_cmd(&mini->command))
 	{
 		add_history(mini->command);
