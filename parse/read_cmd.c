@@ -6,7 +6,7 @@
 /*   By: fnikzad <fnikzad@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 12:31:29 by asemsey           #+#    #+#             */
-/*   Updated: 2024/04/20 09:43:47 by fnikzad          ###   ########.fr       */
+/*   Updated: 2024/04/22 14:17:19 by fnikzad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	check_cmd(char **str)
 	while (1)
 	{
 		flag = get_flag(*str);
-		if (flag & 8 || flag & 16)
+		if (flag & DPIPE || flag & REDIR)
 			return (ft_error(flag, *str));
 		if (flag)
 			reprompt(str, flag);
@@ -45,10 +45,13 @@ int	check_cmd(char **str)
 int	read_command(t_mini *mini)
 {
 	mini->command = readline("minishell> ");
-	if (!mini->command)
-		return (0);
+	if (!mini->command || !*mini->command)
+		return (2);
 	if (!check_cmd(&mini->command))
-		return (0);
+	{
+		add_history(mini->command);
+		return (free(mini->command), 2);
+	}
 	add_history(mini->command);
 	mini->command = ft_expand(mini, mini->command);
 	parse_input(mini);

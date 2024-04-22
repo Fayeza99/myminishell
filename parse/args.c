@@ -6,7 +6,7 @@
 /*   By: asemsey <asemsey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/30 12:57:56 by asemsey           #+#    #+#             */
-/*   Updated: 2024/04/08 11:14:57 by asemsey          ###   ########.fr       */
+/*   Updated: 2024/04/20 13:16:26 by asemsey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,8 +77,13 @@ char	*next_arg(char *cmd, int *i)
 		*i = skip_redir(cmd, *i);
 		return (next);
 	}
-	if (cmd[*i] == '\"' || cmd[*i] == '\'')
-		*i += skip_quote(&cmd[*i]);
+	while (cmd[*i] && !is_whitespace(cmd[*i]))
+	{
+		if (cmd[*i] == '\"' || cmd[*i] == '\'')
+			*i += skip_quote(&cmd[*i]);
+		else
+			(*i)++;
+	}
 	*i = skip_arg(cmd, *i);
 	return (next);
 }

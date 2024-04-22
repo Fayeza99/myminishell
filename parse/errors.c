@@ -6,7 +6,7 @@
 /*   By: asemsey <asemsey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 13:13:02 by asemsey           #+#    #+#             */
-/*   Updated: 2024/04/19 14:23:47 by asemsey          ###   ########.fr       */
+/*   Updated: 2024/04/20 12:02:22 by asemsey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ int	ft_error(int flag, char *str)
 		ft_putstr_fd("newline", 2);
 	else
 		ft_putchar_fd(c, 2);
-	ft_putstr_fd("\'", 2);
+	ft_putstr_fd("\'\n", 2);
 	return (0);
 }
 
