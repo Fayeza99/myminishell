@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asemsey <asemsey@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fnikzad <fnikzad@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/23 11:22:32 by fnikzad           #+#    #+#             */
-/*   Updated: 2024/04/17 12:32:47 by asemsey          ###   ########.fr       */
+/*   Updated: 2024/04/22 13:17:54 by fnikzad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,23 +58,28 @@ void	enable_raw_mode(struct termios *original_termios);
 
 // exec
 
-void	exec_cmd(t_mini *cmds);
 int		ex_export(t_mini *shell, char **args);
-void	pipes(t_mini *shell);
-char	*find_path(char *s);
+
+char	*find_path(t_mini *shell, char *s);
 
 
-void	exec_pipes(t_mini *shell);
 int		ex_cd(char **args, t_mini *shell);
-int		ex_echo(t_mini *shell);
+int	ex_echo(t_mini *shell, t_cmd *cmd);
+
 int		ex_pwd(char **args);
-int		ex_unset(t_mini *shell);
+int	ex_unset(t_mini *shell, t_cmd *cmd);
+
 
 
 void	m_exec(t_mini *shell);
 
-int		built_ins(t_mini *shell);
-int		ft_exit(t_mini *shell);
+// int		built_ins(t_mini *shell);
+int	ft_exit(t_mini *shell, t_cmd *cmd);
+
+int		valid_builtins(char *s);
+void		built_ins2(t_mini *shell, t_cmd *cmd);
+int		count_cmd(t_mini *shell);
+
 
 
 #endif

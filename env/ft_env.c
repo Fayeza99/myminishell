@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_env.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asemsey <asemsey@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fnikzad <fnikzad@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 17:44:38 by asemsey           #+#    #+#             */
-/*   Updated: 2024/04/18 12:45:02 by asemsey          ###   ########.fr       */
+/*   Updated: 2024/04/20 12:15:54 by fnikzad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ char	*add_variables(t_mini *mini, char *str)
 	i = 0;
 	while (str && str[i])
 	{
-		printf("--next loop--\n");
+		// printf("--next loop--\n");
 		sub = ft_arr_realloc(sub, env_next(mini, &str[i], &skip, \
 			inside_quote(str, i) == 1));
 		i += skip;
