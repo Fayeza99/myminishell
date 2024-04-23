@@ -6,7 +6,7 @@
 /*   By: fnikzad <fnikzad@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 16:12:09 by fnikzad           #+#    #+#             */
-/*   Updated: 2024/04/23 13:11:02 by fnikzad          ###   ########.fr       */
+/*   Updated: 2024/04/23 14:21:19 by fnikzad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,8 @@ int	check_newline(char **s)
 	}
 	return (j);
 }
+
+
 
 int	ex_echo(t_mini *shell, t_cmd *cmd)
 {
