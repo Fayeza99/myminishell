@@ -6,7 +6,7 @@
 /*   By: asemsey <asemsey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 19:21:28 by asemsey           #+#    #+#             */
-/*   Updated: 2024/04/23 10:43:14 by asemsey          ###   ########.fr       */
+/*   Updated: 2024/04/23 14:46:46 by asemsey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ t_list		*create_cmdlst(char **s);
 // errors
 
 int			get_flag(char *str);
+int			is_token(char c);
 int			inside_quote(char *str, int pos);
 int			count_pipes(char *cmd);
 int			valid_redir(char *str);
