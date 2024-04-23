@@ -6,7 +6,7 @@
 /*   By: fnikzad <fnikzad@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/23 11:22:01 by fnikzad           #+#    #+#             */
-/*   Updated: 2024/04/22 14:17:59 by fnikzad          ###   ########.fr       */
+/*   Updated: 2024/04/22 14:40:58 by fnikzad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,8 @@ int	main(int argc, char **argv, char **env)
 	}
 	rl_clear_history();
 	// mini_free(mini);
-	return (mini_free(mini));
+	mini_free(mini);
+	return (0);
 }
 
 // int	main(int argc, char **argv, char **env)

@@ -23,7 +23,6 @@ lib:
 
 clean:
 	make clean -sC $(LIBFT_PATH)
-	rm .heredoc
 
 fclean: clean
 	make fclean -sC $(LIBFT_PATH)

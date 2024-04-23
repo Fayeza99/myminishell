@@ -6,7 +6,7 @@
 /*   By: fnikzad <fnikzad@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 16:12:09 by fnikzad           #+#    #+#             */
-/*   Updated: 2024/04/22 12:57:46 by fnikzad          ###   ########.fr       */
+/*   Updated: 2024/04/22 14:22:33 by fnikzad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,13 @@ int	ex_echo(t_mini *shell, t_cmd *cmd)
 	int j = 0;
 	// cmd = (t_cmd *) shell->current_cmd->content;
 	// int k = echo_helper(cmd->argv);
+	if (!cmd->argv[1])
+	{
+		printf("\n");
+		return (0);
+		
+	}
+		
 	int k = check_newline(cmd->argv);
 	i = 0;
 	if (ft_strcmp(cmd->argv[0], "echo") == 0)

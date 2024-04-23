@@ -6,7 +6,7 @@
 /*   By: fnikzad <fnikzad@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 16:53:28 by fnikzad           #+#    #+#             */
-/*   Updated: 2024/04/22 12:03:28 by fnikzad          ###   ########.fr       */
+/*   Updated: 2024/04/23 12:16:20 by fnikzad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -375,6 +375,7 @@ int	ex_export(t_mini *shell, char **args)
 	if (valid_export(args) == 0)
 	{
 		ft_putendl_fd("export: : not a valid identifier", 2);
+		shell->exit_status = 1;
 		return (1);
 	}
 	export2(args, shell);
