@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   read_cmd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fnikzad <fnikzad@student.42.fr>            +#+  +:+       +#+        */
+/*   By: asemsey <asemsey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 12:31:29 by asemsey           #+#    #+#             */
-/*   Updated: 2024/04/23 14:05:46 by fnikzad          ###   ########.fr       */
+/*   Updated: 2024/04/23 14:26:30 by asemsey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	check_cmd(char **str)
 		if (flag & DPIPE || flag & REDIR)
 			return (ft_error(flag, *str));
 		if (flag)
-			break ;
+			reprompt(str, flag);
 		else
 			break ;
 	}
@@ -55,6 +55,6 @@ int	read_command(t_mini *mini)
 	add_history(mini->command);
 	mini->command = ft_expand(mini, mini->command);
 	parse_input(mini);
-	// display_struct(mini);
+	display_struct(mini);
 	return (1);
 }
