@@ -6,7 +6,7 @@
 /*   By: asemsey <asemsey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/30 12:57:56 by asemsey           #+#    #+#             */
-/*   Updated: 2024/04/23 14:31:36 by asemsey          ###   ########.fr       */
+/*   Updated: 2024/04/23 15:11:17 by asemsey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,12 @@ int	skip_redir(char *cmd, int i)
 	while (cmd[i] && is_whitespace(cmd[i]))
 		i++;
 	while (cmd[i] && !is_whitespace(cmd[i]))
-		i++;
+	{
+		if (cmd[i] == '\"' || cmd[i] == '\'')
+			i += skip_quote(&cmd[i]);
+		else
+			i++;
+	}
 	return (i);
 }
 

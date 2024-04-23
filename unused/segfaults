@@ -1,22 +1,12 @@
 minishell> unset hi
 [1]    91275 segmentation fault  ./minishell
 
-minishell> echo $1
-[1]    92721 segmentation fault  ./minishell
-
 unset duzgun adi control yapmiyor hii hi 
 
 cd ~ home 
 
 exit 40 ads exit code needs to be 1
 
-cat <"./test_files/file name with spaces"
-cat: name: No such file or directory
-cat: with: No such file or directory
-cat: spaces: No such file or directory
-
-cat <"1""2""3""4""5"  filename needs to be 12345 
-
->out still needs to open file 
+fd_in -1 for missing file
 
 cat <missing not properly working when there is fault in input file
