@@ -6,7 +6,7 @@
 /*   By: fnikzad <fnikzad@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 13:06:55 by fnikzad           #+#    #+#             */
-/*   Updated: 2024/04/22 13:10:08 by fnikzad          ###   ########.fr       */
+/*   Updated: 2024/04/23 14:54:08 by fnikzad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -341,7 +341,8 @@ void m_exec(t_mini *shell)
 	// int count = count_cmd(shell);
 	// if (count == -1)
 	// 	return ;
-
+	// if (shell->command == NULL)
+	// 	return ;
 	if (count_cmd(shell) == 0)
 	{
 		

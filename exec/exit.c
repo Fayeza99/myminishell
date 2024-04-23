@@ -6,7 +6,7 @@
 /*   By: fnikzad <fnikzad@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 13:44:48 by fnikzad           #+#    #+#             */
-/*   Updated: 2024/04/23 12:17:28 by fnikzad          ###   ########.fr       */
+/*   Updated: 2024/04/23 14:41:31 by fnikzad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,15 +52,18 @@ int	ft_exit(t_mini *shell, t_cmd *cmd)
 	if (arr_len(cmd->argv) > 2)
 	{
 		ft_putendl_fd("exit: too many arguments", 2);
+		// shell->exit_status = 1;
+		// valid = 1;
 		return (1);
 	}
 	if (arr_len(cmd->argv) == 2)
 	{
 		shell->exit_status = ft_atol(cmd->argv[1]);
-		if (shell->exit_status == INT_MAX || shell->exit_status == INT_MIN)
+		if (shell->exit_status == INT_MAX || shell->exit_status == INT_MIN || shell->exit_status == 0)
 		{
 			ft_putendl_fd("exit: numeric argument required", 2);
-			shell->exit_status = 1;
+			shell->exit_status = 255;
+			valid = 1;
 		}
 		else
 		{
