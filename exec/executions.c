@@ -6,7 +6,7 @@
 /*   By: fnikzad <fnikzad@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 11:53:12 by fnikzad           #+#    #+#             */
-/*   Updated: 2024/04/15 14:32:32 by fnikzad          ###   ########.fr       */
+/*   Updated: 2024/04/21 13:42:30 by fnikzad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,12 @@ int	ex_cd(char **args, t_mini *shell)
 	else
 	{
 		if (chdir(args[1]) != 0)
-			perror("cd");
+		{
+			
+			ft_putendl_fd(" No such file or directory", 2);
+			shell->exit_status = 1;
+		}
+		
 	}
 	i = -1;
 	while (shell->env[++i])

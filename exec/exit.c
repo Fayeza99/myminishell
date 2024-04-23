@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asemsey <asemsey@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fnikzad <fnikzad@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 13:44:48 by fnikzad           #+#    #+#             */
-/*   Updated: 2024/04/20 11:58:56 by asemsey          ###   ########.fr       */
+/*   Updated: 2024/04/22 14:14:46 by fnikzad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,9 @@ int		arr_len(char **s)
 	return (i);
 }
 
-int	ft_exit(t_mini *shell)
+int	ft_exit(t_mini *shell, t_cmd *cmd)
 {
-	t_cmd *cmd = shell->current_cmd->content;
+	// t_cmd *cmd = shell->current_cmd->content;
 	shell->exit_status = 0;
 	int	valid = 0;
 	if (arr_len(cmd->argv) > 2)
@@ -66,7 +66,8 @@ int	ft_exit(t_mini *shell)
 			valid = 1;
 		}
 	}
-	printf("exit\n");
+	if (!count_cmd(shell))
+		printf("exit\n");
 	if (valid)
 		exit(shell->exit_status);
 	else

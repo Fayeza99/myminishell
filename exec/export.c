@@ -6,7 +6,7 @@
 /*   By: fnikzad <fnikzad@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 16:53:28 by fnikzad           #+#    #+#             */
-/*   Updated: 2024/04/14 17:23:06 by fnikzad          ###   ########.fr       */
+/*   Updated: 2024/04/22 12:03:28 by fnikzad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -197,7 +197,6 @@
 // 	shell->env = new_ev;
 
 
-
 #include "../minishell.h"
 
 
@@ -249,13 +248,13 @@ int	valid_export(char **args)
 			// 	return (0);
 			// if (!(ft_isalnum(args[i][j]) || args[i][j] == '_' || (j > 0 && args[i][j] == '=')))
 			// 	return (0);
-			if (!(valid_var_name(args[i][j], j) || args[i][j] == '='))
+			if (!(valid_var_name(args[i][j], j) || args[i][j] == '=') || ft_isspace(args[i][j]))
 				return (0);
 			j++;
 		}
 		i++;
 	}
-	if (eq != i - 1)
+	if (eq > i - 1)
 		return (0);
 	return (1);
 }
@@ -334,6 +333,35 @@ void	export1(char **args, t_mini *shell)
 	}
 }
 
+// int	ex_export(t_mini *shell, char **args)  
+// {
+// 	int		i;
+// 	if (ft_strcmp(args[0], "export") == 0 && !args[1])
+// 	{
+// 		i = 0;
+// 		while (shell->env[i])
+// 		{
+// 			ft_putstr_fd("declare -x", 1);
+// 			ft_putendl_fd(shell->env[i], 1);
+// 			i++;
+// 		}
+// 		return (0);
+// 	}
+// 	if (valid_export(args) == 0)
+// 	{
+// 		ft_putendl_fd("export: : not a valid identifier", 2);
+// 		return (1);
+// 	}
+// 	export2(args, shell);
+// 	i = 0;
+// 	while (shell->env[i++])
+// 		export1(args, shell);
+// 	return (0);
+
+
+// }
+
+
 int	ex_export(t_mini *shell, char **args)  
 {
 	int		i;
@@ -346,8 +374,8 @@ int	ex_export(t_mini *shell, char **args)
 	}
 	if (valid_export(args) == 0)
 	{
-		write(1, "wrong\n", 6);
-		return (0);
+		ft_putendl_fd("export: : not a valid identifier", 2);
+		return (1);
 	}
 	export2(args, shell);
 	i = 0;

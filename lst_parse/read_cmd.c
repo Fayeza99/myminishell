@@ -6,7 +6,7 @@
 /*   By: asemsey <asemsey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 12:31:29 by asemsey           #+#    #+#             */
-/*   Updated: 2024/04/23 10:23:32 by asemsey          ###   ########.fr       */
+/*   Updated: 2024/04/23 10:50:10 by asemsey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,6 @@ int	read_command(t_mini *mini)
 	add_history(mini->command);
 	mini->command = ft_expand(mini, mini->command);
 	parse_input(mini);
-	display_struct(mini);
+	// display_struct(mini);
 	return (1);
 }

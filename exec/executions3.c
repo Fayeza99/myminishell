@@ -6,7 +6,7 @@
 /*   By: fnikzad <fnikzad@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 13:06:55 by fnikzad           #+#    #+#             */
-/*   Updated: 2024/04/15 13:49:29 by fnikzad          ###   ########.fr       */
+/*   Updated: 2024/04/22 13:10:08 by fnikzad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,15 @@
 
 int		count_cmd(t_mini *shell)
 {
+	t_cmd *cmd = shell->current_cmd->content;
 	int i = 0;
 	t_list *s;
 
+	if (cmd->command[0] == '\0')
+	{
+		printf("here\n");
+		return (-1);
+	}
 	s = shell->current_cmd;
 	while (s->next)
 	{
@@ -31,8 +37,7 @@ int	**malloc_pipes(t_mini *shell)
 	int	num_pipes = count_cmd(shell);
 	if (num_pipes <= 0)
 		return (NULL);
-	
-	int **pipes =(int **) malloc (sizeof(int *) * num_pipes + 1);
+	int **pipes =(int **) malloc (sizeof(int *) * (num_pipes + 1));
 	int i = 0;
 	if (!pipes)
 	{
@@ -72,7 +77,7 @@ void	piper(t_mini *shell, int **n, int j)
 void free_pipes(int **fd, int num_pipes)
 {
 	int i = 0;
-	while (i < num_pipes)
+	while (i <= num_pipes)
 	{
 		free(fd[i]);
 		i++;
@@ -121,77 +126,65 @@ pid_t	create_child(t_mini *shell, int i)
 
 void	exec_without_pipe(t_mini *shell)
 {
-	if (built_ins(shell))
-		return ;
+	
+	int *fd = (int*)malloc(sizeof(int) * 2);
 	t_cmd *cmd;
 	cmd = shell->current_cmd->content;
+	if (valid_builtins(cmd->argv[0]))
+	{
+		built_ins2(shell, cmd);
+		return ;
+	}
+	fd[0] = cmd->fd_in;
+	fd[1] = cmd->fd_out;
 	pid_t pid;
 	pid = fork();
 	if (!pid)
 	{
-		execve(find_path(cmd->argv[0]), cmd->argv, shell->env);
+		// printf("%d\n", cmd->fd_in);
+		// printf("%d\n", cmd->fd_out);
+		
+		if (fd[0] != STDIN_FILENO)
+		{
+			dup2(fd[0], STDIN_FILENO);
+			close(fd[0]);
+		}
+		if (fd[1] != STDOUT_FILENO)
+		{
+			dup2(fd[1], STDOUT_FILENO);
+			close(fd[1]);
+		}
+		execve(find_path(shell, cmd->argv[0]), cmd->argv, shell->env);
 	}
+	// printf("here\n");
+	// close(fd[1]);
+	// close(fd[0]);
+	// free()(cmd->fd_out);
+	// free(cmd->fd_in);
 	waitpid(pid, NULL, 0);
 }
 
-void	only_pipe(t_mini *shell)
-{
-	int	fd[2];
-	pipe(fd);
-	int pid;
-	int pid2;
-	t_cmd *cmd;
-	cmd = shell->current_cmd->content;
-	pid = fork();
-	if (!pid)
-	{
-		// if (built_ins(shell))
-		// 	exit(EXIT_SUCCESS);
-		dup2(fd[1], 1);
-		close(fd[0]);
-		close(fd[1]);
-		execve(find_path(cmd->argv[0]), cmd->argv, shell->env);
-	}
-	shell->current_cmd = shell->current_cmd->next;
-	cmd = shell->current_cmd->content;
-	pid2 = fork();
-	if (!pid2)
-	{
-		// if (built_ins(shell))
-		// 	exit(EXIT_SUCCESS);
-		dup2(fd[0], 0);
-		close(fd[0]);
-		close(fd[1]);
-		execve(find_path(cmd->argv[0]), cmd->argv, shell->env);
-	}
-	close(fd[1]);
-	close(fd[0]);
-	waitpid(pid, NULL, 0);
-	waitpid(pid2, NULL, 0);
-}
+
 
 void	exec_helper(t_mini *shell, int **fd, char **s, int i, t_cmd *cmd)
 {
+	(void)s;
 	if (i == 0)
 	{
-		dup2(fd[0][1], STDOUT_FILENO);
-		// close(fd[0][0]);
-		// close(fd[0][1]);
+		if (dup2(fd[i][1], STDOUT_FILENO) == -1)
+			perror("");
 	}
 	else if (i == count_cmd(shell))
 	{
+		// printf("world\n");
+		// printf("%d\n", STDOUT_FILENO);
+
 		dup2(fd[i - 1][0], STDIN_FILENO);
-		// close(fd[i - 1][0]);
-		// close(fd[i - 1][1]);
 	}
 	else
 	{
 		dup2(fd[i - 1][0], STDIN_FILENO);
-		// close(fd[i - 1][1]);
-		// close(fd[i - 1][0]);
 		dup2(fd[i][1], STDOUT_FILENO);
-		// close(fd[i][0]);
-		// close(fd[i][1]);
 	}
 	int j = 0;
 	while (j <= count_cmd(shell))
@@ -200,9 +193,6 @@ void	exec_helper(t_mini *shell, int **fd, char **s, int i, t_cmd *cmd)
 		close(fd[j][1]);
 		j++;
 	}
-	// printf("HOw many time huh?\n");
-// t_cmd *cmd = (t_cmd *) shell->current_cmd->content;
-// dprintf(2, "in = %d ---- out = %d\n", cmd->fd_in, cmd->fd_out);
 	if (cmd->fd_in != STDIN_FILENO)
 	{
 		dup2(cmd->fd_in, STDIN_FILENO);
@@ -213,13 +203,72 @@ void	exec_helper(t_mini *shell, int **fd, char **s, int i, t_cmd *cmd)
 		dup2(cmd->fd_out, STDOUT_FILENO);
 		close(cmd->fd_out);
 	}
-	if (built_ins(shell))
-		;
+
+	if (valid_builtins(cmd->argv[0]))
+	{
+		built_ins2(shell, cmd);
+		exit(0);
+	}
 	else
 	{
-		execve(find_path(s[0]), s, shell->env);
+		// printf("%s\n", cmd->argv[0]);
+		execve(find_path(shell, cmd->argv[0]), cmd->argv, shell->env);
 	}
 }
+
+
+
+// void	exec_helper(t_mini *shell, int **fd, char **s, int i, t_cmd *cmd)
+// {
+	
+// 	if (i == 0)
+// 	{
+
+		
+		
+// 		printf("%d\n", fd[0][0]);
+// 		printf("%d\n", fd[0][1]);
+		
+// 		dup2(fd[i][1], STDOUT_FILENO);
+// 		// close(fd[i][1]);
+		
+// 	}
+// 	// printf("------%d\n", STDOUT_FILENO);
+// 	if (i == count_cmd(shell))
+// 	{
+// 		dup2(fd[i - 1][0], STDIN_FILENO);
+// 	}
+// 	else
+// 	{
+// 		dup2(fd[i - 1][0], STDIN_FILENO);
+// 		dup2(fd[i][1], STDOUT_FILENO);
+// 	}
+
+// 	int j = 0;
+// 	while (j <= count_cmd(shell))
+// 	{
+// 		close(fd[j][0]);
+// 		close(fd[j][1]);
+// 		j++;
+// 	}
+// 	if (cmd->fd_in != STDIN_FILENO)
+// 	{
+// 		dup2(cmd->fd_in, STDIN_FILENO);
+// 		close(cmd->fd_in);
+// 	}
+// 	if (cmd->fd_out != STDOUT_FILENO)
+// 	{
+
+// 		dup2(cmd->fd_out, STDOUT_FILENO);
+// 		close(cmd->fd_out);
+// 	}
+// 	if (built_ins(shell))
+// 		exit(0);
+// 	else
+// 	{
+// 		execve(find_path(shell, s[0]), s, shell->env);
+// 	}
+// }
 
 void	forker(t_mini *shell, int i)
 {
@@ -244,18 +293,34 @@ void	multi_pipe(t_mini *shell)
 	int i = 0;
 	while (i <= count_cmd(shell))
 	{
-		forker(shell, i);
-		if (!shell->pids[i])
-		{
-			exec_helper(shell, fd, cmd->argv, i, cmd);
-		}
-		else
+		// if (valid_builtins(cmd->argv[0]))
+		// {
+		// 	i++;
+		// 	list = list->next;
+		// 	if (list != NULL)
+		// 		cmd = list->content;
+		// 	continue;
+		// }
+		// if (ft_strcmp(cmd->argv[0], "exit") == 0)
+		// 	exit(shell->exit_status);
+		if (find_path(shell, cmd->argv[0]) == NULL)
 		{
 			i++;
 			list = list->next;
 			if (list != NULL)
 				cmd = list->content;
+			continue;
 		}
+		forker(shell, i);
+		if (!shell->pids[i])
+		{
+			
+			exec_helper(shell, fd, cmd->argv, i, cmd);
+		}
+		i++;
+		list = list->next;
+		if (list != NULL)
+			cmd = list->content;
 	}
 	int j = 0;
 	while (j <= count_cmd(shell))
@@ -264,17 +329,22 @@ void	multi_pipe(t_mini *shell)
 		close(fd[j][1]);
 		j++;
 	}
-	
 	free_pipes(fd, count_cmd(shell));
-	while (waitpid(-1, NULL, 0) != -1)
-		;
+	i = 0;
+	while (i <= count_cmd(shell))
+		waitpid(shell->pids[i++], NULL, 0);
 }
 
 
 void m_exec(t_mini *shell)
 {
+	// int count = count_cmd(shell);
+	// if (count == -1)
+	// 	return ;
+
 	if (count_cmd(shell) == 0)
 	{
+		
 		exec_without_pipe(shell);
 		return;
 	}
