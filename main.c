@@ -6,7 +6,7 @@
 /*   By: asemsey <asemsey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/23 11:22:01 by fnikzad           #+#    #+#             */
-/*   Updated: 2024/04/20 13:26:43 by asemsey          ###   ########.fr       */
+/*   Updated: 2024/04/23 10:44:41 by asemsey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,6 @@ int	main(int argc, char **argv, char **env)
 		// leak();
 	}
 	rl_clear_history();
-	// mini_free(mini);
 	return (mini_free(mini));
 }
 

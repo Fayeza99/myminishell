@@ -6,7 +6,7 @@
 /*   By: asemsey <asemsey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 16:59:10 by asemsey           #+#    #+#             */
-/*   Updated: 2024/04/20 13:26:33 by asemsey          ###   ########.fr       */
+/*   Updated: 2024/04/23 10:38:13 by asemsey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,8 @@ int	get_flag(char *str)
 			flag ^= S_QUOTE;
 		else if (*str == '\"' && !(flag & S_QUOTE))
 			flag ^= D_QUOTE;
-		else if ((flag & PIPE) && *str == '|' && !(flag & D_QUOTE || flag & S_QUOTE))
+		else if ((flag & PIPE) && *str == '|'
+			&& !(flag & D_QUOTE || flag & S_QUOTE))
 			return (DPIPE);
 		else if ((flag & PIPE) && !is_whitespace(*str))
 			flag ^= PIPE;
@@ -101,32 +102,3 @@ int	get_flag(char *str)
 	}
 	return (flag);
 }
-
-// // flag: 1 is s_quote, 2 is d_quote, 4 is pipe, 8 is error
-// int	get_flag(char *str)
-// {
-// 	int		flag;
-
-// 	flag = 0;
-// 	if (!valid_redir(str))
-// 		return (REDIR);
-// 	while (str && *str && is_whitespace(*str))
-// 		str++;
-// 	if (str && *str && *str == '|')
-// 		return (DPIPE);
-// 	while (str && *str)
-// 	{
-// 		if (*str == '\'' && !(flag & D_QUOTE))
-// 			flag ^= S_QUOTE;
-// 		else if (*str == '\"' && !(flag & S_QUOTE))
-// 			flag ^= D_QUOTE;
-// 		else if ((flag & PIPE) && *str == '|' && !(flag & D_QUOTE || flag & S_QUOTE))
-// 			return (DPIPE);
-// 		else if ((flag & PIPE) && !is_whitespace(*str) && !(flag & D_QUOTE || flag & S_QUOTE))
-// 			flag ^= PIPE;
-// 		else if (*str == '|' && !(flag & D_QUOTE || flag & S_QUOTE))
-// 			flag |= PIPE;
-// 		str++;
-// 	}
-// 	return (flag);
-// }

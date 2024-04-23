@@ -6,55 +6,54 @@
 /*   By: asemsey <asemsey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/31 15:49:45 by asemsey           #+#    #+#             */
-/*   Updated: 2024/04/17 13:59:06 by asemsey          ###   ########.fr       */
+/*   Updated: 2024/04/22 15:02:00 by asemsey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
 // see t_type enum in minishell.h
-t_type	*get_type_arr(char **argv)
+t_type	*get_type_arr(t_list *argv)
 {
 	int		i;
 	t_type	*type;
+	char	*str;
 
 	i = 0;
-	type = (t_type *)malloc(sizeof(t_type) * (ft_arrlen(argv)));
+	type = (t_type *)malloc(sizeof(t_type) * (ft_lstsize(argv)));
 	if (!type)
 		return (NULL);
-	while (argv && argv[i])
+	while (argv)
 	{
-		if (ft_strlen(argv[i]) < 2)
-			type[i] = ARG;
-		else if (argv[i][0] == argv[i][1] && argv[i][0] == '<')
+		str = argv->content;
+		if (str[0] == str[1] && str[0] == '<')
 			type[i] = HEREDOC;
-		else if (argv[i][0] == argv[i][1] && argv[i][0] == '>')
+		else if (str[0] == str[1] && str[0] == '>')
 			type[i] = APPEND;
-		else if (argv[i][0] != argv[i][1] && argv[i][0] == '>')
+		else if (str[0] != str[1] && str[0] == '>')
 			type[i] = OUT;
-		else if (argv[i][0] != argv[i][1] && argv[i][0] == '<')
+		else if (str[0] != str[1] && str[0] == '<')
 			type[i] = IN;
 		else
 			type[i] = ARG;
 		i++;
+		argv = argv->next;
 	}
 	return (type);
 }
 
 // replace old with new argv without quotes
-t_list	*lst_argv(char **old)
+void	unquote_argv(t_list **argv)
 {
-	t_list	*new;
-	int		i;
+	t_list	*lst;
+	char	*str;
 
-	i = 0;
-	while (old[i])
+	lst = *argv;
+	while (lst)
 	{
-		if (!i)
-			new = ft_lstnew(remove_quotes(old[i++]));
-		else
-			ft_lstadd_back(&new, ft_lstnew(remove_quotes(old[i++])));
+		str = remove_quotes((char *)lst->content);
+		free(lst->content);
+		lst->content = str;
+		lst = lst->next;
 	}
-	free(old);
-	return (new);
 }

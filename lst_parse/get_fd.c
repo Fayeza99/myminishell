@@ -6,7 +6,7 @@
 /*   By: asemsey <asemsey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 13:31:27 by asemsey           #+#    #+#             */
-/*   Updated: 2024/04/21 13:32:42 by asemsey          ###   ########.fr       */
+/*   Updated: 2024/04/23 10:33:42 by asemsey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ void	set_cmd_fd(t_cmd *cmd)
 		{
 			get_fd((char *)arg->content, cmd->type[i], \
 				&cmd->fd_in, &cmd->fd_out);
-			ft_lst_remove(&cmd->args, arg, NULL);
+			ft_lst_remove(&cmd->args, arg, free);
 		}
 		i++;
 		arg = arg->next;

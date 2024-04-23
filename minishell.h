@@ -6,7 +6,7 @@
 /*   By: asemsey <asemsey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/23 11:22:32 by fnikzad           #+#    #+#             */
-/*   Updated: 2024/04/17 12:32:47 by asemsey          ###   ########.fr       */
+/*   Updated: 2024/04/23 10:42:55 by asemsey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,34 +20,6 @@
 # include <limits.h>
 # include "include/libft/libft.h"
 # include "mini_parse.h"
-
-// typedef enum e_type
-// {
-// 	ARG,
-// 	IN,
-// 	OUT,
-// 	HEREDOC,
-// 	APPEND,
-// }	t_type;
-
-// typedef struct s_mini
-// {
-// 	char	*command;
-// 	char	**cmd_arr;
-// 	t_list	*current_cmd;
-// 	int		exit_status;
-// 	char	**env;
-// }	t_mini;
-
-// // commands are segments separated by pipes
-// typedef struct s_cmd
-// {
-// 	char	*command;
-// 	char	**argv;
-// 	t_type	*type;
-// 	int		fd_in;
-// 	int		fd_out;
-// }	t_cmd;
 
 void	leak(void);
 

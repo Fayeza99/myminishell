@@ -6,7 +6,7 @@
 /*   By: asemsey <asemsey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 14:06:25 by asemsey           #+#    #+#             */
-/*   Updated: 2024/04/15 15:39:13 by asemsey          ###   ########.fr       */
+/*   Updated: 2024/04/23 10:40:27 by asemsey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	ft_cmdprint(t_list *lst)
 	while (lst)
 	{
 		cont = (t_cmd *)lst->content;
-		printf("%s\n", cont->command);
+		printf("cmd---%s\n", cont->command);
 		lst = lst->next;
 	}
 }
@@ -36,6 +36,16 @@ void	print_arr(char **s)
 	printf("%s\n", s[i]);
 }
 
+// void	print_types(t_type *type, int len)
+// {
+// 	int	i;
+
+// 	i = 0;
+// 	while (type && i < len)
+// 		printf(" %d ", type[i++]);
+// 	printf("\n");
+// }
+
 void	display_struct(t_mini *mini)
 {
 	t_list	*lst;
@@ -49,6 +59,7 @@ void	display_struct(t_mini *mini)
 		printf("next command: fd_in %d, fd_out %d\n", cmd->fd_in, cmd->fd_out);
 		printf("args:\n");
 		print_arr(cmd->argv);
+		printf("\n");
 		lst = lst->next;
 	}
 }
