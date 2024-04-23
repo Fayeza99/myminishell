@@ -20,3 +20,8 @@ cat <"1""2""3""4""5"  filename needs to be 12345
 >out still needs to open file 
 
 cat <missing not properly working when there is fault in input file
+
+minishell> cat test
+hello world
+minishell> echo <test
+[1]    52511 segmentation fault  ./minishell
