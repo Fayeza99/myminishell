@@ -6,11 +6,32 @@
 /*   By: asemsey <asemsey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/24 12:11:29 by fnikzad           #+#    #+#             */
-/*   Updated: 2024/04/20 13:18:10 by asemsey          ###   ########.fr       */
+/*   Updated: 2024/04/23 10:39:45 by asemsey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+
+void	parse_cmd(t_cmd *cmd);
+void	get_commands(t_mini *mini);
+int		count_pipes(char *cmd);
+char	*remove_quotes(char *str);
+
+// before: mini has full input string
+// after: all fields filled, fd on open files, argv ready
+void	parse_input(t_mini *mini)
+{
+	t_list	*lst;
+
+	get_commands(mini);
+	nullterminate_cmd(mini->current_cmd);
+	lst = mini->current_cmd;
+	while (lst)
+	{
+		parse_cmd((t_cmd *)lst->content);
+		lst = lst->next;
+	}
+}
 
 char	*remove_quotes(char *str)
 {
@@ -42,33 +63,16 @@ char	*remove_quotes(char *str)
 
 void	parse_cmd(t_cmd *cmd)
 {
-	cmd->argv = get_argv_arr(cmd->command);
-	if (!cmd->argv)
+	cmd->args = get_argv_lst(cmd->command);
+	if (!cmd->args)
 		return ;
-	split_argv(cmd->argv);
-	cmd->type = get_type_arr(cmd->argv);
-	cmd->args = lst_argv(cmd->argv);
+	split_argv(cmd->args);
+	cmd->type = get_type_arr(cmd->args);
+	unquote_argv(&cmd->args);
 	set_cmd_fd(cmd);
 	cmd->argv = ft_lst_toarr(cmd->args);
 	ft_lst_delall(&cmd->args, NULL);
 	free(cmd->type);
-}
-
-// before: mini has full input string
-// after: all fields filled, fd on open files, argv ready
-// heredoc is still there as a normal arg
-void	parse_input(t_mini *mini)
-{
-	t_list	*lst;
-
-	get_commands(mini);
-	mini->current_cmd = create_cmdlst(mini->cmd_arr);
-	lst = mini->current_cmd;
-	while (lst)
-	{
-		parse_cmd((t_cmd *)lst->content);
-		lst = lst->next;
-	}
 }
 
 // count pipes outside quotes
@@ -93,31 +97,32 @@ int	count_pipes(char *cmd)
 	return (pipes);
 }
 
-// saves command array in mini
+// saves command list in mini, works for sure
 void	get_commands(t_mini *mini)
 {
-	int		pipes;
-	int		arg;
 	char	*last_cmd;
 	int		i;
+	int		count;
+	int		c;
 
-	pipes = count_pipes(mini->command);
-	mini->cmd_arr = (char **)malloc(sizeof(char *) * (pipes + 2));
-	if (!mini->cmd_arr)
-		return ;
-	arg = 0;
+	count = count_pipes(mini->command);
 	last_cmd = mini->command;
-	while (arg < pipes + 1)
+	c = 0;
+	while (c <= count)
 	{
 		i = 0;
 		while (last_cmd[i] && is_whitespace(last_cmd[i]))
 			i++;
-		mini->cmd_arr[arg++] = &last_cmd[i];
+		if (mini->current_cmd)
+			ft_lstadd_back(&mini->current_cmd, \
+			ft_lstnew(new_cmd(&last_cmd[i])));
+		else
+			mini->current_cmd = ft_lstnew(new_cmd(&last_cmd[i]));
 		while (last_cmd[i] && !(last_cmd[i] == '|'
 				&& inside_quote(last_cmd, i) == 0))
 			i++;
 		last_cmd[i++] = '\0';
 		last_cmd += i;
+		c++;
 	}
-	mini->cmd_arr[arg] = NULL;
 }

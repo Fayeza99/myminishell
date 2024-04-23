@@ -6,7 +6,7 @@
 /*   By: asemsey <asemsey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/30 12:57:56 by asemsey           #+#    #+#             */
-/*   Updated: 2024/04/20 13:16:26 by asemsey          ###   ########.fr       */
+/*   Updated: 2024/04/23 10:24:36 by asemsey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,12 @@
 int		skip_arg(char *cmd, int i);
 int		skip_redir(char *cmd, int i);
 char	*next_arg(char *cmd, int *i);
-void	split_argv(char **argv);
+void	split_argv(t_list *argv);
 
-// create an argv array (no nullterminations)
-char	**get_argv_arr(char *cmd)
+// create an argv list (no nullterminations)
+t_list	*get_argv_lst(char *cmd)
 {
-	char	**argv;
+	t_list	*argv;
 	int		skip;
 	char	*tmp;
 
@@ -32,8 +32,8 @@ char	**get_argv_arr(char *cmd)
 		skip = 0;
 		tmp = next_arg(cmd, &skip);
 		if (!tmp)
-			return (free(argv), NULL);
-		argv = ft_arr_add(argv, tmp);
+			return (ft_lst_delall(&argv, NULL), NULL);
+		ft_lstadd_back(&argv, ft_lstnew((void *)tmp));
 		cmd += skip;
 	}
 	return (argv);
@@ -81,6 +81,8 @@ char	*next_arg(char *cmd, int *i)
 	{
 		if (cmd[*i] == '\"' || cmd[*i] == '\'')
 			*i += skip_quote(&cmd[*i]);
+		else if (cmd[*i] == '>' || cmd[*i] == '<')
+			break ;
 		else
 			(*i)++;
 	}
@@ -89,19 +91,19 @@ char	*next_arg(char *cmd, int *i)
 }
 
 // nullterminate the command string so the arguments are split
-void	split_argv(char **argv)
+void	split_argv(t_list *argv)
 {
-	int		i;
 	char	*str;
+	int		skip;
 
-	i = 0;
-	while (argv[i] && argv[i + 1])
+	while (argv)
 	{
-		str = argv[i + 1] - 1;
-		while (is_whitespace(*str))
-			str--;
-		str++;
-		*str = '\0';
-		i++;
+		if (*(char *)(argv->content) == '>' || *(char *)(argv->content) == '<')
+			skip = skip_redir(argv->content, 0);
+		else
+			skip = skip_arg(argv->content, 0);
+		str = ft_substr(argv->content, 0, skip);
+		argv->content = str;
+		argv = argv->next;
 	}
 }

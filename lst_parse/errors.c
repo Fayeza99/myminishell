@@ -6,7 +6,7 @@
 /*   By: asemsey <asemsey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 13:13:02 by asemsey           #+#    #+#             */
-/*   Updated: 2024/04/20 12:02:22 by asemsey          ###   ########.fr       */
+/*   Updated: 2024/04/23 10:38:41 by asemsey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,8 @@ char	get_error_redir(char *str)
 	i = 0;
 	if (!str || !*str)
 		return (0);
-	while (str[i] && !((str[i] == '>' || str[i] == '<') && !inside_quote(str, i)))
+	while (str[i] && !((str[i] == '>' || str[i] == '<')
+			&& !inside_quote(str, i)))
 		i++;
 	i++;
 	if (str[i] == str[i - 1])
@@ -35,7 +36,7 @@ char	get_error_redir(char *str)
 		i++;
 	if (!str[i])
 		return ('\n');
-	if (((str[i] == '\'' || str[i] == '\"') && str[i] == str[i + 1]) 
+	if (((str[i] == '\'' || str[i] == '\"') && str[i] == str[i + 1])
 		|| is_token(str[i]))
 		return (str[i]);
 	return ('\n');

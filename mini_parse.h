@@ -6,7 +6,7 @@
 /*   By: asemsey <asemsey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 19:21:28 by asemsey           #+#    #+#             */
-/*   Updated: 2024/04/21 13:23:32 by asemsey          ###   ########.fr       */
+/*   Updated: 2024/04/23 10:43:14 by asemsey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ typedef enum e_err
 typedef struct s_mini
 {
 	char	*command;
-	char	**cmd_arr;
 	t_list	*current_cmd;
 	int		exit_status;
 	int		*pids;
@@ -76,8 +75,6 @@ int			inside_quote(char *str, int pos);
 int			count_pipes(char *cmd);
 int			valid_redir(char *str);
 int			ft_error(int flag, char *str);
-// int			open_quotes(char *str);
-// int			open_pipe(char *str);
 
 // env
 
@@ -90,12 +87,14 @@ int			env_validchar(char c, int index);
 
 // argv
 
-char		**get_argv_arr(char *cmd);
-void		split_argv(char **argv);
+void		nullterminate_cmd(t_list *lst);
+void		set_cmd_fd(t_cmd *cmd);
+t_list		*get_argv_lst(char *cmd);
+void		split_argv(t_list *argv);
 char		*remove_quotes(char *str);
 t_list		*lst_argv(char **old);
-t_type		*get_type_arr(char **argv);
-void		set_cmd_fd(t_cmd *cmd);
+t_type		*get_type_arr(t_list *argv);
+void		unquote_argv(t_list **argv);
 
 // utils
 
@@ -110,8 +109,10 @@ char		**ft_arr_realloc(char **s, char *add);
 char		**ft_arrdup(char **s);
 char		*ft_arrjoin(char **s);
 void		ft_freearr(char **s);
-void		print_arr(char **cmd);
 
+void		print_arr(char **cmd);
+void		ft_lstprint(t_list *lst);
+void		ft_cmdprint(t_list *lst);
 void		display_struct(t_mini *mini);
 
 #endif

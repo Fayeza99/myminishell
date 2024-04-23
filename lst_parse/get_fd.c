@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_fd.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fnikzad <fnikzad@student.42.fr>            +#+  +:+       +#+        */
+/*   By: asemsey <asemsey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 13:31:27 by asemsey           #+#    #+#             */
-/*   Updated: 2024/04/22 14:16:53 by fnikzad          ###   ########.fr       */
+/*   Updated: 2024/04/23 10:49:32 by asemsey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,6 @@ void	get_fd(char *str, t_type type, int *fd_in, int *fd_out)
 	}
 }
 
-
 void	set_cmd_fd(t_cmd *cmd)
 {
 	t_list	*arg;
@@ -70,7 +69,7 @@ void	set_cmd_fd(t_cmd *cmd)
 		{
 			get_fd((char *)arg->content, cmd->type[i], \
 				&cmd->fd_in, &cmd->fd_out);
-			ft_lst_remove(&cmd->args, arg, NULL);
+			ft_lst_remove(&cmd->args, arg, free);
 		}
 		i++;
 		arg = arg->next;
