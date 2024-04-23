@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   read_cmd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asemsey <asemsey@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fnikzad <fnikzad@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 12:31:29 by asemsey           #+#    #+#             */
-/*   Updated: 2024/04/23 10:50:10 by asemsey          ###   ########.fr       */
+/*   Updated: 2024/04/23 14:05:46 by fnikzad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	check_cmd(char **str)
 		if (flag & DPIPE || flag & REDIR)
 			return (ft_error(flag, *str));
 		if (flag)
-			reprompt(str, flag);
+			break ;
 		else
 			break ;
 	}

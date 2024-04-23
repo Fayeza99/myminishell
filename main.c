@@ -6,7 +6,7 @@
 /*   By: fnikzad <fnikzad@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/23 11:22:01 by fnikzad           #+#    #+#             */
-/*   Updated: 2024/04/23 12:21:06 by fnikzad          ###   ########.fr       */
+/*   Updated: 2024/04/23 14:04:01 by fnikzad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,34 +45,35 @@ void	leak(void)
 // 	// display_struct(mini);
 // 	return (1);
 // }
-
-int	main(int argc, char **argv, char **env)
+int main(int argc, char **argv, char **env)
 {
-	t_mini				*mini;
-	int					status;
+    t_mini              *mini;
+    int                 status;
 
-	(void)argc;
-	(void)argv;
-	mini = mini_init();
-	if (!mini)
-		return (EXIT_FAILURE);
-	mini->env = ft_arrdup(env);
-	while (1)
-	{
-		status = read_command(mini);
-		if (!status)
-			break ;
-		if (status == 2)
-			continue ;
-		// pipes(mini);
-		m_exec(mini);
-		// exec_cmd(mini);
-		micro_free(mini);
-		// leak();
-	}
-	rl_clear_history();
-	// mini_free(mini);
-	return (mini_free(mini));
+    (void)argc;
+    (void)argv;
+    mini = mini_init();
+    if (!mini)
+        return (EXIT_FAILURE);
+    mini->env = ft_arrdup(env);
+    while (1)
+    {
+        status = read_command(mini);
+        if (!status)
+            break ;
+        // if (status == 2)
+        //  continue ;
+        // pipes(mini);
+        m_exec(mini);
+        // exec_cmd(mini);
+        // printf("hello\n");
+        if (status == 1)
+            micro_free(mini);
+        // leak();
+    }
+    rl_clear_history();
+    // mini_free(mini);
+    return (mini_free(mini));
 }
 
 // int	main(int argc, char **argv, char **env)
