@@ -15,10 +15,10 @@ SRC			=	main.c signals.c $(PARSE) $(EXEC)
 
 all: $(NAME)
 
-$(NAME): lib
+$(NAME): $(LIBFT) $(SRC)
 	cc $(CFLAGS) -o $(NAME) $(SRC) $(LIBFT) $(RL)
 
-lib:
+$(LIBFT):
 	make all bonus -sC $(LIBFT_PATH)
 
 clean:
