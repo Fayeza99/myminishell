@@ -3,14 +3,44 @@
 /*                                                        :::      ::::::::   */
 /*   get_fd.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fnikzad <fnikzad@student.42.fr>            +#+  +:+       +#+        */
+/*   By: asemsey <asemsey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 13:31:27 by asemsey           #+#    #+#             */
-/*   Updated: 2024/04/23 13:12:09 by fnikzad          ###   ########.fr       */
+/*   Updated: 2024/04/24 11:30:25 by asemsey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+
+int	check_fd(t_mini *shell, char *filename)
+{
+	struct stat file_stat;
+	
+	// if (access(filename, F_OK) == -1) {
+    //     // File doesn't exist
+    //     return 0;
+    // }
+
+    // Check execute permission
+    // if (access(filename, X_OK) == -1) {
+    //     // Execute permission denied
+	// 	shell->exit_status = 126;
+    //     return 1;
+    // }
+    if (stat(filename, &file_stat) == -1) {
+        // exit(EXIT_FAILURE);
+		return (0);
+    }
+	if (S_ISDIR(file_stat.st_mode)) {
+        // It's a directory
+		shell->exit_status = 126;
+        return 1;
+    } else {
+        // It's not a directory
+        return 0;
+    }
+	return (0);
+}
 
 void	write_heredoc(char *del, int fd)
 {
@@ -33,12 +63,6 @@ void	get_fd(char *str, t_type type, int *fd_in, int *fd_out)
 {
 	if (!str || !*str)
 		return ;
-	if (type == HEREDOC || type == APPEND)
-		str += 2;
-	else
-		str++;
-	while (is_whitespace(*str))
-		str++;
 	if ((type == OUT || type == APPEND) && *fd_out != STDOUT_FILENO)
 		close(*fd_out);
 	if (type == OUT)
@@ -56,9 +80,10 @@ void	get_fd(char *str, t_type type, int *fd_in, int *fd_out)
 	}
 }
 
-void	set_cmd_fd(t_cmd *cmd)
+void	set_cmd_fd(t_mini *shell, t_cmd *cmd)
 {
 	t_list	*arg;
+	char	*file;
 	int		i;
 
 	arg = cmd->args;
@@ -67,7 +92,16 @@ void	set_cmd_fd(t_cmd *cmd)
 	{
 		if (cmd->type[i] != ARG)
 		{
-			get_fd((char *)arg->content, cmd->type[i], \
+			file = arg->content;
+			if (cmd->type[i] == HEREDOC || cmd->type[i] == APPEND)
+				file += 2;
+			else
+				file++;
+			while (is_whitespace(*file))
+				file++;
+			if (check_fd(shell, file))
+				return ;
+			get_fd((char *)file, cmd->type[i], \
 				&cmd->fd_in, &cmd->fd_out);
 			ft_lst_remove(&cmd->args, arg, free);
 		}
