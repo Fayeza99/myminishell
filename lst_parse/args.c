@@ -6,7 +6,7 @@
 /*   By: asemsey <asemsey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/30 12:57:56 by asemsey           #+#    #+#             */
-/*   Updated: 2024/04/23 15:20:53 by asemsey          ###   ########.fr       */
+/*   Updated: 2024/04/24 11:17:35 by asemsey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,19 +39,22 @@ t_list	*get_argv_lst(char *cmd)
 	return (argv);
 }
 
+// get the length of an argument (not redirection)
 int	skip_arg(char *cmd, int i)
 {
 	while (cmd[i] && !is_whitespace(cmd[i]))
 	{
 		if (cmd[i] == '\"' || cmd[i] == '\'')
 			i += skip_quote(&cmd[i]);
-		if (cmd[i] == '>' || cmd[i] == '<')
+		else if (cmd[i] == '>' || cmd[i] == '<')
 			break ;
-		i++;
+		else
+			i++;
 	}
 	return (i);
 }
 
+// get the length of a redirection in cmd
 int	skip_redir(char *cmd, int i)
 {
 	i++;

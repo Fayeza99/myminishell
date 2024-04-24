@@ -6,7 +6,7 @@
 /*   By: asemsey <asemsey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 16:59:10 by asemsey           #+#    #+#             */
-/*   Updated: 2024/04/23 10:38:13 by asemsey          ###   ########.fr       */
+/*   Updated: 2024/04/24 11:20:21 by asemsey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ int	check_redir(char *str)
 	return (skip);
 }
 
+// checks if all redirecions are valid
 int	valid_redir(char *str)
 {
 	int	redir;
@@ -73,7 +74,7 @@ int	valid_redir(char *str)
 	return (1);
 }
 
-// flag: 1 is s_quote, 2 is d_quote, 4 is pipe, 8 is error
+// flag: 1 is s_quote, 2 is d_quote, 4 is pipe, 8 is d_pipe, 16 is redir
 int	get_flag(char *str)
 {
 	int		flag;

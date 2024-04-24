@@ -6,20 +6,19 @@
 /*   By: asemsey <asemsey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 12:31:29 by asemsey           #+#    #+#             */
-/*   Updated: 2024/04/23 15:13:26 by asemsey          ###   ########.fr       */
+/*   Updated: 2024/04/24 11:21:21 by asemsey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-// flag: 1 is s_quote, 2 is d_quote, 4 is pipe, 8 is d_pipe, 16 is redir
 void	reprompt(char **str, int flag)
 {
-	if (flag & 1)
+	if (flag & S_QUOTE)
 		printf("quote");
-	else if (flag & 2)
+	else if (flag & D_QUOTE)
 		printf("dquote");
-	else if (flag & 4)
+	else if (flag & PIPE)
 		printf("pipe");
 	*str = ft_freejoin(*str, "\n");
 	*str = ft_freejoin(*str, readline("> "));
@@ -46,11 +45,11 @@ int	read_command(t_mini *mini)
 {
 	mini->command = readline("minishell> ");
 	if (!mini->command || !*mini->command)
-		return (2);
+		return (0);
 	if (!check_cmd(&mini->command))
 	{
 		add_history(mini->command);
-		return (free(mini->command), 2);
+		return (free(mini->command), 0);
 	}
 	add_history(mini->command);
 	mini->command = ft_expand(mini, mini->command);

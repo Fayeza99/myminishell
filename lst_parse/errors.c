@@ -6,7 +6,7 @@
 /*   By: asemsey <asemsey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 13:13:02 by asemsey           #+#    #+#             */
-/*   Updated: 2024/04/23 10:38:41 by asemsey          ###   ########.fr       */
+/*   Updated: 2024/04/24 11:21:54 by asemsey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,6 @@ char	get_error_pipe(char *str)
 	return ('\n');
 }
 
-// flag: 1 is s_quote, 2 is d_quote, 4 is pipe, 8 is d_pipe, 16 is redir
 int	ft_error(int flag, char *str)
 {
 	char	c;

@@ -6,7 +6,7 @@
 /*   By: asemsey <asemsey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 19:21:28 by asemsey           #+#    #+#             */
-/*   Updated: 2024/04/23 14:46:46 by asemsey          ###   ########.fr       */
+/*   Updated: 2024/04/24 11:18:57 by asemsey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,8 +92,6 @@ void		nullterminate_cmd(t_list *lst);
 void		set_cmd_fd(t_cmd *cmd);
 t_list		*get_argv_lst(char *cmd);
 void		split_argv(t_list *argv);
-char		*remove_quotes(char *str);
-t_list		*lst_argv(char **old);
 t_type		*get_type_arr(t_list *argv);
 void		unquote_argv(t_list **argv);
 
