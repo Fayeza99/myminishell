@@ -6,7 +6,7 @@
 /*   By: fnikzad <fnikzad@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 14:26:05 by fnikzad           #+#    #+#             */
-/*   Updated: 2024/04/23 15:12:31 by fnikzad          ###   ########.fr       */
+/*   Updated: 2024/04/23 17:10:14 by fnikzad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,22 @@ char	*my_getenv(t_mini *shell, char *s)
 	return (value);
 }
 
+// int	check_file(t_mini *shell, char *filename)
+// {
+// 	// if (access(filename, F_OK) == -1) {
+//     //     // File doesn't exist
+	
+//     //     return 0;
+//     // }
+
+//     // Check execute permission
+//     if (access(filename, X_OK) == -1) {
+//         // Execute permission denied
+// 		shell->exit_status = 127;
+//         return 0;
+//     }
+// 	return (1);
+// }
 
 int		valid_builtins(char *s)
 {

@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asemsey <asemsey@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fnikzad <fnikzad@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/24 12:11:29 by fnikzad           #+#    #+#             */
-/*   Updated: 2024/04/23 15:11:34 by asemsey          ###   ########.fr       */
+/*   Updated: 2024/04/23 15:37:48 by fnikzad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	parse_cmd(t_cmd *cmd);
+void	parse_cmd(t_mini *mini, t_cmd *cmd);
 void	get_commands(t_mini *mini);
 int		count_pipes(char *cmd);
 char	*remove_quotes(char *str);
@@ -28,7 +28,9 @@ void	parse_input(t_mini *mini)
 	lst = mini->current_cmd;
 	while (lst)
 	{
-		parse_cmd((t_cmd *)lst->content);
+		parse_cmd(mini, (t_cmd *)lst->content);
+		if (mini->exit_status)
+			return ;
 		lst = lst->next;
 	}
 }
@@ -61,7 +63,7 @@ char	*remove_quotes(char *str)
 	return (free(new), result);
 }
 
-void	parse_cmd(t_cmd *cmd)
+void	parse_cmd(t_mini *mini, t_cmd *cmd)
 {
 	cmd->args = get_argv_lst(cmd->command);
 	if (!cmd->args)
@@ -69,7 +71,7 @@ void	parse_cmd(t_cmd *cmd)
 	split_argv(cmd->args);
 	cmd->type = get_type_arr(cmd->args);
 	unquote_argv(&cmd->args);
-	set_cmd_fd(cmd);
+	set_cmd_fd(mini, cmd);
 	cmd->argv = ft_lst_toarr(cmd->args);
 	ft_lst_delall(&cmd->args, NULL);
 	free(cmd->type);
