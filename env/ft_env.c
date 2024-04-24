@@ -3,19 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_env.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fnikzad <fnikzad@student.42.fr>            +#+  +:+       +#+        */
+/*   By: asemsey <asemsey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 17:44:38 by asemsey           #+#    #+#             */
-/*   Updated: 2024/04/22 14:14:29 by fnikzad          ###   ########.fr       */
+/*   Updated: 2024/04/24 11:15:26 by asemsey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-// error!
-// echo $? -- 123
-// echo $?heyy -- 123
-
+// replaces command with the expanded command
 char	*ft_expand(t_mini *mini, char *command)
 {
 	char	*var;
@@ -45,7 +42,6 @@ char	*add_variables(t_mini *mini, char *str)
 	return (ft_arrjoin(sub));
 }
 
-// result not malloced
 char	*ft_getenv(char *name, char **env, int freename)
 {
 	int		i;
@@ -72,7 +68,7 @@ char	*ft_getenv(char *name, char **env, int freename)
 	return (NULL);
 }
 
-// result malloced
+// ft_getenv but with malloc
 char	*ft_copyenv(char *name, char **env)
 {
 	int		i;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fnikzad <fnikzad@student.42.fr>            +#+  +:+       +#+        */
+/*   By: asemsey <asemsey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/24 12:11:29 by fnikzad           #+#    #+#             */
-/*   Updated: 2024/04/23 15:37:48 by fnikzad          ###   ########.fr       */
+/*   Updated: 2024/04/24 11:28:44 by asemsey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 void	parse_cmd(t_mini *mini, t_cmd *cmd);
 void	get_commands(t_mini *mini);
+void	nullterminate_cmd(t_list *lst);
 int		count_pipes(char *cmd);
-char	*remove_quotes(char *str);
 
 // before: mini has full input string
 // after: all fields filled, fd on open files, argv ready
@@ -35,34 +35,6 @@ void	parse_input(t_mini *mini)
 	}
 }
 
-char	*remove_quotes(char *str)
-{
-	char	*new;
-	char	*result;
-	char	quote;
-	int		i;
-
-	i = 0;
-	new = (char *)malloc(sizeof(char) * (ft_strlen(str) + 1));
-	if (!new)
-		return (NULL);
-	while (str && *str)
-	{
-		if (*str == '\'' || *str == '\"')
-		{
-			quote = *str++;
-			while (*str && *str != quote)
-				new[i++] = *str++;
-			str++;
-		}
-		else
-			new[i++] = *str++;
-	}
-	new[i] = '\0';
-	result = ft_strdup(new);
-	return (free(new), result);
-}
-
 void	parse_cmd(t_mini *mini, t_cmd *cmd)
 {
 	cmd->args = get_argv_lst(cmd->command);
@@ -75,6 +47,23 @@ void	parse_cmd(t_mini *mini, t_cmd *cmd)
 	cmd->argv = ft_lst_toarr(cmd->args);
 	ft_lst_delall(&cmd->args, NULL);
 	free(cmd->type);
+}
+
+void	nullterminate_cmd(t_list *lst)
+{
+	t_cmd	*cmd;
+	char	*str;
+
+	while (lst)
+	{
+		cmd = (t_cmd *)lst->content;
+		str = cmd->command + ft_strlen(cmd->command) - 1;
+		while (is_whitespace(*str))
+			str--;
+		str++;
+		*str = '\0';
+		lst = lst->next;
+	}
 }
 
 // count pipes outside quotes

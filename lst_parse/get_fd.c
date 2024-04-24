@@ -6,7 +6,7 @@
 /*   By: fnikzad <fnikzad@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 13:31:27 by asemsey           #+#    #+#             */
-/*   Updated: 2024/04/24 11:28:46 by fnikzad          ###   ########.fr       */
+/*   Updated: 2024/04/24 13:17:44 by fnikzad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,7 @@ int	check_fd(t_mini *shell, char *filename)
 	// 	shell->exit_status = 126;
     //     return 1;
     // }
-
-
     if (stat(filename, &file_stat) == -1) {
-		
-        
         // exit(EXIT_FAILURE);
 		return (0);
     }

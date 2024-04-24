@@ -6,7 +6,7 @@
 /*   By: asemsey <asemsey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/23 11:22:01 by fnikzad           #+#    #+#             */
-/*   Updated: 2024/04/23 14:50:30 by asemsey          ###   ########.fr       */
+/*   Updated: 2024/04/24 11:02:46 by asemsey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,10 +60,8 @@ int main(int argc, char **argv, char **env)
 	while (1)
 	{
 		status = read_command(mini);
-		if (!status)
-			break ;
 		m_exec(mini);
-		if (status == 1)
+		if (status)
 			micro_free(mini);
 	}
 	rl_clear_history();

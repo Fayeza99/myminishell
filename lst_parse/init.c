@@ -6,28 +6,11 @@
 /*   By: asemsey <asemsey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 17:33:50 by asemsey           #+#    #+#             */
-/*   Updated: 2024/04/23 10:44:19 by asemsey          ###   ########.fr       */
+/*   Updated: 2024/04/24 11:23:20 by asemsey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-
-void	nullterminate_cmd(t_list *lst)
-{
-	t_cmd	*cmd;
-	char	*str;
-
-	while (lst)
-	{
-		cmd = (t_cmd *)lst->content;
-		str = cmd->command + ft_strlen(cmd->command) - 1;
-		while (is_whitespace(*str))
-			str--;
-		str++;
-		*str = '\0';
-		lst = lst->next;
-	}
-}
 
 t_cmd	*new_cmd(char *command)
 {

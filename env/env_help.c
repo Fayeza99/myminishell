@@ -6,7 +6,7 @@
 /*   By: asemsey <asemsey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 16:09:23 by asemsey           #+#    #+#             */
-/*   Updated: 2024/04/23 14:50:23 by asemsey          ###   ########.fr       */
+/*   Updated: 2024/04/24 11:12:51 by asemsey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ char	*env_next(t_mini *mini, char *str, int *skip, int inquotes)
 	return (ft_substr(str, 0, *skip));
 }
 
+// $$ is the shell pid, $? is the exit code of the last command
 char	*env_special(t_mini *mini, char c)
 {
 	if (c == '$')
@@ -75,27 +76,6 @@ char	*env_getname(char *str)
 	ft_strlcpy(name, str, i);
 	return (name);
 }
-
-// // get the name of the next var in str
-// char	*env_getname(char *str)
-// {
-// 	char	*name;
-// 	int		i;
-
-// 	if (!env_validchar(*str, 0) && *str != '$' && *str != '?')
-// 		return (NULL);
-// 	i = 0;
-// 	while (env_validchar(str[i], i))
-// 		i++;
-// 	if (*str == '$' || *str == '?')
-// 		i = 1;
-// 	i++;
-// 	name = (char *)malloc(sizeof(char) * (i));
-// 	if (!name)
-// 		return (NULL);
-// 	ft_strlcpy(name, str, i);
-// 	return (name);
-// }
 
 // 1 for valid variable character
 int	env_validchar(char c, int index)

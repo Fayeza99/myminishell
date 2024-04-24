@@ -4,7 +4,7 @@ RL			=	-lreadline
 LIBFT_PATH	=	include/libft
 LIBFT		=	$(LIBFT_PATH)/libft.a
 
-PARSE		=	lst_parse/args.c lst_parse/args2.c lst_parse/complete_cmd.c lst_parse/free.c\
+PARSE		=	lst_parse/args.c lst_parse/args2.c lst_parse/error_flag.c lst_parse/free.c\
 				lst_parse/init.c lst_parse/read_cmd.c lst_parse/parse.c lst_parse/get_fd.c\
 				env/env_help.c env/ft_env.c lst_parse/errors.c\
 				utils/arrays.c utils/utils.c utils/testing.c utils/ft_lst.c

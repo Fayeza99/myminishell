@@ -6,7 +6,7 @@
 /*   By: asemsey <asemsey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 14:11:41 by asemsey           #+#    #+#             */
-/*   Updated: 2024/04/23 10:14:52 by asemsey          ###   ########.fr       */
+/*   Updated: 2024/04/24 11:22:17 by asemsey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ void	ft_delcmd(void *cmd)
 	free(c);
 }
 
+// freeing at end
 int	mini_free(t_mini *mini)
 {
 	int		exit;
@@ -34,6 +35,7 @@ int	mini_free(t_mini *mini)
 	return (exit);
 }
 
+// freeing between input
 int	micro_free(t_mini *mini)
 {
 	int		exit;

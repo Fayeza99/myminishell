@@ -6,7 +6,7 @@
 /*   By: asemsey <asemsey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/31 15:49:45 by asemsey           #+#    #+#             */
-/*   Updated: 2024/04/22 15:02:00 by asemsey          ###   ########.fr       */
+/*   Updated: 2024/04/24 11:19:03 by asemsey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,34 @@ t_type	*get_type_arr(t_list *argv)
 		argv = argv->next;
 	}
 	return (type);
+}
+
+char	*remove_quotes(char *str)
+{
+	char	*new;
+	char	*result;
+	char	quote;
+	int		i;
+
+	i = 0;
+	new = (char *)malloc(sizeof(char) * (ft_strlen(str) + 1));
+	if (!new)
+		return (NULL);
+	while (str && *str)
+	{
+		if (*str == '\'' || *str == '\"')
+		{
+			quote = *str++;
+			while (*str && *str != quote)
+				new[i++] = *str++;
+			str++;
+		}
+		else
+			new[i++] = *str++;
+	}
+	new[i] = '\0';
+	result = ft_strdup(new);
+	return (free(new), result);
 }
 
 // replace old with new argv without quotes
