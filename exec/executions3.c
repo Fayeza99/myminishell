@@ -6,7 +6,7 @@
 /*   By: asemsey <asemsey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 13:06:55 by fnikzad           #+#    #+#             */
-/*   Updated: 2024/04/24 11:31:16 by asemsey          ###   ########.fr       */
+/*   Updated: 2024/04/24 12:07:36 by asemsey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -347,8 +347,6 @@ void m_exec(t_mini *shell)
 	// int count = count_cmd(shell);
 	// if (count == -1)
 	// 	return ;
-	// if (shell->command == NULL)
-	// 	return ;
 	// printf("%d\n", shell->exit_status);
 	// if (shell->exit_status)
 	// 	return ;
@@ -363,6 +361,5 @@ void m_exec(t_mini *shell)
 		// printf("exit :%d\n", shell->exit_status);
 		multi_pipe(shell);
 	}
-    // return ;
 }
 

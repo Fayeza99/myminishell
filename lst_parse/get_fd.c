@@ -6,7 +6,7 @@
 /*   By: asemsey <asemsey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 13:31:27 by asemsey           #+#    #+#             */
-/*   Updated: 2024/04/24 11:30:25 by asemsey          ###   ########.fr       */
+/*   Updated: 2024/04/24 11:35:56 by asemsey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,10 +92,8 @@ void	set_cmd_fd(t_mini *shell, t_cmd *cmd)
 	{
 		if (cmd->type[i] != ARG)
 		{
-			file = arg->content;
+			file = arg->content + 1;
 			if (cmd->type[i] == HEREDOC || cmd->type[i] == APPEND)
-				file += 2;
-			else
 				file++;
 			while (is_whitespace(*file))
 				file++;
