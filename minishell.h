@@ -6,7 +6,7 @@
 /*   By: fnikzad <fnikzad@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/23 11:22:32 by fnikzad           #+#    #+#             */
-/*   Updated: 2024/04/23 15:29:43 by fnikzad          ###   ########.fr       */
+/*   Updated: 2024/04/24 15:45:59 by fnikzad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,5 +43,9 @@ int			valid_builtins(char *s);
 int			count_cmd(t_mini *shell);
 void		built_ins2(t_mini *shell, t_cmd *cmd);
 // int		built_ins(t_mini *shell);
+
+int	check_fd(t_mini *shell, char *filename);
+int	file_check(t_mini *shell, char *s);
+
 
 #endif

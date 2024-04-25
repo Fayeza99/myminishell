@@ -6,7 +6,7 @@
 /*   By: fnikzad <fnikzad@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 16:12:09 by fnikzad           #+#    #+#             */
-/*   Updated: 2024/04/23 14:21:19 by fnikzad          ###   ########.fr       */
+/*   Updated: 2024/04/24 15:55:16 by fnikzad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ int	ex_echo(t_mini *shell, t_cmd *cmd)
 		return (0);
 		
 	}
-		
+
 	int k = check_newline(cmd->argv);
 	i = 0;
 	if (ft_strcmp(cmd->argv[0], "echo") == 0)
