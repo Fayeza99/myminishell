@@ -6,7 +6,7 @@
 /*   By: asemsey <asemsey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 13:31:27 by asemsey           #+#    #+#             */
-/*   Updated: 2024/04/24 13:53:19 by asemsey          ###   ########.fr       */
+/*   Updated: 2024/04/25 11:30:45 by asemsey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,8 @@ void	write_heredoc(char *del, int fd)
 
 	while (1)
 	{
-		line = readline("> ");
+		ft_putstr_fd("> ", STDERR_FILENO);
+		line = readline(NULL);
 		if (!ft_strcmp(line, del))
 		{
 			free(line);

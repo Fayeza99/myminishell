@@ -6,7 +6,7 @@
 /*   By: asemsey <asemsey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 12:31:29 by asemsey           #+#    #+#             */
-/*   Updated: 2024/04/24 12:11:07 by asemsey          ###   ########.fr       */
+/*   Updated: 2024/04/25 11:31:34 by asemsey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,13 @@
 void	reprompt(char **str, int flag)
 {
 	if (flag & S_QUOTE)
-		printf("quote");
+		ft_putstr_fd("quote> ", STDERR_FILENO);
 	else if (flag & D_QUOTE)
-		printf("dquote");
+		ft_putstr_fd("dquote> ", STDERR_FILENO);
 	else if (flag & PIPE)
-		printf("pipe");
+		ft_putstr_fd("pipe> ", STDERR_FILENO);
 	*str = ft_freejoin(*str, "\n");
-	*str = ft_freejoin(*str, readline("> "));
+	*str = ft_freejoin(*str, readline(NULL));
 }
 
 int	check_cmd(char **str)
@@ -43,7 +43,8 @@ int	check_cmd(char **str)
 
 int	read_command(t_mini *mini)
 {
-	mini->command = readline("minishell> ");
+	ft_putstr_fd("minishell> ", STDERR_FILENO);
+	mini->command = readline(NULL);
 	if (!mini->command || !*mini->command)
 		return (0);
 	if (!check_cmd(&mini->command))
