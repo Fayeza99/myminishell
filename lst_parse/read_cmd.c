@@ -6,7 +6,7 @@
 /*   By: asemsey <asemsey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 12:31:29 by asemsey           #+#    #+#             */
-/*   Updated: 2024/04/25 11:31:34 by asemsey          ###   ########.fr       */
+/*   Updated: 2024/04/25 11:43:18 by asemsey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,13 @@
 void	reprompt(char **str, int flag)
 {
 	if (flag & S_QUOTE)
-		ft_putstr_fd("quote> ", STDERR_FILENO);
+		ft_putstr_fd("quote", STDERR_FILENO);
 	else if (flag & D_QUOTE)
-		ft_putstr_fd("dquote> ", STDERR_FILENO);
+		ft_putstr_fd("dquote", STDERR_FILENO);
 	else if (flag & PIPE)
-		ft_putstr_fd("pipe> ", STDERR_FILENO);
+		ft_putstr_fd("pipe", STDERR_FILENO);
 	*str = ft_freejoin(*str, "\n");
-	*str = ft_freejoin(*str, readline(NULL));
+	*str = ft_freejoin(*str, readline("> "));
 }
 
 int	check_cmd(char **str)
@@ -43,8 +43,7 @@ int	check_cmd(char **str)
 
 int	read_command(t_mini *mini)
 {
-	ft_putstr_fd("minishell> ", STDERR_FILENO);
-	mini->command = readline(NULL);
+	mini->command = readline("minishell> ");
 	if (!mini->command || !*mini->command)
 		return (0);
 	if (!check_cmd(&mini->command))
