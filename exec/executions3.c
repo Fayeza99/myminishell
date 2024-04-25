@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executions3.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asemsey <asemsey@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fnikzad <fnikzad@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 13:06:55 by fnikzad           #+#    #+#             */
-/*   Updated: 2024/04/24 12:07:36 by asemsey          ###   ########.fr       */
+/*   Updated: 2024/04/24 18:27:30 by fnikzad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,12 +126,13 @@ pid_t	create_child(t_mini *shell, int i)
 
 void	exec_without_pipe(t_mini *shell)
 {
-	
+
 	int *fd = (int*)malloc(sizeof(int) * 2);
 	t_cmd *cmd;
 	cmd = shell->current_cmd->content;
 	if (valid_builtins(cmd->argv[0]))
 	{
+		shell->exit_status = 0;
 		built_ins2(shell, cmd);
 		return ;
 	}
@@ -145,6 +146,11 @@ void	exec_without_pipe(t_mini *shell)
 	}
 	pid_t pid;
 	pid = fork();
+	find_path(shell, cmd->argv[0]);
+	if (shell->exit_status == 1 && !valid_builtins(cmd->argv[0]))
+	{
+			shell->exit_status = 1;
+	}
 	if (!pid)
 	{
 		// printf("%d\n", cmd->fd_in);
@@ -160,13 +166,16 @@ void	exec_without_pipe(t_mini *shell)
 			dup2(fd[1], STDOUT_FILENO);
 			close(fd[1]);
 		}
+		
 		execve(find_path(shell, cmd->argv[0]), cmd->argv, shell->env);
 	}
-	// printf("here\n");
+
 	// close(fd[1]);
 	// close(fd[0]);
 	// free()(cmd->fd_out);
 	// free(cmd->fd_in);
+	// shell->exit_status = 0;
+	
 	waitpid(pid, NULL, 0);
 }
 
@@ -217,64 +226,17 @@ void	exec_helper(t_mini *shell, int **fd, char **s, int i, t_cmd *cmd)
 	}
 	else
 	{
-		// printf("%s\n", cmd->argv[0]);
+		// if (access(cmd->argv[1], F_OK) == -1)
+		// {
+		// 	printf("found\n");
+		// 	shell->exit_status = 1;
+		// }
+		// printf("%s\n", cmd->argv[1]);
 		execve(find_path(shell, cmd->argv[0]), cmd->argv, shell->env);
 	}
 }
 
 
-
-// void	exec_helper(t_mini *shell, int **fd, char **s, int i, t_cmd *cmd)
-// {
-	
-// 	if (i == 0)
-// 	{
-
-		
-		
-// 		printf("%d\n", fd[0][0]);
-// 		printf("%d\n", fd[0][1]);
-		
-// 		dup2(fd[i][1], STDOUT_FILENO);
-// 		// close(fd[i][1]);
-		
-// 	}
-// 	// printf("------%d\n", STDOUT_FILENO);
-// 	if (i == count_cmd(shell))
-// 	{
-// 		dup2(fd[i - 1][0], STDIN_FILENO);
-// 	}
-// 	else
-// 	{
-// 		dup2(fd[i - 1][0], STDIN_FILENO);
-// 		dup2(fd[i][1], STDOUT_FILENO);
-// 	}
-
-// 	int j = 0;
-// 	while (j <= count_cmd(shell))
-// 	{
-// 		close(fd[j][0]);
-// 		close(fd[j][1]);
-// 		j++;
-// 	}
-// 	if (cmd->fd_in != STDIN_FILENO)
-// 	{
-// 		dup2(cmd->fd_in, STDIN_FILENO);
-// 		close(cmd->fd_in);
-// 	}
-// 	if (cmd->fd_out != STDOUT_FILENO)
-// 	{
-
-// 		dup2(cmd->fd_out, STDOUT_FILENO);
-// 		close(cmd->fd_out);
-// 	}
-// 	if (built_ins(shell))
-// 		exit(0);
-// 	else
-// 	{
-// 		execve(find_path(shell, s[0]), s, shell->env);
-// 	}
-// }
 
 void	forker(t_mini *shell, int i)
 {
@@ -341,6 +303,24 @@ void	multi_pipe(t_mini *shell)
 		waitpid(shell->pids[i++], NULL, 0);
 }
 
+//  if (access(filename, F_OK) == -1) {
+//         // File doesn't exist
+//         return 0;
+//     }
+
+//     // Check execute permission
+//     if (access(filename, X_OK) == -1) {
+//         // Execute permission denied
+//         return 0;
+//     }
+
+
+// void	command_check(t_mini *shell)
+// {
+// 	t_cmd *cmd = shell->current_cmd;
+// 	if (access)
+// }
+
 
 void m_exec(t_mini *shell)
 {
@@ -350,10 +330,13 @@ void m_exec(t_mini *shell)
 	// printf("%d\n", shell->exit_status);
 	// if (shell->exit_status)
 	// 	return ;
+	
 	if (count_cmd(shell) == 0)
 	{
 		
 		exec_without_pipe(shell);
+		// printf("here --- %d\n", shell->flag);
+
 		return;
 	}
 	else

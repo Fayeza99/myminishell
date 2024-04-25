@@ -6,7 +6,7 @@
 /*   By: fnikzad <fnikzad@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 14:26:05 by fnikzad           #+#    #+#             */
-/*   Updated: 2024/04/23 17:10:14 by fnikzad          ###   ########.fr       */
+/*   Updated: 2024/04/25 09:57:52 by fnikzad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,27 @@ int		valid_builtins(char *s)
 	return (0);
 }
 
+int	file_check(t_mini *shell, char *s)
+{
+	if (ft_strchr(s, '/') != NULL)
+	{
+		check_fd(shell, s);
+		if (access(s, F_OK) == 0)
+		{
+			if(access(s, X_OK) == 0)
+			{
+				;
+			}
+			else
+				shell->exit_status = 126;
+			return 0;
+		}
+		shell->exit_status = 127;
+		return 0;
+	}
+	return (1);
+}
+
 char *find_path(t_mini *shell, char *s)
 {
 	char	*path;
@@ -96,6 +117,11 @@ char *find_path(t_mini *shell, char *s)
 	int		i;
 	char	*tmp;
 
+	t_cmd *command = shell->current_cmd->content;
+	
+	if (!file_check(shell, s))
+		return NULL;
+	
 	path = my_getenv(shell, "PATH");
 	// path = getenv("PATH");
 
@@ -105,14 +131,25 @@ char *find_path(t_mini *shell, char *s)
 	while (all_path[i])
 	{
 		cmd = ft_strjoin(all_path[i], tmp);
-		if (access(cmd, X_OK) == 0)
-			break;
+		if (access(cmd, F_OK) == 0)
+		{
+			if (access(cmd, X_OK) == 0)
+			{
+				if (access(command->argv[1], F_OK) == -1 && !valid_builtins(command->argv[0]))
+				{
+					shell->exit_status = 1;
+				}
+				break;
+			}
+			// shell->exit_status = 126;
+			// return NULL;
+		}
 		free (cmd);
+		// printf("hello here\n");
 		i++;
 	}
 	if(!all_path[i] && !valid_builtins(s))
 	{
-		// printf("sdsdfsdfsdf\n");
 		ft_putstr_fd("bash: ", 2);
 		ft_putstr_fd(s, 2);
 		ft_putendl_fd(": command not found", 2);
@@ -121,7 +158,17 @@ char *find_path(t_mini *shell, char *s)
 		ft_freearr(all_path);
 		return NULL;
 	}
+	shell->exit_status = 0;
+	
 	free(tmp);
 	ft_freearr(all_path);
 	return (cmd);
 }
+
+
+// if (access(all_path[i], F_OK) == 0)
+// 		{
+// 			if (access(all_path[i], X_OK) == 0)
+// 				return NULL;
+// 			shell->exit_status = 126;
+// 		}

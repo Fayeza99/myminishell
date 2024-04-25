@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mini_parse.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asemsey <asemsey@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fnikzad <fnikzad@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 19:21:28 by asemsey           #+#    #+#             */
-/*   Updated: 2024/04/24 11:51:34 by asemsey          ###   ########.fr       */
+/*   Updated: 2024/04/24 17:49:25 by fnikzad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ typedef struct s_mini
 	char	*command;
 	t_list	*current_cmd;
 	int		exit_status;
+	int		flag;
 	int		*pids;
 	char	**env;
 }	t_mini;

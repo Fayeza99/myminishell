@@ -6,7 +6,7 @@
 /*   By: fnikzad <fnikzad@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 13:44:48 by fnikzad           #+#    #+#             */
-/*   Updated: 2024/04/23 14:41:31 by fnikzad          ###   ########.fr       */
+/*   Updated: 2024/04/24 16:00:57 by fnikzad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ int	ft_exit(t_mini *shell, t_cmd *cmd)
 	if (arr_len(cmd->argv) > 2)
 	{
 		ft_putendl_fd("exit: too many arguments", 2);
-		// shell->exit_status = 1;
+		shell->exit_status = 1;
 		// valid = 1;
 		return (1);
 	}
