@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fnikzad <fnikzad@student.42.fr>            +#+  +:+       +#+        */
+/*   By: asemsey <asemsey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/23 11:22:32 by fnikzad           #+#    #+#             */
-/*   Updated: 2024/04/24 15:45:59 by fnikzad          ###   ########.fr       */
+/*   Updated: 2024/04/26 11:53:42 by asemsey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,22 @@
 # include "include/libft/libft.h"
 # include "mini_parse.h"
 
-void	leak(void);
+extern int	g_sig;
 
-int		read_command(t_mini *mini);
-void	mini_handler(int sig, siginfo_t *info, void *context);
-void	disable_raw_mode(struct termios *original_termios);
-void	enable_raw_mode(struct termios *original_termios);
+typedef enum e_sig
+{
+	INTERACT = 1 << 0,
+	S_INT = 1 << 1,
+	S_TERM = 1 << 2,
+	S_QUIT = 1 << 3,
+}	t_sig;
+
+void		leak(void);
+
+int			read_command(t_mini *mini);
+void		sig_init(void);
+void		mini_handler(int sig);
+void		configure_terminal(void);
 
 // exec
 
@@ -44,8 +54,8 @@ int			count_cmd(t_mini *shell);
 void		built_ins2(t_mini *shell, t_cmd *cmd);
 // int		built_ins(t_mini *shell);
 
-int	check_fd(t_mini *shell, char *filename);
-int	file_check(t_mini *shell, char *s);
+int			check_fd(t_mini *shell, char *filename);
+int			file_check(t_mini *shell, char *s);
 
 
 #endif
