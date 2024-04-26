@@ -6,42 +6,43 @@
 /*   By: asemsey <asemsey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 15:19:57 by asemsey           #+#    #+#             */
-/*   Updated: 2024/04/08 16:22:17 by asemsey          ###   ########.fr       */
+/*   Updated: 2024/04/26 12:13:36 by asemsey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	mini_handler(int sig, siginfo_t *info, void *context)
+void	mini_handler(int sig)
 {
-	(void)info;
-	(void)context;
-	if (sig == SIGINT)
+	(void)sig;
+	if (g_sig == INTERACT)
 	{
-		printf("\n");
-		fflush(stdout);
-		// new prompt!!!
+		rl_on_new_line();
+		rl_replace_line("", 0);
+		rl_redisplay();
 	}
-	else if (sig == SIGQUIT)
-		;
-	else if (sig == SIGTERM)
-	{
-		printf("\n");
-		// disable_raw_mode((struct termios *)context);
-		exit(EXIT_SUCCESS);
-	}
+	g_sig |= S_INT;
 }
 
-void	disable_raw_mode(struct termios *original_termios)
+void	configure_terminal(void)
 {
-	tcsetattr(STDIN_FILENO, TCSAFLUSH, original_termios);
+	struct termios	term;
+
+	tcgetattr(STDIN_FILENO, &term);
+	term.c_lflag |= (ECHO | ICANON | ISIG);
+	term.c_lflag &= ~ECHOCTL;
+	tcsetattr(STDIN_FILENO, TCSANOW, &term);
 }
 
-void	enable_raw_mode(struct termios *original_termios)
+void	sig_init(void)
 {
-	struct termios	raw;
-	tcgetattr(STDIN_FILENO, original_termios);
-	raw = *original_termios;
-	raw.c_lflag &= ~(ECHO | ICANON);
-	tcsetattr(STDIN_FILENO, TCSAFLUSH, &raw);
+	struct sigaction	sa_int;
+	struct sigaction	sa_quit;
+
+	sa_int.sa_handler = mini_handler;
+	sa_quit.sa_handler = SIG_IGN;
+	// sigemptyset(&sa_int.sa_mask);
+	sa_int.sa_flags = 0;
+	sigaction(SIGINT, &sa_int, NULL);
+	sigaction(SIGQUIT, &sa_quit, NULL);
 }

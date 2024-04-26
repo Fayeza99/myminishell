@@ -6,7 +6,7 @@
 /*   By: asemsey <asemsey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 16:09:23 by asemsey           #+#    #+#             */
-/*   Updated: 2024/04/24 11:12:51 by asemsey          ###   ########.fr       */
+/*   Updated: 2024/04/26 11:22:26 by asemsey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ char	*env_getname(char *str)
 	if (!*str)
 		return (NULL);
 	i = 0;
-	while (str[i] && !is_token(str[i]) && !is_whitespace(str[i]) && str[i] != '$')
+	while (str[i] && (ft_isalnum(str[i]) || str[i] == '_' ))
 		i++;
 	if (*str == '$' || *str == '?')
 		i = 1;

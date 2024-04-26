@@ -6,7 +6,7 @@
 /*   By: fnikzad <fnikzad@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 13:31:27 by asemsey           #+#    #+#             */
-/*   Updated: 2024/04/26 14:06:30 by fnikzad          ###   ########.fr       */
+/*   Updated: 2024/04/26 15:03:28 by fnikzad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,9 +50,15 @@ void	write_heredoc(char *del, int fd)
 {
 	char	*line;
 
+	g_sig |= INTERACT;
 	while (1)
 	{
 		line = readline("> ");
+		if (!line)
+		{
+			g_sig ^= INTERACT;
+			return ;
+		}
 		if (!ft_strcmp(line, del))
 		{
 			free(line);
@@ -61,6 +67,7 @@ void	write_heredoc(char *del, int fd)
 		ft_putendl_fd(line, fd);
 		free(line);
 	}
+	g_sig ^= INTERACT;
 }
 
 void	get_fd(char *str, t_type type, int *fd_in, int *fd_out)
