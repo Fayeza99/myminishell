@@ -6,7 +6,7 @@
 /*   By: asemsey <asemsey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 15:19:57 by asemsey           #+#    #+#             */
-/*   Updated: 2024/04/26 12:13:36 by asemsey          ###   ########.fr       */
+/*   Updated: 2024/04/26 12:29:07 by asemsey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,12 @@
 void	mini_handler(int sig)
 {
 	(void)sig;
-	if (g_sig == INTERACT)
-	{
-		rl_on_new_line();
+	// if (g_sig == INTERACT)
+	// {
 		rl_replace_line("", 0);
+		rl_on_new_line();
 		rl_redisplay();
-	}
+	// }
 	g_sig |= S_INT;
 }
 

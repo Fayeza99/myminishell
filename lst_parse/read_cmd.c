@@ -6,7 +6,7 @@
 /*   By: asemsey <asemsey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 12:31:29 by asemsey           #+#    #+#             */
-/*   Updated: 2024/04/26 12:13:20 by asemsey          ###   ########.fr       */
+/*   Updated: 2024/04/26 12:19:04 by asemsey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,9 +58,9 @@ int	read_command(t_mini *mini)
 	if (mini->command == NULL)
 	{
 		ft_putendl_fd("--NULL--", 2);
-		return (0);
+		exit(EXIT_SUCCESS);
 	}
-	if (!mini->command || !*mini->command)
+	if (!*mini->command)
 		return (0);
 	if (!check_cmd(&mini->command))
 	{

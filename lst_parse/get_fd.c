@@ -6,7 +6,7 @@
 /*   By: asemsey <asemsey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 13:31:27 by asemsey           #+#    #+#             */
-/*   Updated: 2024/04/26 12:04:07 by asemsey          ###   ########.fr       */
+/*   Updated: 2024/04/26 16:29:54 by asemsey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,10 @@
 int	check_fd(t_mini *shell, char *filename)
 {
 	struct stat file_stat;
-	
 	// if (access(filename, F_OK) == -1) {
     //     // File doesn't exist
     //     return 0;
     // }
-
     // Check execute permission
     // if (access(filename, X_OK) == -1) {
     //     // Execute permission denied
@@ -29,7 +27,6 @@ int	check_fd(t_mini *shell, char *filename)
     // }
     if (stat(filename, &file_stat) == 0)
 	{
-
 		if (S_ISDIR(file_stat.st_mode))
 		{
 			// It's a directory
@@ -39,7 +36,7 @@ int	check_fd(t_mini *shell, char *filename)
 		else
 		{
 			// It's not a directory
-			return 0;
+			;
 		}
 	}
 	return (0);
@@ -55,6 +52,7 @@ void	write_heredoc(char *del, int fd)
 		line = readline("> ");
 		if (!line)
 		{
+			ft_putendl_fd("END", 2);
 			g_sig ^= INTERACT;
 			return ;
 		}
