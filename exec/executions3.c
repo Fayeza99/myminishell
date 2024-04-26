@@ -6,7 +6,7 @@
 /*   By: fnikzad <fnikzad@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 13:06:55 by fnikzad           #+#    #+#             */
-/*   Updated: 2024/04/24 18:27:30 by fnikzad          ###   ########.fr       */
+/*   Updated: 2024/04/26 14:33:09 by fnikzad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,7 +132,13 @@ void	exec_without_pipe(t_mini *shell)
 	cmd = shell->current_cmd->content;
 	if (valid_builtins(cmd->argv[0]))
 	{
-		shell->exit_status = 0;
+		if (fd[0] == -1 || fd[1] == -1)
+		{
+			ft_putendl_fd("no such file or directory", 2);
+			shell->exit_status = 1;
+			// exit(shell->exit_status);
+			return ;
+		}
 		built_ins2(shell, cmd);
 		return ;
 	}
@@ -142,20 +148,14 @@ void	exec_without_pipe(t_mini *shell)
 	{
 		ft_putendl_fd("no such file or directory", 2);
 		shell->exit_status = 1;
+		// exit(shell->exit_status);
+
 		return ;
 	}
 	pid_t pid;
 	pid = fork();
-	find_path(shell, cmd->argv[0]);
-	if (shell->exit_status == 1 && !valid_builtins(cmd->argv[0]))
-	{
-			shell->exit_status = 1;
-	}
 	if (!pid)
 	{
-		// printf("%d\n", cmd->fd_in);
-		// printf("%d\n", cmd->fd_out);
-		
 		if (fd[0] != STDIN_FILENO)
 		{
 			dup2(fd[0], STDIN_FILENO);
@@ -169,21 +169,12 @@ void	exec_without_pipe(t_mini *shell)
 		
 		execve(find_path(shell, cmd->argv[0]), cmd->argv, shell->env);
 	}
-
-	// close(fd[1]);
-	// close(fd[0]);
-	// free()(cmd->fd_out);
-	// free(cmd->fd_in);
-	// shell->exit_status = 0;
-	
 	waitpid(pid, NULL, 0);
 }
 
 
-
-void	exec_helper(t_mini *shell, int **fd, char **s, int i, t_cmd *cmd)
+void redirect_std_io(int **fd, int i, t_mini *shell)
 {
-	(void)s;
 	if (i == 0)
 	{
 		if (dup2(fd[i][1], STDOUT_FILENO) == -1)
@@ -191,9 +182,6 @@ void	exec_helper(t_mini *shell, int **fd, char **s, int i, t_cmd *cmd)
 	}
 	else if (i == count_cmd(shell))
 	{
-		// printf("world\n");
-		// printf("%d\n", STDOUT_FILENO);
-
 		dup2(fd[i - 1][0], STDIN_FILENO);
 	}
 	else
@@ -201,13 +189,23 @@ void	exec_helper(t_mini *shell, int **fd, char **s, int i, t_cmd *cmd)
 		dup2(fd[i - 1][0], STDIN_FILENO);
 		dup2(fd[i][1], STDOUT_FILENO);
 	}
-	int j = 0;
-	while (j <= count_cmd(shell))
+}
+
+void close_file_descriptors(int **fd, int cmd_count)
+{
+	int	j;
+
+	j = 0;
+	while (j <= cmd_count)
 	{
 		close(fd[j][0]);
 		close(fd[j][1]);
 		j++;
 	}
+}
+
+void handle_fd_redirections(t_cmd *cmd)
+{
 	if (cmd->fd_in != STDIN_FILENO)
 	{
 		dup2(cmd->fd_in, STDIN_FILENO);
@@ -218,25 +216,45 @@ void	exec_helper(t_mini *shell, int **fd, char **s, int i, t_cmd *cmd)
 		dup2(cmd->fd_out, STDOUT_FILENO);
 		close(cmd->fd_out);
 	}
+}
 
+void execute_command(t_mini *shell, t_cmd *cmd)
+{
+	if (cmd->fd_in == -1 || cmd->fd_in == -1)
+	{
+		ft_putendl_fd("---no such file or directory", 2);
+		shell->exit_status = 1;
+		exit(shell->exit_status);
+		return ;
+	}
 	if (valid_builtins(cmd->argv[0]))
 	{
+		if (cmd->fd_in == -1 || cmd->fd_in == -1)
+		{
+			ft_putendl_fd("no such file or directory", 2);
+			shell->exit_status = 1;
+			exit(shell->exit_status);
+
+			return ;
+		}
 		built_ins2(shell, cmd);
 		exit(0);
 	}
 	else
 	{
-		// if (access(cmd->argv[1], F_OK) == -1)
-		// {
-		// 	printf("found\n");
-		// 	shell->exit_status = 1;
-		// }
-		// printf("%s\n", cmd->argv[1]);
+		
 		execve(find_path(shell, cmd->argv[0]), cmd->argv, shell->env);
 	}
 }
 
-
+void exec_helper(t_mini *shell, int **fd, char **s, int i, t_cmd *cmd)
+{
+	(void)s;
+	redirect_std_io(fd, i, shell);
+	close_file_descriptors(fd, count_cmd(shell));
+	handle_fd_redirections(cmd);
+	execute_command(shell, cmd);
+}
 
 void	forker(t_mini *shell, int i)
 {
@@ -248,29 +266,23 @@ void	forker(t_mini *shell, int i)
 	}
 }
 
-void	multi_pipe(t_mini *shell)
+void initialize_multi_pipe(t_mini *shell)
 {
-	t_cmd *cmd;
-	t_list *list;
-	list = shell->current_cmd;
-	
-	shell->pids = malloc (sizeof(pid_t) * count_cmd(shell) + 1);
-	cmd = list->content;
-	int	**fd;
-	fd = malloc_pipes(shell);
+	shell->pids = malloc(sizeof(pid_t) * count_cmd(shell) + 1);
+}
+
+void cleanup_multi_pipe(t_mini *shell)
+{
+	free(shell->pids);
+}
+
+void loop_through_commands(t_mini *shell, int **fd)
+{
+	t_list *list = shell->current_cmd;
+	t_cmd *cmd = list->content;
 	int i = 0;
 	while (i <= count_cmd(shell))
 	{
-		// if (valid_builtins(cmd->argv[0]))
-		// {
-		// 	i++;
-		// 	list = list->next;
-		// 	if (list != NULL)
-		// 		cmd = list->content;
-		// 	continue;
-		// }
-		// if (ft_strcmp(cmd->argv[0], "exit") == 0)
-		// 	exit(shell->exit_status);
 		if (find_path(shell, cmd->argv[0]) == NULL)
 		{
 			i++;
@@ -281,67 +293,46 @@ void	multi_pipe(t_mini *shell)
 		}
 		forker(shell, i);
 		if (!shell->pids[i])
-		{
-			
 			exec_helper(shell, fd, cmd->argv, i, cmd);
-		}
 		i++;
 		list = list->next;
 		if (list != NULL)
 			cmd = list->content;
 	}
-	int j = 0;
-	while (j <= count_cmd(shell))
-	{
-		close(fd[j][0]);
-		close(fd[j][1]);
-		j++;
-	}
-	free_pipes(fd, count_cmd(shell));
+}
+
+
+void wait_for_child_processes(t_mini *shell)
+{
+	int i;
+	
 	i = 0;
 	while (i <= count_cmd(shell))
 		waitpid(shell->pids[i++], NULL, 0);
 }
 
-//  if (access(filename, F_OK) == -1) {
-//         // File doesn't exist
-//         return 0;
-//     }
-
-//     // Check execute permission
-//     if (access(filename, X_OK) == -1) {
-//         // Execute permission denied
-//         return 0;
-//     }
-
-
-// void	command_check(t_mini *shell)
-// {
-// 	t_cmd *cmd = shell->current_cmd;
-// 	if (access)
-// }
+void multi_pipe(t_mini *shell)
+{
+	initialize_multi_pipe(shell);
+	int **fd = malloc_pipes(shell);
+	loop_through_commands(shell, fd);
+	close_file_descriptors(fd, count_cmd(shell));
+	free_pipes(fd, count_cmd(shell));
+	wait_for_child_processes(shell);
+	cleanup_multi_pipe(shell);
+}
 
 
 void m_exec(t_mini *shell)
 {
-	// int count = count_cmd(shell);
-	// if (count == -1)
-	// 	return ;
-	// printf("%d\n", shell->exit_status);
-	// if (shell->exit_status)
-	// 	return ;
-	
+	if (!shell->command[0])
+		return ;
 	if (count_cmd(shell) == 0)
 	{
-		
 		exec_without_pipe(shell);
-		// printf("here --- %d\n", shell->flag);
-
-		return;
 	}
 	else
 	{
-		// printf("exit :%d\n", shell->exit_status);
 		multi_pipe(shell);
 	}
 }

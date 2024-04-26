@@ -6,7 +6,7 @@
 /*   By: asemsey <asemsey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 13:31:27 by asemsey           #+#    #+#             */
-/*   Updated: 2024/04/26 16:29:54 by asemsey          ###   ########.fr       */
+/*   Updated: 2024/04/26 16:31:09 by asemsey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,13 +30,13 @@ int	check_fd(t_mini *shell, char *filename)
 		if (S_ISDIR(file_stat.st_mode))
 		{
 			// It's a directory
+			ft_putendl_fd(" is a directory", 2);
 			shell->exit_status = 126;
 			return 1;
 		}
 		else
 		{
-			// It's not a directory
-			;
+			// shell->exit_status = 1;
 		}
 	}
 	return (0);
