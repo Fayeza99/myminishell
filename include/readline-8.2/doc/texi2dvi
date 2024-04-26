@@ -588,7 +588,7 @@ move_to_dest ()
   for file
   do
     test -f "$file" \
-    || error 1 "no such file or directory: $file"
+    || error 1 ": $file"
     case $tidy:$oname in
       true:)  mtd_destdir=$orig_pwd
               mtd_destfile=$mtd_destdir/$file;;

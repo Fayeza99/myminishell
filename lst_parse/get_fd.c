@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_fd.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asemsey <asemsey@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fnikzad <fnikzad@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 13:31:27 by asemsey           #+#    #+#             */
-/*   Updated: 2024/04/25 11:41:37 by asemsey          ###   ########.fr       */
+/*   Updated: 2024/04/26 14:06:30 by fnikzad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,12 +33,13 @@ int	check_fd(t_mini *shell, char *filename)
 		if (S_ISDIR(file_stat.st_mode))
 		{
 			// It's a directory
+			ft_putendl_fd(" is a directory", 2);
 			shell->exit_status = 126;
 			return 1;
 		}
 		else
 		{
-			// It's not a directory
+			// shell->exit_status = 1;
 			return 0;
 		}
 	}

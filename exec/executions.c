@@ -6,7 +6,7 @@
 /*   By: fnikzad <fnikzad@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 11:53:12 by fnikzad           #+#    #+#             */
-/*   Updated: 2024/04/21 13:42:30 by fnikzad          ###   ########.fr       */
+/*   Updated: 2024/04/26 14:15:15 by fnikzad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,8 @@ int	ex_cd(char **args, t_mini *shell)
 			
 			ft_putendl_fd(" No such file or directory", 2);
 			shell->exit_status = 1;
+		exit(shell->exit_status);
+
 		}
 		
 	}

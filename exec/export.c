@@ -6,7 +6,7 @@
 /*   By: fnikzad <fnikzad@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 16:53:28 by fnikzad           #+#    #+#             */
-/*   Updated: 2024/04/23 12:16:20 by fnikzad          ###   ########.fr       */
+/*   Updated: 2024/04/25 18:41:19 by fnikzad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -244,10 +244,6 @@ int	valid_export(char **args)
 		{
 			if (args[i][j] == '=')
 				eq++;
-			// if (!(ft_isalpha(args[i][0]) || args[i][0] == '_' ))
-			// 	return (0);
-			// if (!(ft_isalnum(args[i][j]) || args[i][j] == '_' || (j > 0 && args[i][j] == '=')))
-			// 	return (0);
 			if (!(valid_var_name(args[i][j], j) || args[i][j] == '=') || ft_isspace(args[i][j]))
 				return (0);
 			j++;
@@ -290,48 +286,107 @@ void	export2(char **args, t_mini *shell)
 	}
 }
 
-void	export1(char **args, t_mini *shell)
+int update_existing_variable(char *arg, t_mini *shell)
 {
-	int	i;
-	int	j;
-	int	l;
-	char **new_ev;
+	int l;
 	
-	i = 0;
 	l = 0;
+	while (shell->env[l] != NULL) {
+		if (ft_strncmp(shell->env[l], arg, ft_strchr(arg, '=') - arg + 1) == 0)
+		{
+			free(shell->env[l]);
+			shell->env[l] = ft_strdup(arg);
+			return (1);
+		}
+		l++;
+	}
+	return (0);
+}
+void add_new_variable(char *arg, t_mini *shell)
+{
+	int k;
+	
+	k = len_str_arr(shell->env);
+	char **new_ev = (char **)malloc(sizeof(char *) * (k + 2));
+	if (!new_ev)
+		return;
+	k = 0;
+	while (shell->env[k])
+	{
+		new_ev[k] = ft_strdup(shell->env[k]);
+		k++;
+	}
+	new_ev[k++] = ft_strdup(arg);
+	new_ev[k] = NULL;
+	free(shell->env);
+	shell->env = new_ev;
+}
+
+void manage_env_variables(char **args, t_mini *shell)
+{
+	int	j;
+	int	found;
+	
 	j = 1;
 	while (args[j])
 	{
-		l = 0;
-			while (shell->env[l])
-			{
-				if (ft_strncmp(shell->env[l], args[j], ft_strchr(args[j], '=') - args[j] + 1) == 0)
-				{
-					free (shell->env[l]);
-					shell->env[l] = ft_strdup(args[j++]);
-					l = 0;
-					if (!args[j])
-						return ;
-				}
-				l++;
-			}
-			int k = len_str_arr(shell->env);
-			new_ev = (char **) malloc (sizeof(char *) * (k + 2));
-			if (!new_ev)
-				return ;
-			k = 0;
-			while (shell->env[k])
-			{
-				new_ev[k] = ft_strdup(shell->env[k]);
-				k++;
-			}
-			new_ev[k++] = ft_strdup(args[j++]);
-			new_ev[k] = NULL;
-			shell->env = new_ev;
-			if (!args[j])
-				return ;
+		found = update_existing_variable(args[j], shell);
+		if (!found) {
+			add_new_variable(args[j], shell);
+		}
+		j++;
 	}
 }
+
+void export1(char **args, t_mini *shell)
+{
+	manage_env_variables(args, shell);
+}
+
+
+
+// void	export1(char **args, t_mini *shell)
+// {
+// 	int	i;
+// 	int	j;
+// 	int	l;
+// 	char **new_ev;
+	
+// 	i = 0;
+// 	l = 0;
+// 	j = 1;
+// 	while (args[j])
+// 	{
+// 		l = 0;
+// 			while (shell->env[l])
+// 			{
+// 				if (ft_strncmp(shell->env[l], args[j], ft_strchr(args[j], '=') - args[j] + 1) == 0)
+// 				{
+// 					free (shell->env[l]);
+// 					shell->env[l] = ft_strdup(args[j++]);
+// 					l = 0;
+// 					if (!args[j])
+// 						return ;
+// 				}
+// 				l++;
+// 			}
+// 			int k = len_str_arr(shell->env);
+// 			new_ev = (char **) malloc (sizeof(char *) * (k + 2));
+// 			if (!new_ev)
+// 				return ;
+// 			k = 0;
+// 			while (shell->env[k])
+// 			{
+// 				new_ev[k] = ft_strdup(shell->env[k]);
+// 				k++;
+// 			}
+// 			new_ev[k++] = ft_strdup(args[j++]);
+// 			new_ev[k] = NULL;
+// 			shell->env = new_ev;
+// 			if (!args[j])
+// 				return ;
+// 	}
+// }
 
 // int	ex_export(t_mini *shell, char **args)  
 // {

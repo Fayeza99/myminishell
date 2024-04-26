@@ -6,7 +6,7 @@
 /*   By: fnikzad <fnikzad@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 14:26:05 by fnikzad           #+#    #+#             */
-/*   Updated: 2024/04/25 09:57:52 by fnikzad          ###   ########.fr       */
+/*   Updated: 2024/04/26 14:39:11 by fnikzad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,6 +109,30 @@ int	file_check(t_mini *shell, char *s)
 	return (1);
 }
 
+
+void	file_check1(char *command, t_mini *mini)
+{
+	struct stat	path_stat;
+
+	if (stat(command, &path_stat) == 0)
+	{
+		if (S_ISDIR(path_stat.st_mode))
+		{
+			ft_putendl_fd("is a directory", 2);
+			mini->exit_status = 126;
+			return ;
+			
+		}
+		else if (!(path_stat.st_mode & S_IXUSR))
+		{
+			mini->exit_status = 126;
+			exit(mini->exit_status);
+			return ;
+			
+		}
+	}
+}
+
 char *find_path(t_mini *shell, char *s)
 {
 	char	*path;
@@ -117,7 +141,7 @@ char *find_path(t_mini *shell, char *s)
 	int		i;
 	char	*tmp;
 
-	t_cmd *command = shell->current_cmd->content;
+	// t_cmd *command = shell->current_cmd->content;
 	
 	if (!file_check(shell, s))
 		return NULL;
@@ -130,22 +154,18 @@ char *find_path(t_mini *shell, char *s)
 	tmp = ft_strjoin("/", s);
 	while (all_path[i])
 	{
+		// file_check1(tmp, shell);
 		cmd = ft_strjoin(all_path[i], tmp);
 		if (access(cmd, F_OK) == 0)
 		{
 			if (access(cmd, X_OK) == 0)
 			{
-				if (access(command->argv[1], F_OK) == -1 && !valid_builtins(command->argv[0]))
-				{
-					shell->exit_status = 1;
-				}
+				// exit(0);
 				break;
 			}
-			// shell->exit_status = 126;
-			// return NULL;
+			shell->exit_status = 126;
 		}
 		free (cmd);
-		// printf("hello here\n");
 		i++;
 	}
 	if(!all_path[i] && !valid_builtins(s))

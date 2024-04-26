@@ -6,7 +6,7 @@
 /*   By: fnikzad <fnikzad@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 13:17:15 by fnikzad           #+#    #+#             */
-/*   Updated: 2024/04/22 13:10:56 by fnikzad          ###   ########.fr       */
+/*   Updated: 2024/04/26 14:32:57 by fnikzad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,10 +52,15 @@
 
 void		built_ins2(t_mini *shell, t_cmd *cmd)
 {
-	// t_cmd *cmd;
-	// cmd = (t_cmd *) shell->current_cmd->content;
-	// printf("%s\n", cmd->argv[0]);
+	if (cmd->fd_in == -1 || cmd->fd_out == -1)
+	{
+		ft_putendl_fd("no such file or directory", 2);
+		shell->exit_status = 1;
+		exit(shell->exit_status);
 
+		return ;
+	}
+	
 	if (ft_strcmp(cmd->argv[0], "cd") == 0)
 	{
 		ex_cd(cmd->argv, shell);
