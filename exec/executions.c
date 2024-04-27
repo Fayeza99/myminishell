@@ -6,7 +6,7 @@
 /*   By: fnikzad <fnikzad@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 11:53:12 by fnikzad           #+#    #+#             */
-/*   Updated: 2024/04/26 14:15:15 by fnikzad          ###   ########.fr       */
+/*   Updated: 2024/04/27 15:55:12 by fnikzad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,5 +66,6 @@ int	ex_pwd(char **args)
 		else
 			perror("failed");
 	}
+
 	return (0);
 }

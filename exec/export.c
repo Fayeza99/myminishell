@@ -6,7 +6,7 @@
 /*   By: fnikzad <fnikzad@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 16:53:28 by fnikzad           #+#    #+#             */
-/*   Updated: 2024/04/25 18:41:19 by fnikzad          ###   ########.fr       */
+/*   Updated: 2024/04/27 15:28:52 by fnikzad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -243,9 +243,12 @@ int	valid_export(char **args)
 		while (args[i][j])
 		{
 			if (args[i][j] == '=')
+			{
 				eq++;
+				break ;
+			}
 			if (!(valid_var_name(args[i][j], j) || args[i][j] == '=') || ft_isspace(args[i][j]))
-				return (0);
+				return(0);
 			j++;
 		}
 		i++;
@@ -420,6 +423,10 @@ void export1(char **args, t_mini *shell)
 int	ex_export(t_mini *shell, char **args)  
 {
 	int		i;
+	
+	// i = -1;
+	// while (args[++i])
+	// 	printf("args %d = %s\n", i, args[i]);
 	if (ft_strcmp(args[0], "export") == 0 && !args[1])
 	{
 		i = 0;

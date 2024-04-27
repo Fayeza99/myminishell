@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_fd.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asemsey <asemsey@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fnikzad <fnikzad@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 13:31:27 by asemsey           #+#    #+#             */
-/*   Updated: 2024/04/26 16:31:09 by asemsey          ###   ########.fr       */
+/*   Updated: 2024/04/27 14:47:02 by fnikzad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 int	check_fd(t_mini *shell, char *filename)
 {
+	(void) shell;
 	struct stat file_stat;
 	// if (access(filename, F_OK) == -1) {
     //     // File doesn't exist
@@ -31,7 +32,7 @@ int	check_fd(t_mini *shell, char *filename)
 		{
 			// It's a directory
 			ft_putendl_fd(" is a directory", 2);
-			shell->exit_status = 126;
+			exit(126);
 			return 1;
 		}
 		else

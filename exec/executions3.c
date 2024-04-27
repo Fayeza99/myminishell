@@ -6,7 +6,7 @@
 /*   By: fnikzad <fnikzad@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 13:06:55 by fnikzad           #+#    #+#             */
-/*   Updated: 2024/04/26 14:33:09 by fnikzad          ###   ########.fr       */
+/*   Updated: 2024/04/27 15:35:39 by fnikzad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,7 +136,6 @@ void	exec_without_pipe(t_mini *shell)
 		{
 			ft_putendl_fd("no such file or directory", 2);
 			shell->exit_status = 1;
-			// exit(shell->exit_status);
 			return ;
 		}
 		built_ins2(shell, cmd);
@@ -169,7 +168,9 @@ void	exec_without_pipe(t_mini *shell)
 		
 		execve(find_path(shell, cmd->argv[0]), cmd->argv, shell->env);
 	}
-	waitpid(pid, NULL, 0);
+	int status;
+	waitpid(pid, &status, 0);
+	shell->exit_status = WEXITSTATUS(status);
 }
 
 
@@ -222,7 +223,7 @@ void execute_command(t_mini *shell, t_cmd *cmd)
 {
 	if (cmd->fd_in == -1 || cmd->fd_in == -1)
 	{
-		ft_putendl_fd("---no such file or directory", 2);
+		ft_putendl_fd("no such file or directory", 2);
 		shell->exit_status = 1;
 		exit(shell->exit_status);
 		return ;
@@ -238,7 +239,7 @@ void execute_command(t_mini *shell, t_cmd *cmd)
 			return ;
 		}
 		built_ins2(shell, cmd);
-		exit(0);
+		exit(shell->exit_status);
 	}
 	else
 	{
@@ -305,16 +306,20 @@ void loop_through_commands(t_mini *shell, int **fd)
 void wait_for_child_processes(t_mini *shell)
 {
 	int i;
+	int status;
 	
 	i = 0;
 	while (i <= count_cmd(shell))
-		waitpid(shell->pids[i++], NULL, 0);
+		waitpid(shell->pids[i++], &status, 0);
+	shell->exit_status = WEXITSTATUS(status);
 }
 
 void multi_pipe(t_mini *shell)
 {
+	int **fd;
+
 	initialize_multi_pipe(shell);
-	int **fd = malloc_pipes(shell);
+	fd = malloc_pipes(shell);
 	loop_through_commands(shell, fd);
 	close_file_descriptors(fd, count_cmd(shell));
 	free_pipes(fd, count_cmd(shell));

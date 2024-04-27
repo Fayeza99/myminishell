@@ -6,7 +6,7 @@
 /*   By: fnikzad <fnikzad@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 14:26:05 by fnikzad           #+#    #+#             */
-/*   Updated: 2024/04/26 14:39:11 by fnikzad          ###   ########.fr       */
+/*   Updated: 2024/04/27 15:34:05 by fnikzad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,10 +100,10 @@ int	file_check(t_mini *shell, char *s)
 				;
 			}
 			else
-				shell->exit_status = 126;
+				exit(126);
 			return 0;
 		}
-		shell->exit_status = 127;
+		exit(127);
 		return 0;
 	}
 	return (1);
@@ -112,6 +112,7 @@ int	file_check(t_mini *shell, char *s)
 
 void	file_check1(char *command, t_mini *mini)
 {
+	(void) mini;
 	struct stat	path_stat;
 
 	if (stat(command, &path_stat) == 0)
@@ -119,14 +120,16 @@ void	file_check1(char *command, t_mini *mini)
 		if (S_ISDIR(path_stat.st_mode))
 		{
 			ft_putendl_fd("is a directory", 2);
-			mini->exit_status = 126;
+			// mini->exit_status = 126;
+			exit(126);
 			return ;
 			
 		}
 		else if (!(path_stat.st_mode & S_IXUSR))
 		{
-			mini->exit_status = 126;
-			exit(mini->exit_status);
+			// mini->exit_status = 126;
+			exit(126);
+			// exit(mini->exit_status);
 			return ;
 			
 		}
@@ -156,14 +159,15 @@ char *find_path(t_mini *shell, char *s)
 	{
 		// file_check1(tmp, shell);
 		cmd = ft_strjoin(all_path[i], tmp);
+		// printf("%s\n", cmd);
 		if (access(cmd, F_OK) == 0)
 		{
 			if (access(cmd, X_OK) == 0)
 			{
-				// exit(0);
 				break;
 			}
-			shell->exit_status = 126;
+			exit(126);
+
 		}
 		free (cmd);
 		i++;
@@ -173,12 +177,11 @@ char *find_path(t_mini *shell, char *s)
 		ft_putstr_fd("bash: ", 2);
 		ft_putstr_fd(s, 2);
 		ft_putendl_fd(": command not found", 2);
-		shell->exit_status = 127;
+		exit(127);
 		free(tmp);
 		ft_freearr(all_path);
 		return NULL;
 	}
-	shell->exit_status = 0;
 	
 	free(tmp);
 	ft_freearr(all_path);
