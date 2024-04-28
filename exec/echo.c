@@ -1,36 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtins.c                                         :+:      :+:    :+:   */
+/*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fnikzad <fnikzad@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 16:12:09 by fnikzad           #+#    #+#             */
-/*   Updated: 2024/04/26 13:51:22 by fnikzad          ###   ########.fr       */
+/*   Updated: 2024/04/28 14:34:05 by fnikzad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-// int	ex_pwd(char **args)
-// {
-// 	char	cwd[1024];
-	
-// 	if (ft_strncmp(args[0], "pwd", 3) == 0)
-// 	{
-// 		if (getcwd(cwd, sizeof(cwd)) != 0)
-// 			printf("%s\n", cwd);
-// 		else
-// 			perror("failed");
-// 	}
-// 	return (0);
-// }
-
-
-
 int	check_newline1(char *s)
 {
-	int i = 0;
+	int	i;
+
+	i = 0;
 	if (s[0] == '-')
 		i++;
 	else
@@ -45,12 +31,13 @@ int	check_newline1(char *s)
 	return (i);
 }
 
-
 int	check_newline(char **s)
 {
-	int i = 0;
-	int j = 1;
+	int	i;
+	int	j;
 
+	i = 0;
+	j = 1;
 	while (check_newline1(s[j]))
 	{
 		i = 0;
@@ -68,48 +55,55 @@ int	check_newline(char **s)
 	return (j);
 }
 
+void	echo_arguments(char **argv, int fd_out, int start_index, int newline)
+{
+	int	i;
 
+	i = start_index;
+	while (argv[i])
+	{
+		ft_putstr_fd(argv[i], fd_out);
+		if (argv[i + 1])
+			ft_putstr_fd(" ", fd_out);
+		i++;
+	}
+	if (newline)
+		ft_putstr_fd("\n", fd_out);
+}
+
+int	determine_start_index(char **argv, int newline)
+{
+	int	i;
+
+	i = 0;
+	if (ft_strcmp(argv[0], "echo") == 0)
+	{
+		if (check_newline1(argv[1]))
+			newline = 1;
+		if (argv[1] && argv[newline] && (check_newline(argv) != 0))
+			i = newline;
+		else if (argv[1] && !argv[newline] && (check_newline(argv) != 0))
+			return (0);
+		else
+			i = 1;
+	}
+	return (i);
+}
 
 int	ex_echo(t_mini *shell, t_cmd *cmd)
 {
-	(void) shell;
-	int	i;
-	// t_cmd	*cmd;
-	int j = 0;
-	// cmd = (t_cmd *) shell->current_cmd->content;
-	// int k = echo_helper(cmd->argv);
+	int	j;
+	int	start_index;
+
+	(void)shell;
+	j = check_newline(cmd->argv);
 	if (!cmd->argv[1])
 	{
 		printf("\n");
 		return (0);
-		
 	}
-
-	int k = check_newline(cmd->argv);
-	i = 0;
-	if (ft_strcmp(cmd->argv[0], "echo") == 0)
-	{
-		if (check_newline1(cmd->argv[1]))
-			j = 1;
-		if (cmd->argv[1] && cmd->argv[k] && (check_newline(cmd->argv) != 0))
-		{
-			i = k;
-		}
-		else if (cmd->argv[1] && !cmd->argv[k] && (check_newline(cmd->argv) != 0))
-			return (0);
-		else
-			i = 1;
-		while (cmd->argv[i])
-		{
-			// printf("%s", cmd->argv[i++]);
-			ft_putstr_fd(cmd->argv[i], cmd->fd_out);
-			if (cmd->argv[i + 1])
-				ft_putstr_fd(" ", cmd->fd_out);
-			i++;
-		}
-	}
-	if (j == 0)
-		ft_putstr_fd("\n", cmd->fd_out);
-		
+	j = check_newline(cmd->argv);
+	start_index = determine_start_index(cmd->argv, j);
+	echo_arguments(cmd->argv, cmd->fd_out, start_index, j);
 	return (0);
 }
