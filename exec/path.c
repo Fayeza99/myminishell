@@ -6,7 +6,7 @@
 /*   By: fnikzad <fnikzad@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 14:26:05 by fnikzad           #+#    #+#             */
-/*   Updated: 2024/04/29 12:13:53 by fnikzad          ###   ########.fr       */
+/*   Updated: 2024/04/29 14:50:46 by fnikzad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,10 +57,9 @@ char	*find_valid_command(char *command, char **all_path)
 		free (cmd);
 		i++;
 	}
-	// free (cmd);
-	free (tmp);
 	if (!cmd_path && !valid_builtins(command))
 		handle_command_not_found(command);
+	free (tmp);
 	return (cmd_path);
 }
 

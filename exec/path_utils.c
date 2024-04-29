@@ -6,7 +6,7 @@
 /*   By: fnikzad <fnikzad@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/28 13:06:36 by fnikzad           #+#    #+#             */
-/*   Updated: 2024/04/29 10:34:27 by fnikzad          ###   ########.fr       */
+/*   Updated: 2024/04/29 14:55:12 by fnikzad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,10 @@ void	handle_command_not_found(char *command)
 char	*check_permissions(char *cmd)
 {
 	if (access(cmd, X_OK) == 0)
+	{
+		free (cmd);
 		return (cmd);
+	}
 	else
 	{
 		handle_no_permission(cmd);
