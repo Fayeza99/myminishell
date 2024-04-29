@@ -6,18 +6,20 @@
 /*   By: fnikzad <fnikzad@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/28 13:28:01 by fnikzad           #+#    #+#             */
-/*   Updated: 2024/04/28 14:40:16 by fnikzad          ###   ########.fr       */
+/*   Updated: 2024/04/29 10:22:52 by fnikzad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int		count_cmd(t_mini *shell)
+int	count_cmd(t_mini *shell)
 {
-	t_cmd *cmd = shell->current_cmd->content;
-	int i = 0;
-	t_list *s;
+	t_cmd	*cmd;
+	int		i;
+	t_list	*s;
 
+	i = 0;
+	cmd = shell->current_cmd->content;
 	if (cmd->command[0] == '\0')
 	{
 		return (-1);

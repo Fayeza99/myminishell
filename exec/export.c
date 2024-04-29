@@ -6,19 +6,19 @@
 /*   By: fnikzad <fnikzad@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 16:53:28 by fnikzad           #+#    #+#             */
-/*   Updated: 2024/04/28 15:14:42 by fnikzad          ###   ########.fr       */
+/*   Updated: 2024/04/29 10:20:27 by fnikzad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-
-int update_existing_variable(char *arg, t_mini *shell)
+int	update_existing_variable(char *arg, t_mini *shell)
 {
-	int l;
-	
+	int	l;
+
 	l = 0;
-	while (shell->env[l] != NULL) {
+	while (shell->env[l] != NULL)
+	{
 		if (ft_strncmp(shell->env[l], arg, ft_strchr(arg, '=') - arg + 1) == 0)
 		{
 			free(shell->env[l]);
@@ -29,14 +29,16 @@ int update_existing_variable(char *arg, t_mini *shell)
 	}
 	return (0);
 }
+
 void	add_new_variable(char *arg, t_mini *shell)
 {
-	int	k;
+	int		k;
+	char	**new_ev;
 
 	k = len_str_arr(shell->env);
-	char **new_ev = (char **)malloc(sizeof(char *) * (k + 2));
+	new_ev = (char **)malloc(sizeof(char *) * (k + 2));
 	if (!new_ev)
-		return;
+		return ;
 	k = 0;
 	while (shell->env[k])
 	{
@@ -49,29 +51,29 @@ void	add_new_variable(char *arg, t_mini *shell)
 	shell->env = new_ev;
 }
 
-void manage_env_variables(char **args, t_mini *shell)
+void	manage_env_variables(char **args, t_mini *shell)
 {
 	int	j;
 	int	found;
-	
+
 	j = 1;
 	while (args[j])
 	{
 		found = update_existing_variable(args[j], shell);
-		if (!found) {
+		if (!found)
+		{
 			add_new_variable(args[j], shell);
 		}
 		j++;
 	}
 }
 
-void export1(char **args, t_mini *shell)
+void	export1(char **args, t_mini *shell)
 {
 	manage_env_variables(args, shell);
 }
 
-
-int	ex_export(t_mini *shell, char **args)  
+int	ex_export(t_mini *shell, char **args)
 {
 	int		i;
 

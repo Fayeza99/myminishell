@@ -6,7 +6,7 @@
 /*   By: fnikzad <fnikzad@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/28 13:03:06 by fnikzad           #+#    #+#             */
-/*   Updated: 2024/04/28 15:14:15 by fnikzad          ###   ########.fr       */
+/*   Updated: 2024/04/29 10:32:42 by fnikzad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,33 +64,40 @@ int	valid_export(char **args)
 	return (1);
 }
 
-void	export2(char **args, t_mini *shell)
+void	update_environment(char **args, t_mini *shell)
 {
-	int	i;
 	int	j;
 	int	l;
 
+	j = 1;
 	l = 0;
-	i = 0;
-	while (shell->env[i++])
+	while (args[j])
 	{
-		j = 1;
-		while (args[j])
+		l = 0;
+		while (shell->env[l])
 		{
-			l = 0;
-			while (shell->env[l])
+			if (ft_strncmp(shell->env[l], args[j],
+					ft_strchr(args[j], '=') - args[j] + 1) == 0)
 			{
-				if (ft_strncmp(shell->env[l], args[j],
-						ft_strchr(args[j], '=') - args[j] + 1) == 0)
-				{
-					free (shell->env[l]);
-					shell->env[l] = ft_strdup(args[j++]);
-					if (!args[j])
-						return ;
-				}
-				l++;
+				free(shell->env[l]);
+				shell->env[l] = ft_strdup(args[j++]);
+				if (!args[j])
+					return ;
 			}
-			j++;
+			l++;
 		}
+		j++;
+	}
+}
+
+void	export2(char **args, t_mini *shell)
+{
+	int	i;
+
+	i = 0;
+	while (shell->env[i])
+	{
+		update_environment(args, shell);
+		i++;
 	}
 }
