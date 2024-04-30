@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_help.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asemsey <asemsey@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fnikzad <fnikzad@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 16:09:23 by asemsey           #+#    #+#             */
-/*   Updated: 2024/04/26 11:22:26 by asemsey          ###   ########.fr       */
+/*   Updated: 2024/04/30 13:11:55 by fnikzad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ char	*env_next(t_mini *mini, char *str, int *skip, int inquotes)
 			return (free(name), ft_strdup(ft_getenv(env_getname(str) \
 				, mini->env, 1)));
 	}
-	while ( *str && str[*skip] && str[*skip] != '$')
+	while (*str && str[*skip] && str[*skip] != '$')
 		(*skip)++;
 	return (ft_substr(str, 0, *skip));
 }

@@ -6,7 +6,7 @@
 /*   By: fnikzad <fnikzad@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 19:21:28 by asemsey           #+#    #+#             */
-/*   Updated: 2024/04/24 17:49:25 by fnikzad          ###   ########.fr       */
+/*   Updated: 2024/04/30 12:19:32 by fnikzad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ int			env_validchar(char c, int index);
 // argv
 
 void		nullterminate_cmd(t_list *lst);
-void		set_cmd_fd(t_mini *shell, t_cmd *cmd);
+void		set_cmd_fd(t_cmd *cmd);
 t_list		*get_argv_lst(char *cmd);
 void		split_argv(t_list *argv);
 t_type		*get_type_arr(t_list *argv);

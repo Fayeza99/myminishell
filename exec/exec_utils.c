@@ -6,7 +6,7 @@
 /*   By: fnikzad <fnikzad@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/28 13:23:57 by fnikzad           #+#    #+#             */
-/*   Updated: 2024/04/28 14:35:30 by fnikzad          ###   ########.fr       */
+/*   Updated: 2024/04/30 12:54:22 by fnikzad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 void	forker(t_mini *shell, int i)
 {
+	g_sig = 1;
 	shell->pids[i] = fork();
 	if (shell->pids[i] == -1)
 	{
@@ -70,4 +71,5 @@ void	wait_for_child_processes(t_mini *shell)
 	while (i <= count_cmd(shell))
 		waitpid(shell->pids[i++], &status, 0);
 	shell->exit_status = WEXITSTATUS(status);
+	g_sig = 0;
 }

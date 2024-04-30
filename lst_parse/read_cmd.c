@@ -6,7 +6,7 @@
 /*   By: fnikzad <fnikzad@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 12:31:29 by asemsey           #+#    #+#             */
-/*   Updated: 2024/04/27 13:41:19 by fnikzad          ###   ########.fr       */
+/*   Updated: 2024/04/30 13:16:11 by fnikzad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ void	reprompt(char **str, int flag)
 {
 	char	*line;
 
-	g_sig |= INTERACT;
 	if (flag & S_QUOTE)
 		ft_putstr_fd("quote", STDERR_FILENO);
 	else if (flag & D_QUOTE)
@@ -26,13 +25,11 @@ void	reprompt(char **str, int flag)
 	line = readline("> ");
 	if (!line)
 	{
-		g_sig ^= INTERACT;
 		return ;
 	}
 	*str = ft_freejoin(*str, "\n");
 	*str = ft_freejoin(*str, line);
 	free(line);
-	g_sig ^= INTERACT;
 }
 
 int	check_cmd(char **str)
@@ -57,7 +54,6 @@ int	read_command(t_mini *mini)
 	mini->command = readline("minishell> ");
 	if (mini->command == NULL)
 	{
-		// ft_putendl_fd("--NULL--", 2);
 		exit(EXIT_SUCCESS);
 	}
 	if (!*mini->command)
@@ -70,6 +66,5 @@ int	read_command(t_mini *mini)
 	add_history(mini->command);
 	mini->command = ft_expand(mini, mini->command);
 	parse_input(mini);
-	// display_struct(mini);
 	return (1);
 }

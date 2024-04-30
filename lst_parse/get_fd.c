@@ -6,38 +6,22 @@
 /*   By: fnikzad <fnikzad@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 13:31:27 by asemsey           #+#    #+#             */
-/*   Updated: 2024/04/27 14:47:02 by fnikzad          ###   ########.fr       */
+/*   Updated: 2024/04/30 13:15:39 by fnikzad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int	check_fd(t_mini *shell, char *filename)
+int	check_fd(char *filename)
 {
-	(void) shell;
-	struct stat file_stat;
-	// if (access(filename, F_OK) == -1) {
-    //     // File doesn't exist
-    //     return 0;
-    // }
-    // Check execute permission
-    // if (access(filename, X_OK) == -1) {
-    //     // Execute permission denied
-	// 	shell->exit_status = 126;
-    //     return 1;
-    // }
-    if (stat(filename, &file_stat) == 0)
+	struct stat	file_stat;
+
+	if (stat(filename, &file_stat) == 0)
 	{
 		if (S_ISDIR(file_stat.st_mode))
 		{
-			// It's a directory
 			ft_putendl_fd(" is a directory", 2);
 			exit(126);
-			return 1;
-		}
-		else
-		{
-			// shell->exit_status = 1;
 		}
 	}
 	return (0);
@@ -47,14 +31,11 @@ void	write_heredoc(char *del, int fd)
 {
 	char	*line;
 
-	g_sig |= INTERACT;
 	while (1)
 	{
 		line = readline("> ");
 		if (!line)
 		{
-			ft_putendl_fd("END", 2);
-			g_sig ^= INTERACT;
 			return ;
 		}
 		if (!ft_strcmp(line, del))
@@ -65,7 +46,6 @@ void	write_heredoc(char *del, int fd)
 		ft_putendl_fd(line, fd);
 		free(line);
 	}
-	g_sig ^= INTERACT;
 }
 
 void	get_fd(char *str, t_type type, int *fd_in, int *fd_out)
@@ -89,7 +69,7 @@ void	get_fd(char *str, t_type type, int *fd_in, int *fd_out)
 	}
 }
 
-void	set_cmd_fd(t_mini *shell, t_cmd *cmd)
+void	set_cmd_fd(t_cmd *cmd)
 {
 	t_list	*arg;
 	char	*file;
@@ -106,7 +86,7 @@ void	set_cmd_fd(t_mini *shell, t_cmd *cmd)
 				file++;
 			while (is_whitespace(*file))
 				file++;
-			if (check_fd(shell, file))
+			if (check_fd(file))
 				return ;
 			get_fd((char *)file, cmd->type[i], \
 				&cmd->fd_in, &cmd->fd_out);

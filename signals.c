@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asemsey <asemsey@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fnikzad <fnikzad@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 15:19:57 by asemsey           #+#    #+#             */
-/*   Updated: 2024/04/26 12:29:07 by asemsey          ###   ########.fr       */
+/*   Updated: 2024/04/30 13:07:47 by fnikzad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,13 @@
 void	mini_handler(int sig)
 {
 	(void)sig;
-	// if (g_sig == INTERACT)
-	// {
+	ft_putstr_fd("\n", 2);
+	if (!g_sig)
+	{
 		rl_replace_line("", 0);
 		rl_on_new_line();
 		rl_redisplay();
-	// }
-	g_sig |= S_INT;
+	}
 }
 
 void	configure_terminal(void)
@@ -39,9 +39,11 @@ void	sig_init(void)
 	struct sigaction	sa_int;
 	struct sigaction	sa_quit;
 
+	ft_memset(&sa_int, 0, sizeof(struct sigaction));
+	ft_memset(&sa_quit, 0, sizeof(struct sigaction));
 	sa_int.sa_handler = mini_handler;
 	sa_quit.sa_handler = SIG_IGN;
-	// sigemptyset(&sa_int.sa_mask);
+	sigemptyset(&sa_int.sa_mask);
 	sa_int.sa_flags = 0;
 	sigaction(SIGINT, &sa_int, NULL);
 	sigaction(SIGQUIT, &sa_quit, NULL);

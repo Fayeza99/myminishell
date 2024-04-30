@@ -6,7 +6,7 @@
 /*   By: fnikzad <fnikzad@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/28 13:16:49 by fnikzad           #+#    #+#             */
-/*   Updated: 2024/04/29 12:12:48 by fnikzad          ###   ########.fr       */
+/*   Updated: 2024/04/30 12:13:07 by fnikzad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,6 @@ void	m_exec(t_mini *shell)
 		multi_pipe(shell);
 	}
 }
-
-
 
 void	multi_pipe(t_mini *shell)
 {
@@ -55,6 +53,8 @@ void	exec_without_pipe(t_mini *shell)
 	t_cmd	*cmd;
 
 	cmd = shell->current_cmd->content;
+	if (!cmd->argv)
+		return ;
 	if (valid_builtins(cmd->argv[0]))
 	{
 		execute_builtin(shell, cmd);

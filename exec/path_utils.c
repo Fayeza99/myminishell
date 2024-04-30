@@ -6,17 +6,17 @@
 /*   By: fnikzad <fnikzad@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/28 13:06:36 by fnikzad           #+#    #+#             */
-/*   Updated: 2024/04/29 14:55:12 by fnikzad          ###   ########.fr       */
+/*   Updated: 2024/04/30 12:18:22 by fnikzad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int	file_check(t_mini *shell, char *s)
+int	file_check(char *s)
 {
 	if (ft_strchr(s, '/') != NULL)
 	{
-		check_fd(shell, s);
+		check_fd(s);
 		if (access(s, F_OK) == 0)
 		{
 			if (access(s, X_OK) == 0)
@@ -31,11 +31,10 @@ int	file_check(t_mini *shell, char *s)
 	return (1);
 }
 
-void	file_check1(char *command, t_mini *mini)
+void	file_check1(char *command)
 {
 	struct stat	path_stat;
 
-	(void) mini;
 	if (stat(command, &path_stat) == 0)
 	{
 		if (S_ISDIR(path_stat.st_mode))

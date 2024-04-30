@@ -6,7 +6,7 @@
 /*   By: fnikzad <fnikzad@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/28 13:26:30 by fnikzad           #+#    #+#             */
-/*   Updated: 2024/04/29 10:32:06 by fnikzad          ###   ########.fr       */
+/*   Updated: 2024/04/30 12:35:43 by fnikzad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ void	execute_external(t_mini *shell, t_cmd *cmd)
 		child_process(cmd, fd, shell);
 	else
 		parent_process(pid, shell);
+	free (fd);
 }
 
 void	redirect_std_io(int **fd, int i, t_mini *shell)

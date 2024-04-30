@@ -6,22 +6,13 @@
 /*   By: fnikzad <fnikzad@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/23 11:22:01 by fnikzad           #+#    #+#             */
-/*   Updated: 2024/04/29 14:59:34 by fnikzad          ###   ########.fr       */
+/*   Updated: 2024/04/30 13:13:40 by fnikzad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 int	g_sig = 0;
-// INTERACT = 1 << 0
-// S_INT = 1 << 1
-// S_TERM = 1 << 2
-// S_QUIT = 1 << 3
-
-void	leak(void)
-{
-	system("leaks minishell");
-}
 
 int	main(int argc, char **argv, char **env)
 {
@@ -30,7 +21,6 @@ int	main(int argc, char **argv, char **env)
 
 	(void)argc;
 	(void)argv;
-	// atexit(leak);
 	mini = mini_init();
 	if (!mini)
 		return (EXIT_FAILURE);

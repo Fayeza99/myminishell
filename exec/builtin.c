@@ -6,7 +6,7 @@
 /*   By: fnikzad <fnikzad@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 13:17:15 by fnikzad           #+#    #+#             */
-/*   Updated: 2024/04/28 14:30:06 by fnikzad          ###   ########.fr       */
+/*   Updated: 2024/04/30 11:10:52 by fnikzad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 int	valid_builtins(char *s)
 {
+	if (!s || !*s)
+		return (0);
 	if (ft_strcmp(s, "cd") == 0)
 		return (1);
 	else if (ft_strcmp(s, "export") == 0)

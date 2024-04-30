@@ -6,7 +6,7 @@
 /*   By: fnikzad <fnikzad@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 14:26:05 by fnikzad           #+#    #+#             */
-/*   Updated: 2024/04/29 14:50:46 by fnikzad          ###   ########.fr       */
+/*   Updated: 2024/04/30 12:18:36 by fnikzad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ char	*find_path(t_mini *shell, char *s)
 	char	**all_path;
 	char	*cmd_path;
 
-	if (!file_check(shell, s))
+	if (!file_check(s))
 		return (NULL);
 	path = my_getenv(shell, "PATH");
 	all_path = ft_split(path, ':');

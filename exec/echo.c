@@ -6,7 +6,7 @@
 /*   By: fnikzad <fnikzad@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 16:12:09 by fnikzad           #+#    #+#             */
-/*   Updated: 2024/04/28 14:34:05 by fnikzad          ###   ########.fr       */
+/*   Updated: 2024/04/30 11:26:15 by fnikzad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,16 +59,17 @@ void	echo_arguments(char **argv, int fd_out, int start_index, int newline)
 {
 	int	i;
 
+	(void) fd_out;
 	i = start_index;
 	while (argv[i])
 	{
-		ft_putstr_fd(argv[i], fd_out);
+		ft_putstr_fd(argv[i], STDOUT_FILENO);
 		if (argv[i + 1])
-			ft_putstr_fd(" ", fd_out);
+			ft_putstr_fd(" ", STDOUT_FILENO);
 		i++;
 	}
 	if (newline)
-		ft_putstr_fd("\n", fd_out);
+		ft_putstr_fd("\n", STDOUT_FILENO);
 }
 
 int	determine_start_index(char **argv, int newline)
