@@ -6,7 +6,7 @@
 /*   By: fnikzad <fnikzad@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 16:12:09 by fnikzad           #+#    #+#             */
-/*   Updated: 2024/04/30 11:26:15 by fnikzad          ###   ########.fr       */
+/*   Updated: 2024/04/30 14:59:48 by fnikzad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,10 @@ int	check_newline(char **s)
 			else
 				return (0);
 		}
-		j++;
+		if (s[j + 1])
+			j++;
+		else 
+			return (j);
 	}
 	return (j);
 }
@@ -61,6 +64,8 @@ void	echo_arguments(char **argv, int fd_out, int start_index, int newline)
 
 	(void) fd_out;
 	i = start_index;
+	if (check_newline1(argv[i]))
+		return ;
 	while (argv[i])
 	{
 		ft_putstr_fd(argv[i], STDOUT_FILENO);
@@ -68,7 +73,7 @@ void	echo_arguments(char **argv, int fd_out, int start_index, int newline)
 			ft_putstr_fd(" ", STDOUT_FILENO);
 		i++;
 	}
-	if (newline)
+	if (newline == 1)
 		ft_putstr_fd("\n", STDOUT_FILENO);
 }
 
@@ -79,8 +84,6 @@ int	determine_start_index(char **argv, int newline)
 	i = 0;
 	if (ft_strcmp(argv[0], "echo") == 0)
 	{
-		if (check_newline1(argv[1]))
-			newline = 1;
 		if (argv[1] && argv[newline] && (check_newline(argv) != 0))
 			i = newline;
 		else if (argv[1] && !argv[newline] && (check_newline(argv) != 0))

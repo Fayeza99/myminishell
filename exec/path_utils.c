@@ -6,7 +6,7 @@
 /*   By: fnikzad <fnikzad@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/28 13:06:36 by fnikzad           #+#    #+#             */
-/*   Updated: 2024/04/30 12:18:22 by fnikzad          ###   ########.fr       */
+/*   Updated: 2024/04/30 16:03:36 by fnikzad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,10 @@ void	file_check1(char *command)
 
 void	handle_no_permission(char *cmd)
 {
-	free(cmd);
+	ft_putstr_fd("bash: ", 2);
+	ft_putstr_fd(cmd, 2);
+	ft_putendl_fd(": Permission denied", 2);
+	free (cmd);
 	exit(126);
 }
 
@@ -67,7 +70,6 @@ char	*check_permissions(char *cmd)
 {
 	if (access(cmd, X_OK) == 0)
 	{
-		free (cmd);
 		return (cmd);
 	}
 	else

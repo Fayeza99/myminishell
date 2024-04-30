@@ -6,9 +6,11 @@
 /*   By: fnikzad <fnikzad@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 14:26:05 by fnikzad           #+#    #+#             */
-/*   Updated: 2024/04/30 12:18:36 by fnikzad          ###   ########.fr       */
+/*   Updated: 2024/04/30 16:05:41 by fnikzad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "../minishell.h"
 
 #include "../minishell.h"
 
@@ -42,6 +44,8 @@ char	*find_valid_command(char *command, char **all_path)
 	int		i;
 
 	i = 0;
+
+		file_check(command);
 	tmp = ft_strjoin("/", command);
 	while (all_path[i])
 	{
@@ -69,8 +73,12 @@ char	*find_path(t_mini *shell, char *s)
 	char	**all_path;
 	char	*cmd_path;
 
-	if (!file_check(s))
-		return (NULL);
+	if (ft_strncmp(s, "/", 1) == 0)
+	{
+		file_check(s);
+		if (check_permissions(s) != NULL)
+			return (s);
+	}
 	path = my_getenv(shell, "PATH");
 	all_path = ft_split(path, ':');
 	free (path);
