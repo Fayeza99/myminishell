@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   read_cmd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fnikzad <fnikzad@student.42.fr>            +#+  +:+       +#+        */
+/*   By: asemsey <asemsey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 12:31:29 by asemsey           #+#    #+#             */
-/*   Updated: 2024/04/30 13:16:11 by fnikzad          ###   ########.fr       */
+/*   Updated: 2024/05/01 12:32:12 by asemsey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,9 +53,7 @@ int	read_command(t_mini *mini)
 {
 	mini->command = readline("minishell> ");
 	if (mini->command == NULL)
-	{
 		exit(EXIT_SUCCESS);
-	}
 	if (!*mini->command)
 		return (0);
 	if (!check_cmd(&mini->command))
@@ -66,5 +64,6 @@ int	read_command(t_mini *mini)
 	add_history(mini->command);
 	mini->command = ft_expand(mini, mini->command);
 	parse_input(mini);
+	// display_struct(mini);
 	return (1);
 }
