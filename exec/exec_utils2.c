@@ -6,7 +6,7 @@
 /*   By: fnikzad <fnikzad@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/28 13:26:30 by fnikzad           #+#    #+#             */
-/*   Updated: 2024/04/30 12:35:43 by fnikzad          ###   ########.fr       */
+/*   Updated: 2024/05/01 12:58:26 by fnikzad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,11 @@ void	handle_fd_redirections(t_cmd *cmd)
 
 void	execute_command(t_mini *shell, t_cmd *cmd)
 {
+	// if (find_path(shell, cmd->argv[0]) == NULL)
+	// {
+	// 	printf("hello beauty\n");
+	// 	exit (127);
+	// }
 	if (cmd->fd_in == -1 || cmd->fd_in == -1)
 	{
 		ft_putendl_fd("no such file or directory", 2);
@@ -99,5 +104,8 @@ void	execute_command(t_mini *shell, t_cmd *cmd)
 		exit(shell->exit_status);
 	}
 	else
+	{
+		printf("hello beauty\n");
 		execve(find_path(shell, cmd->argv[0]), cmd->argv, shell->env);
+	}
 }
