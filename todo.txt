@@ -1,0 +1,11 @@
+>	redir fails
+
+>	heredoc with cat
+
+>	segfault for syntax errors
+
+>	double prompt for ctrl+C in cat
+
+>	-1 fd
+
+>	echo $. should be $.
