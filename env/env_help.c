@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_help.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fnikzad <fnikzad@student.42.fr>            +#+  +:+       +#+        */
+/*   By: asemsey <asemsey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 16:09:23 by asemsey           #+#    #+#             */
-/*   Updated: 2024/04/30 13:11:55 by fnikzad          ###   ########.fr       */
+/*   Updated: 2024/05/01 12:17:09 by asemsey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,8 @@ char	*env_next(t_mini *mini, char *str, int *skip, int inquotes)
 	if (*str && *str == '$')
 	{
 		str++;
-		if (!*str || is_whitespace(*str) || *str == '\'' || *str == '\"'
-			|| inquotes)
+		if ((!*str || !valid_var_name(*str, 0) || inquotes)
+			&& *str != '$' && *str != '?')
 			return (ft_strdup("$"));
 		name = env_getname(str);
 		*skip += ft_strlen(name);

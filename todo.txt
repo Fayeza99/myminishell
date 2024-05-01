@@ -1,11 +1,5 @@
 >	redir fails
-
 >	heredoc with cat
-
->	segfault for syntax errors
-
+>	echo with redir (cat works in or out)
 >	double prompt for ctrl+C in cat
-
 >	-1 fd
-
->	echo $. should be $.
