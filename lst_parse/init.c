@@ -6,7 +6,7 @@
 /*   By: asemsey <asemsey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 17:33:50 by asemsey           #+#    #+#             */
-/*   Updated: 2024/04/24 11:23:20 by asemsey          ###   ########.fr       */
+/*   Updated: 2024/05/01 14:56:47 by asemsey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,10 @@ t_mini	*mini_init(void)
 	if (!mini)
 		return (NULL);
 	mini->command = NULL;
+	mini->env = NULL;
 	mini->current_cmd = NULL;
+	mini->pids = NULL;
 	mini->exit_status = 0;
+	mini->flag = 0;
 	return (mini);
 }
