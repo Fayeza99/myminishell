@@ -6,7 +6,7 @@
 /*   By: fnikzad <fnikzad@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/28 13:26:30 by fnikzad           #+#    #+#             */
-/*   Updated: 2024/05/01 12:58:26 by fnikzad          ###   ########.fr       */
+/*   Updated: 2024/05/01 13:41:40 by fnikzad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	execute_external(t_mini *shell, t_cmd *cmd)
 	fd[1] = cmd->fd_out;
 	if (fd[0] == -1 || fd[1] == -1)
 	{
-		ft_putendl_fd("no such file or directory", 2);
+		// ft_putendl_fd("no such file or directory", 2);
 		shell->exit_status = 1;
 		return ;
 	}
@@ -88,7 +88,7 @@ void	execute_command(t_mini *shell, t_cmd *cmd)
 	// }
 	if (cmd->fd_in == -1 || cmd->fd_in == -1)
 	{
-		ft_putendl_fd("no such file or directory", 2);
+		// ft_putendl_fd("no such file or directory", 2);
 		shell->exit_status = 1;
 		exit(shell->exit_status);
 	}
@@ -96,7 +96,7 @@ void	execute_command(t_mini *shell, t_cmd *cmd)
 	{
 		if (cmd->fd_in == -1 || cmd->fd_in == -1)
 		{
-			ft_putendl_fd("no such file or directory", 2);
+			// ft_putendl_fd("no such file or directory", 2);
 			shell->exit_status = 1;
 			exit(shell->exit_status);
 		}

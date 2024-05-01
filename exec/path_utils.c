@@ -6,7 +6,7 @@
 /*   By: fnikzad <fnikzad@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/28 13:06:36 by fnikzad           #+#    #+#             */
-/*   Updated: 2024/05/01 12:26:19 by fnikzad          ###   ########.fr       */
+/*   Updated: 2024/05/01 13:44:01 by fnikzad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void	file_check1(char *command)
 
 void	handle_no_permission(char *cmd)
 {
-	ft_putstr_fd("bash: ", 2);
+	ft_putstr_fd("minishell: ", 2);
 	ft_putstr_fd(cmd, 2);
 	ft_putendl_fd(": Permission denied", 2);
 	free (cmd);
@@ -61,7 +61,7 @@ void	handle_no_permission(char *cmd)
 
 void	handle_command_not_found(char *command)
 {
-	ft_putstr_fd("bash: ", 2);
+	ft_putstr_fd("minishell: ", 2);
 	ft_putstr_fd(command, 2);
 	ft_putendl_fd(": command not found", 2);
 	// exit(127);
