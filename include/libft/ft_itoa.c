@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_itoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fnikzad <fnikzad@student.42.fr>            +#+  +:+       +#+        */
+/*   By: asemsey <asemsey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/12 10:59:28 by fnikzad           #+#    #+#             */
-/*   Updated: 2023/10/13 19:44:59 by fnikzad          ###   ########.fr       */
+/*   Updated: 2024/05/01 13:48:00 by asemsey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,11 +29,10 @@ static	int	count(int n)
 	return (count);
 }
 
-static	char	*min(int n)
+static	char	*min(void)
 {
 	char	*str;
 
-	n = -2147483648;
 	str = malloc (sizeof(char) * 12);
 	ft_strlcpy(str, "-2147483648", 12);
 	return (str);
@@ -47,7 +46,7 @@ char	*ft_itoa(int n)
 
 	neg = 0;
 	if (n == -2147483648)
-		return (min(-2147483648));
+		return (min());
 	if (n < 0)
 	{
 		neg = 1;

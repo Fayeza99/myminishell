@@ -6,7 +6,7 @@
 /*   By: asemsey <asemsey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 14:06:25 by asemsey           #+#    #+#             */
-/*   Updated: 2024/04/23 10:40:27 by asemsey          ###   ########.fr       */
+/*   Updated: 2024/05/01 15:15:12 by asemsey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@ void	print_arr(char **s)
 	i = 0;
 	while (s[i])
 		printf("%s\n", s[i++]);
-	printf("%s\n", s[i]);
 }
 
 // void	print_types(t_type *type, int len)

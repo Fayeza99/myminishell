@@ -6,7 +6,7 @@
 /*   By: asemsey <asemsey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 12:40:37 by asemsey           #+#    #+#             */
-/*   Updated: 2024/04/15 14:44:25 by asemsey          ###   ########.fr       */
+/*   Updated: 2024/05/01 15:06:40 by asemsey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ char	**ft_arrdup(char **s)
 	char	**new;
 	int		i;
 
-	new = (char **)malloc(sizeof(char *) * ft_arrlen(s) + 1);
+	new = (char **)malloc(sizeof(char *) * (ft_arrlen(s) + 1));
 	if (!new)
 		return (NULL);
 	i = 0;
