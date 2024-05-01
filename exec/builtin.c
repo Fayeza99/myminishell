@@ -6,7 +6,7 @@
 /*   By: fnikzad <fnikzad@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 13:17:15 by fnikzad           #+#    #+#             */
-/*   Updated: 2024/04/30 11:10:52 by fnikzad          ###   ########.fr       */
+/*   Updated: 2024/05/01 12:54:07 by fnikzad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,13 @@ void	execute_builtin(t_mini *shell, t_cmd *cmd)
 {
 	if (valid_builtins(cmd->argv[0]))
 	{
+		// handle_fd_redirections(cmd);
+		// close (cmd->fd_out);
+		// close (cmd->fd_in);
+		// printf("heyy\n");
+		// printf("%d\n", cmd->fd_in);
+		// printf("%d\n", cmd->fd_out);
+
 		built_ins2(shell, cmd);
 	}
 	else
