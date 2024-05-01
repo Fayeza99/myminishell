@@ -6,7 +6,7 @@
 /*   By: fnikzad <fnikzad@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 16:12:09 by fnikzad           #+#    #+#             */
-/*   Updated: 2024/04/30 14:59:48 by fnikzad          ###   ########.fr       */
+/*   Updated: 2024/05/01 10:36:09 by fnikzad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ int	check_newline(char **s)
 		}
 		if (s[j + 1])
 			j++;
-		else 
+		else
 			return (j);
 	}
 	return (j);

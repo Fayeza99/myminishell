@@ -6,7 +6,7 @@
 /*   By: fnikzad <fnikzad@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 14:26:05 by fnikzad           #+#    #+#             */
-/*   Updated: 2024/04/30 16:05:41 by fnikzad          ###   ########.fr       */
+/*   Updated: 2024/05/01 11:25:29 by fnikzad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,7 @@ char	*find_valid_command(char *command, char **all_path)
 	int		i;
 
 	i = 0;
-
-		file_check(command);
+	file_check(command);
 	tmp = ft_strjoin("/", command);
 	while (all_path[i])
 	{
@@ -54,9 +53,7 @@ char	*find_valid_command(char *command, char **all_path)
 		{
 			cmd_path = check_permissions(cmd);
 			if (cmd_path != NULL)
-			{
 				break ;
-			}
 		}
 		free (cmd);
 		i++;

@@ -6,7 +6,7 @@
 /*   By: fnikzad <fnikzad@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/28 13:06:36 by fnikzad           #+#    #+#             */
-/*   Updated: 2024/04/30 16:03:36 by fnikzad          ###   ########.fr       */
+/*   Updated: 2024/05/01 12:04:25 by fnikzad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ int	file_check(char *s)
 				exit(126);
 			return (0);
 		}
+		ft_putendl_fd("command not found", 2);
 		exit(127);
 		return (0);
 	}
