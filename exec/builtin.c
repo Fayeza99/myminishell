@@ -6,7 +6,7 @@
 /*   By: fnikzad <fnikzad@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 13:17:15 by fnikzad           #+#    #+#             */
-/*   Updated: 2024/05/01 13:41:20 by fnikzad          ###   ########.fr       */
+/*   Updated: 2024/05/01 16:12:14 by fnikzad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,11 @@ void	built_ins2(t_mini *shell, t_cmd *cmd)
 	{
 		// ft_putendl_fd("no such file or directory", 2);
 		shell->exit_status = 1;
-		exit(shell->exit_status);
+		if (count_cmd(shell) != 0)
+			exit(shell->exit_status);
 		return ;
 	}
+	// printf("heyy\n");
 	if (ft_strcmp(cmd->argv[0], "cd") == 0)
 		ex_cd(cmd->argv, shell);
 	if (ft_strcmp(cmd->argv[0], "export") == 0)

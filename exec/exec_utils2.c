@@ -6,7 +6,7 @@
 /*   By: fnikzad <fnikzad@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/28 13:26:30 by fnikzad           #+#    #+#             */
-/*   Updated: 2024/05/01 13:41:40 by fnikzad          ###   ########.fr       */
+/*   Updated: 2024/05/01 15:48:56 by fnikzad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,7 @@ void	execute_command(t_mini *shell, t_cmd *cmd)
 	}
 	else
 	{
-		printf("hello beauty\n");
+		// printf("hello beauty\n");
 		execve(find_path(shell, cmd->argv[0]), cmd->argv, shell->env);
 	}
 }

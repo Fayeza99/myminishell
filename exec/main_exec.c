@@ -6,7 +6,7 @@
 /*   By: fnikzad <fnikzad@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/28 13:16:49 by fnikzad           #+#    #+#             */
-/*   Updated: 2024/05/01 12:54:40 by fnikzad          ###   ########.fr       */
+/*   Updated: 2024/05/01 16:09:55 by fnikzad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,5 +55,15 @@ void	exec_without_pipe(t_mini *shell)
 	cmd = shell->current_cmd->content;
 	if (!cmd->argv)
 		return ;
-	execute_external(shell, cmd);
+	if (valid_builtins(cmd->argv[0]))
+	{
+		int fd = dup(STDIN_FILENO);
+		int fd1 = dup(STDOUT_FILENO);
+		handle_fd_redirections(cmd);
+		execute_builtin(shell, cmd);
+		dup2(fd, STDIN_FILENO);
+		dup2(fd1, STDOUT_FILENO);
+	}
+	else
+		execute_external(shell, cmd);
 }
