@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_fd.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fnikzad <fnikzad@student.42.fr>            +#+  +:+       +#+        */
+/*   By: asemsey <asemsey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 13:31:27 by asemsey           #+#    #+#             */
-/*   Updated: 2024/04/30 13:15:39 by fnikzad          ###   ########.fr       */
+/*   Updated: 2024/05/01 12:51:52 by asemsey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,10 +48,10 @@ void	write_heredoc(char *del, int fd)
 	}
 }
 
-void	get_fd(char *str, t_type type, int *fd_in, int *fd_out)
+int	get_fd(char *str, t_type type, int *fd_in, int *fd_out)
 {
 	if (!str || !*str)
-		return ;
+		return (0);
 	if ((type == OUT || type == APPEND) && *fd_out != STDOUT_FILENO)
 		close(*fd_out);
 	if (type == OUT)
@@ -66,6 +66,29 @@ void	get_fd(char *str, t_type type, int *fd_in, int *fd_out)
 	{
 		*fd_in = open(".heredoc", O_RDWR | O_TRUNC | O_CREAT, 0644);
 		write_heredoc(str, *fd_in);
+	}
+	if (*fd_in == -1 || *fd_out == -1)
+	{
+		ft_putstr_fd("minishell: No such file or directory: ", 2);
+		ft_putendl_fd(str, 2);
+		return (0);
+	}
+	return (1);
+}
+
+void	remove_redir(t_cmd *cmd)
+{
+	int		i;
+	t_list	*arg;
+
+	i = 0;
+	arg = cmd->args;
+	while (arg)
+	{
+		if (cmd->type[i] != ARG)
+			ft_lst_remove(&cmd->args, arg, free);
+		arg = arg->next;
+		i++;
 	}
 }
 
@@ -86,13 +109,12 @@ void	set_cmd_fd(t_cmd *cmd)
 				file++;
 			while (is_whitespace(*file))
 				file++;
-			if (check_fd(file))
-				return ;
-			get_fd((char *)file, cmd->type[i], \
-				&cmd->fd_in, &cmd->fd_out);
-			ft_lst_remove(&cmd->args, arg, free);
+			if (check_fd(file) || !get_fd((char *)file, cmd->type[i], \
+				&cmd->fd_in, &cmd->fd_out))
+				break ;
 		}
 		i++;
 		arg = arg->next;
 	}
+	remove_redir(cmd);
 }

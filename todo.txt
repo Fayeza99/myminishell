@@ -3,3 +3,4 @@
 >	echo with redir (cat works in or out)
 >	double prompt for ctrl+C in cat
 >	-1 fd
+>	./a.out command not found
