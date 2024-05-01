@@ -6,7 +6,7 @@
 /*   By: asemsey <asemsey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 17:44:38 by asemsey           #+#    #+#             */
-/*   Updated: 2024/04/24 11:15:26 by asemsey          ###   ########.fr       */
+/*   Updated: 2024/05/01 13:14:49 by asemsey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ char	*add_variables(t_mini *mini, char *str)
 	while (str && str[i])
 	{
 		sub = ft_arr_realloc(sub, env_next(mini, &str[i], &skip, \
-			inside_quote(str, i) == 1));
+			inside_quote(str, i) & S_QUOTE));
 		i += skip;
 	}
 	return (ft_arrjoin(sub));

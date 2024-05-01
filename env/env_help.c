@@ -6,7 +6,7 @@
 /*   By: asemsey <asemsey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 16:09:23 by asemsey           #+#    #+#             */
-/*   Updated: 2024/05/01 12:17:09 by asemsey          ###   ########.fr       */
+/*   Updated: 2024/05/01 13:36:00 by asemsey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,8 @@ char	*env_next(t_mini *mini, char *str, int *skip, int inquotes)
 	if (*str && *str == '$')
 	{
 		str++;
-		if ((!*str || !valid_var_name(*str, 0) || inquotes)
-			&& *str != '$' && *str != '?')
+		if (!*str || inquotes || (!valid_var_name(*str, 0)
+				&& !(*str == '?' || *str == '$')))
 			return (ft_strdup("$"));
 		name = env_getname(str);
 		*skip += ft_strlen(name);
