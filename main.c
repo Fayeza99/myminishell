@@ -6,7 +6,7 @@
 /*   By: fnikzad <fnikzad@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/23 11:22:01 by fnikzad           #+#    #+#             */
-/*   Updated: 2024/05/02 12:26:41 by fnikzad          ###   ########.fr       */
+/*   Updated: 2024/05/02 14:11:03 by fnikzad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ int	main(int argc, char **argv, char **env)
 	t_mini	*mini;
 	int		status;
 
-	// atexit(leak);
 	(void)argc;
 	(void)argv;
 	mini = mini_init();

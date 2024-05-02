@@ -6,7 +6,7 @@
 /*   By: fnikzad <fnikzad@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 16:53:28 by fnikzad           #+#    #+#             */
-/*   Updated: 2024/05/02 13:00:50 by fnikzad          ###   ########.fr       */
+/*   Updated: 2024/05/02 14:11:59 by fnikzad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,11 +69,6 @@ void	manage_env_variables(char **args, t_mini *shell)
 	}
 }
 
-void	export1(char **args, t_mini *shell)
-{
-	manage_env_variables(args, shell);
-}
-
 int	ex_export(t_mini *shell, char **args)
 {
 	int		i;
@@ -94,6 +89,6 @@ int	ex_export(t_mini *shell, char **args)
 	export2(args, shell);
 	i = 0;
 	while (shell->env[i++])
-		export1(args, shell);
+		manage_env_variables(args, shell);
 	return (0);
 }
