@@ -6,7 +6,7 @@
 /*   By: fnikzad <fnikzad@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/28 13:23:57 by fnikzad           #+#    #+#             */
-/*   Updated: 2024/04/30 12:54:22 by fnikzad          ###   ########.fr       */
+/*   Updated: 2024/05/02 11:19:06 by fnikzad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,17 +44,17 @@ void	loop_through_commands(t_mini *shell, int **fd)
 	i = 0;
 	while (i <= count_cmd(shell))
 	{
-		if (find_path(shell, cmd->argv[0]) == NULL)
-		{
-			i++;
-			list = list->next;
-			if (list != NULL)
-				cmd = list->content;
-			continue ;
-		}
+		
 		forker(shell, i);
 		if (!shell->pids[i])
+		{
+			// if (find_path(shell, cmd->argv[0]) == NULL && !valid_builtins(cmd->argv[0]))
+			// {
+			// 	exit(127);
+			// }
 			exec_helper(shell, fd, i, cmd);
+		}
+		// printf("heyy111\n");
 		i++;
 		list = list->next;
 		if (list != NULL)

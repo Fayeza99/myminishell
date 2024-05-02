@@ -6,11 +6,9 @@
 /*   By: fnikzad <fnikzad@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 14:26:05 by fnikzad           #+#    #+#             */
-/*   Updated: 2024/05/01 12:22:59 by fnikzad          ###   ########.fr       */
+/*   Updated: 2024/05/02 11:37:40 by fnikzad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-#include "../minishell.h"
 
 #include "../minishell.h"
 
@@ -59,9 +57,7 @@ char	*find_valid_command(char *command, char **all_path)
 		i++;
 	}
 	if (!cmd_path && !valid_builtins(command))
-	{
 		handle_command_not_found(command);
-	}
 	free (tmp);
 	return (cmd_path);
 }
@@ -82,7 +78,6 @@ char	*find_path(t_mini *shell, char *s)
 	all_path = ft_split(path, ':');
 	free (path);
 	cmd_path = find_valid_command(s, all_path);
-	// printf("%s\n", cmd_path);
 	ft_freearr(all_path);
 	return (cmd_path);
 }

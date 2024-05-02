@@ -6,7 +6,7 @@
 /*   By: fnikzad <fnikzad@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 11:53:12 by fnikzad           #+#    #+#             */
-/*   Updated: 2024/04/28 14:31:34 by fnikzad          ###   ########.fr       */
+/*   Updated: 2024/05/02 11:37:08 by fnikzad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ void	change_directory(char *path, t_mini *shell)
 	{
 		ft_putendl_fd(" No such file or directory", 2);
 		shell->exit_status = 1;
-		exit(shell->exit_status);
 	}
 }
 

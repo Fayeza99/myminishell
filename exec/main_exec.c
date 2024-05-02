@@ -6,7 +6,7 @@
 /*   By: fnikzad <fnikzad@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/28 13:16:49 by fnikzad           #+#    #+#             */
-/*   Updated: 2024/05/01 16:09:55 by fnikzad          ###   ########.fr       */
+/*   Updated: 2024/05/02 10:51:24 by fnikzad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,16 +42,23 @@ void	multi_pipe(t_mini *shell)
 
 void	exec_helper(t_mini *shell, int **fd, int i, t_cmd *cmd)
 {
+	int	fd0;
+	int	fd1;
 	redirect_std_io(fd, i, shell);
 	close_file_descriptors(fd, count_cmd(shell));
+	fd0 = dup(STDIN_FILENO);
+	fd1 = dup(STDOUT_FILENO);
 	handle_fd_redirections(cmd);
 	execute_command(shell, cmd);
+	dup2(fd0, STDIN_FILENO);
+	dup2(fd1, STDOUT_FILENO);
 }
 
 void	exec_without_pipe(t_mini *shell)
 {
 	t_cmd	*cmd;
 
+	shell->exit_status = 0;
 	cmd = shell->current_cmd->content;
 	if (!cmd->argv)
 		return ;

@@ -6,7 +6,7 @@
 /*   By: fnikzad <fnikzad@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 13:06:55 by fnikzad           #+#    #+#             */
-/*   Updated: 2024/05/01 15:53:39 by fnikzad          ###   ########.fr       */
+/*   Updated: 2024/05/02 10:45:20 by fnikzad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,12 +49,7 @@ void	child_process(t_cmd *cmd, int *fd, t_mini *shell)
 		dup2(fd[1], STDOUT_FILENO);
 		close(fd[1]);
 	}
-	// if (valid_builtins(cmd->argv[0]))
-	// {
-	// 	execute_builtin(shell, cmd);
-	// 	exit (shell->exit_status);
-	// }
-	if (find_path(shell, cmd->argv[0]) == NULL)
+	if (find_path(shell, cmd->argv[0]) == NULL && !valid_builtins(cmd->argv[0]))
 		exit (127);
 	execve(find_path(shell, cmd->argv[0]), cmd->argv, shell->env);
 }
