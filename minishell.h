@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fnikzad <fnikzad@student.42.fr>            +#+  +:+       +#+        */
+/*   By: asemsey <asemsey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/23 11:22:32 by fnikzad           #+#    #+#             */
-/*   Updated: 2024/04/30 13:14:37 by fnikzad          ###   ########.fr       */
+/*   Updated: 2024/05/02 11:10:57 by asemsey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,11 +51,13 @@ int			valid_var_name(char c, int index);
 int			len_str_arr(char **s);
 
 //path
-int			file_check(char *s);
+int	file_check(char *s, char **env);
+// int			file_check(char *s);
 void		file_check1(char *command);
 void		handle_no_permission(char *cmd);
 void		handle_command_not_found(char *command);
-char		*check_permissions(char *cmd);
+char	*check_permissions(char *cmd, char **env);
+// char		*check_permissions(char *cmd);
 void		execute_builtin(t_mini *shell, t_cmd *cmd);
 
 ///exec

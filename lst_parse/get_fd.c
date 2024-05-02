@@ -6,7 +6,7 @@
 /*   By: asemsey <asemsey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 13:31:27 by asemsey           #+#    #+#             */
-/*   Updated: 2024/05/01 15:44:40 by asemsey          ###   ########.fr       */
+/*   Updated: 2024/05/02 11:25:17 by asemsey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,9 @@ int	check_fd(char *filename)
 	{
 		if (S_ISDIR(file_stat.st_mode))
 		{
-			ft_putendl_fd(" is a directory", 2);
+			ft_putstr_fd("minishell: ", 2);
+			ft_putstr_fd(filename, 2);
+			ft_putendl_fd(": is a directory", 2);
 			exit(126);
 		}
 	}
@@ -35,9 +37,7 @@ void	write_heredoc(char *del, int fd)
 	{
 		line = readline("> ");
 		if (!line)
-		{
 			return ;
-		}
 		if (!ft_strcmp(line, del))
 		{
 			free(line);
