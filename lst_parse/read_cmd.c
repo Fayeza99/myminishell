@@ -6,7 +6,7 @@
 /*   By: asemsey <asemsey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 12:31:29 by asemsey           #+#    #+#             */
-/*   Updated: 2024/05/01 15:45:21 by asemsey          ###   ########.fr       */
+/*   Updated: 2024/05/02 12:35:39 by asemsey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,7 @@ void	reprompt(char **str, int flag)
 		ft_putstr_fd("pipe", STDERR_FILENO);
 	line = readline("> ");
 	if (!line)
-	{
 		return ;
-	}
 	*str = ft_freejoin(*str, "\n");
 	*str = ft_freejoin(*str, line);
 	free(line);
@@ -64,6 +62,5 @@ int	read_command(t_mini *mini)
 	add_history(mini->command);
 	mini->command = ft_expand(mini, mini->command);
 	parse_input(mini);
-	// display_struct(mini);
 	return (1);
 }

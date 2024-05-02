@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fnikzad <fnikzad@student.42.fr>            +#+  +:+       +#+        */
+/*   By: asemsey <asemsey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 16:53:28 by fnikzad           #+#    #+#             */
-/*   Updated: 2024/04/29 10:20:27 by fnikzad          ###   ########.fr       */
+/*   Updated: 2024/05/02 12:26:45 by asemsey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	add_new_variable(char *arg, t_mini *shell)
 	int		k;
 	char	**new_ev;
 
-	k = len_str_arr(shell->env);
+	k = ft_arrlen(shell->env);
 	new_ev = (char **)malloc(sizeof(char *) * (k + 2));
 	if (!new_ev)
 		return ;

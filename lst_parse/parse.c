@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fnikzad <fnikzad@student.42.fr>            +#+  +:+       +#+        */
+/*   By: asemsey <asemsey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/24 12:11:29 by fnikzad           #+#    #+#             */
-/*   Updated: 2024/04/30 12:20:07 by fnikzad          ###   ########.fr       */
+/*   Updated: 2024/05/02 11:55:44 by asemsey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 void	parse_cmd(t_cmd *cmd);
 void	get_commands(t_mini *mini);
 void	nullterminate_cmd(t_list *lst);
-int		count_pipes(char *cmd);
 
 // before: mini has full input string
 // after: all fields filled, fd on open files, argv ready

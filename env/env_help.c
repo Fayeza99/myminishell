@@ -6,13 +6,12 @@
 /*   By: asemsey <asemsey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 16:09:23 by asemsey           #+#    #+#             */
-/*   Updated: 2024/05/01 13:36:00 by asemsey          ###   ########.fr       */
+/*   Updated: 2024/05/02 12:23:00 by asemsey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int		env_validchar(char c, int index);
 char	*env_getname(char *str);
 char	*env_special(t_mini *mini, char c);
 
@@ -75,20 +74,4 @@ char	*env_getname(char *str)
 		return (NULL);
 	ft_strlcpy(name, str, i);
 	return (name);
-}
-
-// 1 for valid variable character
-int	env_validchar(char c, int index)
-{
-	if (index == 0)
-	{
-		if (!(ft_isalpha(c) || c == '_' ))
-			return (0);
-	}
-	else
-	{
-		if (!(ft_isalnum(c) || c == '_' ))
-			return (0);
-	}
-	return (1);
 }

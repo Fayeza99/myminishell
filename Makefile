@@ -13,7 +13,7 @@ EXEC		=	exec/export.c exec/cd_pwd.c exec/path.c\
 				exec/unset.c exec/exit.c exec/export_utils.c exec/path_utils.c\
 				exec/main_exec.c exec/exec_utils.c exec/exec_utils2.c exec/exec_utils3.c\
 				exec/exec_utils1.c
-SRC			=	main.c signals.c $(PARSE) $(EXEC)
+SRC			=	main.c utils/signals.c $(PARSE) $(EXEC)
 
 all: $(NAME)
 
