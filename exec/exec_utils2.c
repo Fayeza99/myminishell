@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_utils2.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fnikzad <fnikzad@student.42.fr>            +#+  +:+       +#+        */
+/*   By: asemsey <asemsey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/28 13:26:30 by fnikzad           #+#    #+#             */
-/*   Updated: 2024/05/02 11:15:51 by fnikzad          ###   ########.fr       */
+/*   Updated: 2024/05/02 12:37:09 by asemsey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,11 @@ void	execute_external(t_mini *shell, t_cmd *cmd)
 	pid_t	pid;
 	int		*fd;
 
-	fd = malloc (sizeof(int) * 2);
+	fd = malloc(sizeof(int) * 2);
 	fd[0] = cmd->fd_in;
 	fd[1] = cmd->fd_out;
 	if (fd[0] == -1 || fd[1] == -1)
 	{
-		// ft_putendl_fd("no such file or directory", 2);
 		shell->exit_status = 1;
 		return ;
 	}
@@ -42,9 +41,7 @@ void	redirect_std_io(int **fd, int i, t_mini *shell)
 			perror("");
 	}
 	else if (i == count_cmd(shell))
-	{
 		dup2(fd[i - 1][0], STDIN_FILENO);
-	}
 	else
 	{
 		dup2(fd[i - 1][0], STDIN_FILENO);
@@ -83,7 +80,6 @@ void	execute_command(t_mini *shell, t_cmd *cmd)
 {
 	if (cmd->fd_in == -1 || cmd->fd_in == -1)
 	{
-		// ft_putendl_fd("no such file or directory", 2);
 		shell->exit_status = 1;
 		exit(shell->exit_status);
 	}
@@ -91,7 +87,6 @@ void	execute_command(t_mini *shell, t_cmd *cmd)
 	{
 		if (cmd->fd_in == -1 || cmd->fd_in == -1)
 		{
-			// ft_putendl_fd("no such file or directory", 2);
 			shell->exit_status = 1;
 			exit(shell->exit_status);
 		}
@@ -99,7 +94,5 @@ void	execute_command(t_mini *shell, t_cmd *cmd)
 		exit(shell->exit_status);
 	}
 	else
-	{
 		execve(find_path(shell, cmd->argv[0]), cmd->argv, shell->env);
-	}
 }

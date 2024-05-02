@@ -6,7 +6,7 @@
 /*   By: asemsey <asemsey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/16 19:58:01 by fnikzad           #+#    #+#             */
-/*   Updated: 2024/05/01 13:48:28 by asemsey          ###   ########.fr       */
+/*   Updated: 2024/05/02 12:40:03 by asemsey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 t_list	*ft_lstlast(t_list *lst)
 {
-
 	if (!lst)
 		return (0);
 	while (lst->next)

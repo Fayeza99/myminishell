@@ -6,7 +6,7 @@
 /*   By: fnikzad <fnikzad@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/28 13:23:57 by fnikzad           #+#    #+#             */
-/*   Updated: 2024/05/02 12:02:45 by fnikzad          ###   ########.fr       */
+/*   Updated: 2024/05/02 13:00:04 by fnikzad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,16 +23,6 @@ void	forker(t_mini *shell, int i)
 	}
 }
 
-void	initialize_multi_pipe(t_mini *shell)
-{
-	shell->pids = malloc(sizeof(pid_t) * count_cmd(shell) + 1);
-}
-
-void	cleanup_multi_pipe(t_mini *shell)
-{
-	free(shell->pids);
-}
-
 void	loop_through_commands(t_mini *shell, int **fd)
 {
 	t_list	*list;
@@ -46,9 +36,7 @@ void	loop_through_commands(t_mini *shell, int **fd)
 	{
 		forker(shell, i);
 		if (!shell->pids[i])
-		{
 			exec_helper(shell, fd, i, cmd);
-		}
 		i++;
 		list = list->next;
 		if (list != NULL)

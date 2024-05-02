@@ -1,2 +1,0 @@
->	heredoc with cat
->	double prompt for ctrl+C in cat

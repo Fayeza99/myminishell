@@ -6,21 +6,11 @@
 /*   By: fnikzad <fnikzad@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/28 13:03:06 by fnikzad           #+#    #+#             */
-/*   Updated: 2024/05/02 12:43:32 by fnikzad          ###   ########.fr       */
+/*   Updated: 2024/05/02 13:00:25 by fnikzad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-
-int	len_str_arr(char **s)
-{
-	int	i;
-
-	i = 0;
-	while (s && s[i])
-		i++;
-	return (i);
-}
 
 int	valid_var_name(char c, int index)
 {
@@ -81,7 +71,6 @@ void	update_environment(char **args, t_mini *shell)
 			{
 				free(shell->env[l]);
 				shell->env[l] = ft_strdup(args[j++]);
-				// free (args[j++]);
 				if (!args[j])
 					return ;
 			}

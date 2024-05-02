@@ -6,7 +6,7 @@
 /*   By: asemsey <asemsey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 17:44:38 by asemsey           #+#    #+#             */
-/*   Updated: 2024/05/01 14:52:22 by asemsey          ###   ########.fr       */
+/*   Updated: 2024/05/02 12:32:22 by asemsey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,8 @@ char	*add_variables(t_mini *mini, char *str)
 char	*ft_getenv(char *name, char **env, int freename)
 {
 	int		i;
-	char	*var_name = NULL;
-	char	*content = NULL;
+	char	*var_name;
+	char	*content;
 
 	i = 0;
 	while (env && env[i])
