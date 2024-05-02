@@ -6,7 +6,7 @@
 /*   By: fnikzad <fnikzad@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/28 13:03:06 by fnikzad           #+#    #+#             */
-/*   Updated: 2024/04/29 10:32:42 by fnikzad          ###   ########.fr       */
+/*   Updated: 2024/05/02 12:43:32 by fnikzad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,7 @@ void	update_environment(char **args, t_mini *shell)
 			{
 				free(shell->env[l]);
 				shell->env[l] = ft_strdup(args[j++]);
+				// free (args[j++]);
 				if (!args[j])
 					return ;
 			}

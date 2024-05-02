@@ -6,7 +6,7 @@
 /*   By: fnikzad <fnikzad@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 16:53:28 by fnikzad           #+#    #+#             */
-/*   Updated: 2024/04/29 10:20:27 by fnikzad          ###   ########.fr       */
+/*   Updated: 2024/05/02 12:02:04 by fnikzad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ void	add_new_variable(char *arg, t_mini *shell)
 	while (shell->env[k])
 	{
 		new_ev[k] = ft_strdup(shell->env[k]);
+		free (shell->env[k]);
 		k++;
 	}
 	new_ev[k++] = ft_strdup(arg);
