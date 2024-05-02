@@ -1,44 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   path_utils.c                                       :+:      :+:    :+:   */
+/*   old_path_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: asemsey <asemsey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/28 13:06:36 by fnikzad           #+#    #+#             */
-/*   Updated: 2024/05/02 11:21:43 by asemsey          ###   ########.fr       */
+/*   Updated: 2024/05/02 11:20:58 by asemsey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int	file_check(char *s, char **env)
+int	file_check(char *s)
 {
-	char	*rel;
-
-	if (!ft_strchr(s, '/'))
-		return (1);
-	check_fd(s);
-	if (ft_strncmp(s, "./", 2) == 0)
+	if (ft_strchr(s, '/') != NULL)
 	{
-		rel = ft_strjoin(ft_getenv("PWD", env, 0), s + 1);
-		if (access(rel, F_OK) == 0)
+		check_fd(s);
+		if (access(s, F_OK) == 0)
 		{
-			if (access(rel, X_OK) == 0)
-				return (0);
-			exit(126);
-		}
-	}
-	if (access(s, F_OK) == 0)
-	{
-		if (access(s, X_OK) == 0)
+			if (access(s, X_OK) == 0)
+				;
+			else
+				exit(126);
 			return (0);
-		exit(126);
+		}
+		ft_putendl_fd("command not found", 2);
+		exit(127);
+		return (0);
 	}
-	ft_putstr_fd("minishell: ", 2);
-	ft_putstr_fd(s, 2);
-	ft_putendl_fd(": command not found", 2);
-	exit(127);
+	return (1);
 }
 
 void	file_check1(char *command)
@@ -49,9 +40,7 @@ void	file_check1(char *command)
 	{
 		if (S_ISDIR(path_stat.st_mode))
 		{
-			ft_putstr_fd("minishell: ", 2);
-			ft_putstr_fd(command, 2);
-			ft_putendl_fd(": is a directory", 2);
+			ft_putendl_fd("is a directory", 2);
 			exit(126);
 		}
 		else if (!(path_stat.st_mode & S_IXUSR))
@@ -78,20 +67,15 @@ void	handle_command_not_found(char *command)
 	// exit(127);
 }
 
-char	*check_permissions(char *cmd, char **env)
+char	*check_permissions(char *cmd)
 {
-	char	*rel;
-
-	if (ft_strncmp(cmd, "./", 2) == 0)
+	if (access(cmd, X_OK) == 0)
 	{
-		rel = ft_strjoin(ft_getenv("PWD", env, 0), cmd + 1);
-		if (access(rel, X_OK) == 0)
-			return (rel);
-		handle_no_permission(rel);
+		return (cmd);
+	}
+	else
+	{
+		handle_no_permission(cmd);
 		return (NULL);
 	}
-	if (access(cmd, X_OK) == 0)
-		return (cmd);
-	handle_no_permission(cmd);
-	return (NULL);
 }

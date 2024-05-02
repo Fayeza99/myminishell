@@ -1,9 +1,2 @@
->	redir fails
 >	heredoc with cat
->	echo with redir (cat works in or out)
 >	double prompt for ctrl+C in cat
->	-1 fd
->	./a.out command not found
->	minishell> cat <in >out
-	minishell: No such file or directory: in
-	[1]    796 segmentation fault  ./minishell

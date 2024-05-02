@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pathcopy.c                                         :+:      :+:    :+:   */
+/*   path.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: asemsey <asemsey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 14:26:05 by fnikzad           #+#    #+#             */
-/*   Updated: 2024/05/02 11:14:50 by asemsey          ###   ########.fr       */
+/*   Updated: 2024/05/02 10:45:16 by asemsey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ char	*my_getenv(t_mini *shell, char *s)
 	return (value);
 }
 
-char	*find_valid_command(char *command, char **all_path, char **env)
+char	*find_valid_command(char *command, char **all_path)
 {
 	char	*cmd_path;
 	char	*tmp;
@@ -44,14 +44,14 @@ char	*find_valid_command(char *command, char **all_path, char **env)
 	int		i;
 
 	i = 0;
-	file_check(command, env);
+	file_check(command);
 	tmp = ft_strjoin("/", command);
 	while (all_path[i])
 	{
 		cmd = ft_strjoin(all_path[i], tmp);
 		if (access(cmd, F_OK) == 0)
 		{
-			cmd_path = check_permissions(cmd, env);
+			cmd_path = check_permissions(cmd);
 			if (cmd_path != NULL)
 				break ;
 		}
@@ -72,15 +72,17 @@ char	*find_path(t_mini *shell, char *s)
 	char	**all_path;
 	char	*cmd_path;
 
-	if (ft_strncmp(s, "/", 1) == 0 || ft_strncmp(s, "./", 2) == 0)
+	if (ft_strncmp(s, "/", 1) == 0)
 	{
-		file_check(s, shell->env);
-		if (check_permissions(s, shell->env))
+		file_check(s);
+		if (check_permissions(s) != NULL)
 			return (s);
 	}
-	path = ft_getenv("PATH", shell->env, 0);
+	path = my_getenv(shell, "PATH");
 	all_path = ft_split(path, ':');
-	cmd_path = find_valid_command(s, all_path, shell->env);
+	free (path);
+	cmd_path = find_valid_command(s, all_path);
+	// printf("%s\n", cmd_path);
 	ft_freearr(all_path);
 	return (cmd_path);
 }
