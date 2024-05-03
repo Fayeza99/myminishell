@@ -6,7 +6,7 @@
 /*   By: asemsey <asemsey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/23 11:22:32 by fnikzad           #+#    #+#             */
-/*   Updated: 2024/05/02 12:36:05 by asemsey          ###   ########.fr       */
+/*   Updated: 2024/05/03 12:02:41 by asemsey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 # include <termios.h>
 # include <sys/wait.h>
 # include <limits.h>
-# include "include/libft/libft.h"
+# include "libft/libft.h"
 # include "mini_parse.h"
 
 extern int	g_sig;

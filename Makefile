@@ -1,7 +1,7 @@
 NAME		=	minishell
 CFLAGS		=	-Wall -Wextra -Werror -Ofast
 RL			=	-lreadline
-LIBFT_PATH	=	include/libft
+LIBFT_PATH	=	libft
 LIBFT		=	$(LIBFT_PATH)/libft.a
 
 PARSE		=	lst_parse/args.c lst_parse/args2.c lst_parse/error_flag.c lst_parse/free.c\

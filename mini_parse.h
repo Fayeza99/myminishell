@@ -6,7 +6,7 @@
 /*   By: asemsey <asemsey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 19:21:28 by asemsey           #+#    #+#             */
-/*   Updated: 2024/05/02 12:31:43 by asemsey          ###   ########.fr       */
+/*   Updated: 2024/05/03 12:02:55 by asemsey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 # include <unistd.h>
 # include <readline/history.h>
 # include <readline/readline.h>
-# include "include/libft/libft.h"
+# include "libft/libft.h"
 
 typedef enum e_type
 {
