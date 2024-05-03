@@ -6,7 +6,7 @@
 /*   By: asemsey <asemsey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 13:31:27 by asemsey           #+#    #+#             */
-/*   Updated: 2024/05/02 11:25:17 by asemsey          ###   ########.fr       */
+/*   Updated: 2024/05/02 16:41:33 by asemsey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,11 @@ int	check_fd(char *filename)
 	return (0);
 }
 
-void	write_heredoc(char *del, int fd)
+void	write_heredoc(char *del, int *fd)
 {
 	char	*line;
 
+	*fd = open(".heredoc", O_RDWR | O_TRUNC | O_CREAT, 0644);
 	while (1)
 	{
 		line = readline("> ");
@@ -43,9 +44,11 @@ void	write_heredoc(char *del, int fd)
 			free(line);
 			break ;
 		}
-		ft_putendl_fd(line, fd);
+		ft_putendl_fd(line, *fd);
 		free(line);
 	}
+	close(*fd);
+	*fd = open(".heredoc", O_RDONLY);
 }
 
 int	get_fd(char *str, t_type type, int *fd_in, int *fd_out)
@@ -63,10 +66,7 @@ int	get_fd(char *str, t_type type, int *fd_in, int *fd_out)
 	if (type == IN)
 		*fd_in = open(str, O_RDONLY);
 	if (type == HEREDOC)
-	{
-		*fd_in = open(".heredoc", O_RDWR | O_TRUNC | O_CREAT, 0644);
-		write_heredoc(str, *fd_in);
-	}
+		write_heredoc(str, fd_in);
 	if (*fd_in == -1 || *fd_out == -1)
 	{
 		ft_putstr_fd("minishell: No such file or directory: ", 2);
