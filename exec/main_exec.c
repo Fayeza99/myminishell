@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_exec.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asemsey <asemsey@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fnikzad <fnikzad@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/28 13:16:49 by fnikzad           #+#    #+#             */
-/*   Updated: 2024/05/02 12:38:46 by asemsey          ###   ########.fr       */
+/*   Updated: 2024/05/03 11:05:23 by fnikzad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,19 +61,20 @@ void	exec_without_pipe(t_mini *shell)
 	int		fd;
 	int		fd1;
 
-	shell->exit_status = 0;
 	cmd = shell->current_cmd->content;
+	if (ft_strcmp(cmd->argv[0], "exit") != 0)
+		shell->exit_status = 0;
+	fd = dup(STDIN_FILENO);
+	fd1 = dup(STDOUT_FILENO);
 	if (!cmd->argv)
 		return ;
 	if (valid_builtins(cmd->argv[0]))
 	{
-		fd = dup(STDIN_FILENO);
-		fd1 = dup(STDOUT_FILENO);
 		handle_fd_redirections(cmd);
 		execute_builtin(shell, cmd);
-		dup2(fd, STDIN_FILENO);
-		dup2(fd1, STDOUT_FILENO);
 	}
 	else
 		execute_external(shell, cmd);
+	dup2(fd, STDIN_FILENO);
+	dup2(fd1, STDOUT_FILENO);
 }
