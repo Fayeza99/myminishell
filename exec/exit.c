@@ -6,7 +6,7 @@
 /*   By: fnikzad <fnikzad@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 13:44:48 by fnikzad           #+#    #+#             */
-/*   Updated: 2024/04/30 13:08:25 by fnikzad          ###   ########.fr       */
+/*   Updated: 2024/05/03 11:59:40 by fnikzad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,6 @@ int	arr_len(char **s)
 
 int	ft_exit(t_mini *shell, t_cmd *cmd)
 {
-	shell->exit_status = 0;
 	if (arr_len(cmd->argv) > 2)
 	{
 		ft_putendl_fd("exit: too many arguments", 2);

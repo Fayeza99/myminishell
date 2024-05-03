@@ -6,7 +6,7 @@
 /*   By: fnikzad <fnikzad@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/28 13:03:06 by fnikzad           #+#    #+#             */
-/*   Updated: 2024/05/02 13:00:25 by fnikzad          ###   ########.fr       */
+/*   Updated: 2024/05/03 11:57:25 by fnikzad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,28 +27,43 @@ int	valid_var_name(char c, int index)
 	return (1);
 }
 
+int	check_var(char **args, int i)
+{
+	int	j;
+	int	eq;
+
+	j = 1;
+	eq = 0;
+	while (args[i][j])
+	{
+		if (args[i][j] == '=')
+		{
+			eq++;
+			break ;
+		}
+		if (!(valid_var_name(args[i][j], j)
+			|| args[i][j] == '=') || ft_isspace(args[i][j]))
+			return (0);
+		j++;
+	}
+	if (eq < 1)
+		return (0);
+	return (1);
+}
+
 int	valid_export(char **args)
 {
 	int	i;
-	int	j;
 
 	i = 1;
 	if (ft_strcmp(args[0], "export") != 0)
 		return (0);
 	while (args[i])
 	{
-		j = 1;
 		if (!valid_var_name(args[i][0], 0))
 			return (0);
-		while (args[i][j])
-		{
-			if (args[i][j] == '=')
-				break ;
-			if (!(valid_var_name(args[i][j], j)
-				|| args[i][j] == '=') || ft_isspace(args[i][j]))
-				return (0);
-			j++;
-		}
+		if (!check_var(args, i))
+			return (0);
 		i++;
 	}
 	return (1);

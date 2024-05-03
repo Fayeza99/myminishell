@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asemsey <asemsey@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fnikzad <fnikzad@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 13:17:15 by fnikzad           #+#    #+#             */
-/*   Updated: 2024/05/02 12:35:37 by asemsey          ###   ########.fr       */
+/*   Updated: 2024/05/03 11:58:40 by fnikzad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,9 @@ void	built_ins2(t_mini *shell, t_cmd *cmd)
 void	execute_builtin(t_mini *shell, t_cmd *cmd)
 {
 	if (valid_builtins(cmd->argv[0]))
+	{
 		built_ins2(shell, cmd);
+	}
 	else
 	{
 		ft_putendl_fd("no such file or directory", 2);
