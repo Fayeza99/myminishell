@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   path.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fnikzad <fnikzad@student.42.fr>            +#+  +:+       +#+        */
+/*   By: asemsey <asemsey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 14:26:05 by fnikzad           #+#    #+#             */
-/*   Updated: 2024/05/02 11:57:59 by fnikzad          ###   ########.fr       */
+/*   Updated: 2024/05/03 11:25:49 by asemsey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,8 @@ char	*find_path(t_mini *shell, char *s)
 	char	**all_path;
 	char	*cmd_path;
 
-	if (ft_strncmp(s, "/", 1) == 0 || ft_strncmp(s, "./", 2) == 0)
+	if (ft_strncmp(s, "/", 1) == 0 || ft_strncmp(s, "./", 2) == 0
+		|| ft_strncmp(s, "../", 3) == 0)
 	{
 		file_check(s, shell->env);
 		if (check_permissions(s, shell->env))
