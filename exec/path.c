@@ -6,7 +6,7 @@
 /*   By: fnikzad <fnikzad@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 14:26:05 by fnikzad           #+#    #+#             */
-/*   Updated: 2024/05/05 17:49:02 by fnikzad          ###   ########.fr       */
+/*   Updated: 2024/05/05 18:15:07 by fnikzad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ char	*my_getenv(t_mini *shell, char *s)
 	int		i;
 
 	i = 0;
+	value = NULL;
 	while (shell->env[i])
 	{
 		vars = ft_split(shell->env[i], '=');

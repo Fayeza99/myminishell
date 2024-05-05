@@ -6,7 +6,7 @@
 /*   By: fnikzad <fnikzad@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/28 13:03:06 by fnikzad           #+#    #+#             */
-/*   Updated: 2024/05/05 16:14:37 by fnikzad          ###   ########.fr       */
+/*   Updated: 2024/05/05 18:15:24 by fnikzad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,13 +74,10 @@ int	valid_export(char *args)
 void	update_environment(char **args, t_mini *shell)
 {
 	int	j;
-	int	l;
 
 	j = 1;
-	l = 0;
 	while (args[j])
 	{
-		l = 0;
 		if (check_var(args[j]) == -1)
 		{
 			j++;
