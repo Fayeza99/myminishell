@@ -3,21 +3,30 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asemsey <asemsey@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fnikzad <fnikzad@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/23 11:22:01 by fnikzad           #+#    #+#             */
-/*   Updated: 2024/05/02 16:37:23 by asemsey          ###   ########.fr       */
+/*   Updated: 2024/05/05 17:17:31 by fnikzad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
+#include <stdio.h>
+#include <stdlib.h>
 int	g_sig = 0;
+
+
+// void	leak(void)
+// {
+// 	system("leaks minishell");
+// }
 
 int	main(int argc, char **argv, char **env)
 {
 	t_mini	*mini;
 	int		status;
+	
+// atexit(leak);
 
 	(void)argc;
 	(void)argv;

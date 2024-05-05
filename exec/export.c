@@ -6,7 +6,7 @@
 /*   By: fnikzad <fnikzad@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 16:53:28 by fnikzad           #+#    #+#             */
-/*   Updated: 2024/05/02 14:11:59 by fnikzad          ###   ########.fr       */
+/*   Updated: 2024/05/05 15:55:13 by fnikzad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,24 @@ void	add_new_variable(char *arg, t_mini *shell)
 	shell->env = new_ev;
 }
 
+void	loop_through_env(t_mini *shell, char *args, int j)
+{
+	int	l;
+
+	l = 0;
+	while (shell->env[l])
+	{
+		if (ft_strncmp(shell->env[l], args,
+				ft_strchr(args, '=') - args + 1) == 0)
+		{
+			free(shell->env[l]);
+			shell->env[l] = ft_strdup(args);
+			j++;
+		}
+		l++;
+	}
+}
+
 void	manage_env_variables(char **args, t_mini *shell)
 {
 	int	j;
@@ -60,6 +78,11 @@ void	manage_env_variables(char **args, t_mini *shell)
 	j = 1;
 	while (args[j])
 	{
+		if (!check_var(args[j]) || check_var(args[j]) == -1)
+		{
+			j++;
+			continue ;
+		}
 		found = update_existing_variable(args[j], shell);
 		if (!found)
 		{
@@ -79,12 +102,6 @@ int	ex_export(t_mini *shell, char **args)
 		while (shell->env[i])
 			printf ("declare -x %s\n", shell->env[i++]);
 		return (0);
-	}
-	if (valid_export(args) == 0)
-	{
-		ft_putendl_fd("export: : not a valid identifier", 2);
-		shell->exit_status = 1;
-		return (1);
 	}
 	export2(args, shell);
 	i = 0;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asemsey <asemsey@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fnikzad <fnikzad@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/23 11:22:32 by fnikzad           #+#    #+#             */
-/*   Updated: 2024/05/03 12:02:41 by asemsey          ###   ########.fr       */
+/*   Updated: 2024/05/05 15:55:50 by fnikzad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int			check_fd(char *filename);
 //export
 
 void		export2(char **args, t_mini *shell);
-int			valid_export(char **args);
+int			valid_export(char *args);
 int			valid_var_name(char c, int index);
 
 //path
@@ -82,5 +82,9 @@ int			**malloc_pipes(t_mini *shell);
 
 int			ft_arrlen(char **s);
 int			is_whitespace(char c);
+
+
+int			check_var(char *args);
+void		loop_through_env(t_mini *shell, char *args, int j);
 
 #endif
