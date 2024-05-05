@@ -6,7 +6,7 @@
 /*   By: fnikzad <fnikzad@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/23 11:22:32 by fnikzad           #+#    #+#             */
-/*   Updated: 2024/05/05 15:55:50 by fnikzad          ###   ########.fr       */
+/*   Updated: 2024/05/05 17:48:48 by fnikzad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,9 +56,9 @@ int			valid_var_name(char c, int index);
 char		*find_path(t_mini *shell, char *s);
 int			file_check(char *s, char **env);
 void		file_check1(char *command);
-void		handle_no_permission(char *cmd);
-void		handle_command_not_found(char *command);
-char		*check_permissions(char *cmd, char **env);
+void		handle_no_permission(t_mini *shell, char *cmd);
+void		handle_command_not_found(t_mini *shell, char *command);
+char		*check_permissions(t_mini *shell, char *cmd, char **env);
 void		execute_builtin(t_mini *shell, t_cmd *cmd);
 
 ///exec

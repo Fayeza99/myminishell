@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   path_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asemsey <asemsey@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fnikzad <fnikzad@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/28 13:06:36 by fnikzad           #+#    #+#             */
-/*   Updated: 2024/05/03 11:28:40 by asemsey          ###   ########.fr       */
+/*   Updated: 2024/05/05 17:46:47 by fnikzad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,24 +58,26 @@ void	file_check1(char *command)
 	}
 }
 
-void	handle_no_permission(char *cmd)
+void	handle_no_permission(t_mini *shell, char *cmd)
 {
 	ft_putstr_fd("minishell: ", 2);
 	ft_putstr_fd(cmd, 2);
 	ft_putendl_fd(": Permission denied", 2);
 	free (cmd);
+	mini_free(shell);
 	exit(126);
 }
 
-void	handle_command_not_found(char *command)
+void	handle_command_not_found(t_mini *shell, char *command)
 {
 	ft_putstr_fd("minishell: ", 2);
 	ft_putstr_fd(command, 2);
 	ft_putendl_fd(": command not found", 2);
+	mini_free(shell);
 	exit(127);
 }
 
-char	*check_permissions(char *cmd, char **env)
+char	*check_permissions(t_mini *shell, char *cmd, char **env)
 {
 	char	*rel;
 
@@ -85,11 +87,11 @@ char	*check_permissions(char *cmd, char **env)
 		rel = ft_freejoin(rel, cmd);
 		if (access(rel, X_OK) == 0)
 			return (rel);
-		handle_no_permission(rel);
+		handle_no_permission(shell, rel);
 		return (NULL);
 	}
 	if (access(cmd, X_OK) == 0)
 		return (cmd);
-	handle_no_permission(cmd);
+	handle_no_permission(shell, cmd);
 	return (NULL);
 }

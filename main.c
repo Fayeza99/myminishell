@@ -6,7 +6,7 @@
 /*   By: fnikzad <fnikzad@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/23 11:22:01 by fnikzad           #+#    #+#             */
-/*   Updated: 2024/05/05 17:33:30 by fnikzad          ###   ########.fr       */
+/*   Updated: 2024/05/05 17:34:38 by fnikzad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,17 +16,17 @@
 int	g_sig = 0;
 
 
-// void	leak(void)
-// {
-// 	system("leaks minishell");
-// }
+void	leak(void)
+{
+	system("leaks minishell");
+}
 
 int	main(int argc, char **argv, char **env)
 {
 	t_mini	*mini;
 	int		status;
 	
-// atexit(leak);
+atexit(leak);
 
 	(void)argc;
 	(void)argv;

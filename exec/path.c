@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   path.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asemsey <asemsey@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fnikzad <fnikzad@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 14:26:05 by fnikzad           #+#    #+#             */
-/*   Updated: 2024/05/03 11:25:49 by asemsey          ###   ########.fr       */
+/*   Updated: 2024/05/05 17:49:02 by fnikzad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ char	*my_getenv(t_mini *shell, char *s)
 	return (value);
 }
 
-char	*find_valid_command(char *command, char **all_path, char **env)
+char	*find_valid_command(t_mini *shell, char *command, char **all_path, char **env)
 {
 	char	*cmd_path;
 	char	*tmp;
@@ -49,7 +49,7 @@ char	*find_valid_command(char *command, char **all_path, char **env)
 		cmd = ft_strjoin(all_path[i], tmp);
 		if (access(cmd, F_OK) == 0)
 		{
-			cmd_path = check_permissions(cmd, env);
+			cmd_path = check_permissions(shell, cmd, env);
 			if (cmd_path != NULL)
 				break ;
 		}
@@ -57,7 +57,7 @@ char	*find_valid_command(char *command, char **all_path, char **env)
 		i++;
 	}
 	if (!cmd_path && !valid_builtins(command))
-		handle_command_not_found(command);
+		handle_command_not_found(shell, command);
 	free (tmp);
 	return (cmd_path);
 }
@@ -72,12 +72,12 @@ char	*find_path(t_mini *shell, char *s)
 		|| ft_strncmp(s, "../", 3) == 0)
 	{
 		file_check(s, shell->env);
-		if (check_permissions(s, shell->env))
+		if (check_permissions(shell, s, shell->env))
 			return (s);
 	}
 	path = ft_getenv("PATH", shell->env, 0);
 	all_path = ft_split(path, ':');
-	cmd_path = find_valid_command(s, all_path, shell->env);
+	cmd_path = find_valid_command(shell, s, all_path, shell->env);
 	ft_freearr(all_path);
 	return (cmd_path);
 }
