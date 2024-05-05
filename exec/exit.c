@@ -6,7 +6,7 @@
 /*   By: fnikzad <fnikzad@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 13:44:48 by fnikzad           #+#    #+#             */
-/*   Updated: 2024/05/03 11:59:40 by fnikzad          ###   ########.fr       */
+/*   Updated: 2024/05/05 17:32:47 by fnikzad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,5 +71,7 @@ int	ft_exit(t_mini *shell, t_cmd *cmd)
 	}
 	if (!count_cmd(shell))
 		printf("exit\n");
+	ft_freearr(shell->env);
+	rl_clear_history();
 	exit(shell->exit_status);
 }
