@@ -6,7 +6,7 @@
 /*   By: fnikzad <fnikzad@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/28 13:06:36 by fnikzad           #+#    #+#             */
-/*   Updated: 2024/05/05 17:46:47 by fnikzad          ###   ########.fr       */
+/*   Updated: 2024/05/06 12:51:24 by fnikzad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,12 @@ int	file_check(char *s, char **env)
 		rel = ft_strjoin(ft_getenv("PWD", env, 0), "/");
 		rel = ft_freejoin(rel, s);
 		if (access(rel, F_OK) == 0 && access(rel, X_OK) == 0)
-			return (0);
+			return (free(rel), 0);
 		if (access(rel, F_OK) == 0)
+		{
+			free(rel);
 			exit(126);
+		}
 	}
 	if (access(s, F_OK) == 0 && access(s, X_OK) == 0)
 		return (0);
@@ -64,8 +67,8 @@ void	handle_no_permission(t_mini *shell, char *cmd)
 	ft_putstr_fd(cmd, 2);
 	ft_putendl_fd(": Permission denied", 2);
 	free (cmd);
-	mini_free(shell);
-	exit(126);
+	shell->exit_status = 126;
+	exit(micro_free(shell));
 }
 
 void	handle_command_not_found(t_mini *shell, char *command)
@@ -73,8 +76,8 @@ void	handle_command_not_found(t_mini *shell, char *command)
 	ft_putstr_fd("minishell: ", 2);
 	ft_putstr_fd(command, 2);
 	ft_putendl_fd(": command not found", 2);
-	mini_free(shell);
-	exit(127);
+	shell->exit_status = 127;
+	exit(micro_free(shell));
 }
 
 char	*check_permissions(t_mini *shell, char *cmd, char **env)
