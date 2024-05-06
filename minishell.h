@@ -6,7 +6,7 @@
 /*   By: fnikzad <fnikzad@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/23 11:22:32 by fnikzad           #+#    #+#             */
-/*   Updated: 2024/05/05 17:48:48 by fnikzad          ###   ########.fr       */
+/*   Updated: 2024/05/06 11:58:46 by fnikzad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,8 +83,8 @@ int			**malloc_pipes(t_mini *shell);
 int			ft_arrlen(char **s);
 int			is_whitespace(char c);
 
-
 int			check_var(char *args);
 void		loop_through_env(t_mini *shell, char *args, int j);
+void		ex_env(t_mini *shell);
 
 #endif

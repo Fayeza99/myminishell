@@ -6,7 +6,7 @@
 /*   By: fnikzad <fnikzad@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 13:17:15 by fnikzad           #+#    #+#             */
-/*   Updated: 2024/05/03 11:58:40 by fnikzad          ###   ########.fr       */
+/*   Updated: 2024/05/06 12:37:49 by fnikzad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,11 @@ int	valid_builtins(char *s)
 		return (0);
 	if (ft_strcmp(s, "cd") == 0)
 		return (1);
+	else if (ft_strcmp(s, "env") == 0)
+		return (1);
 	else if (ft_strcmp(s, "export") == 0)
 		return (1);
-	if (ft_strcmp(s, "echo") == 0)
+	else if (ft_strcmp(s, "echo") == 0)
 		return (1);
 	else if (ft_strcmp(s, "pwd") == 0)
 		return (1);
@@ -40,6 +42,8 @@ void	built_ins2(t_mini *shell, t_cmd *cmd)
 			exit(shell->exit_status);
 		return ;
 	}
+	if (ft_strcmp(cmd->argv[0], "env") == 0)
+		ex_env(shell);
 	if (ft_strcmp(cmd->argv[0], "cd") == 0)
 		ex_cd(cmd->argv, shell);
 	if (ft_strcmp(cmd->argv[0], "export") == 0)

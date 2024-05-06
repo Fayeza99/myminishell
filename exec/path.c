@@ -6,7 +6,7 @@
 /*   By: fnikzad <fnikzad@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 14:26:05 by fnikzad           #+#    #+#             */
-/*   Updated: 2024/05/05 18:15:07 by fnikzad          ###   ########.fr       */
+/*   Updated: 2024/05/06 12:43:59 by fnikzad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,8 @@ char	*my_getenv(t_mini *shell, char *s)
 	return (value);
 }
 
-char	*find_valid_command(t_mini *shell, char *command, char **all_path, char **env)
+char	*find_valid_command(t_mini *shell, char *command,
+	char **all_path, char **env)
 {
 	char	*cmd_path;
 	char	*tmp;
@@ -43,6 +44,7 @@ char	*find_valid_command(t_mini *shell, char *command, char **all_path, char **e
 	int		i;
 
 	i = 0;
+	cmd_path = NULL;
 	file_check(command, env);
 	tmp = ft_strjoin("/", command);
 	while (all_path[i])
@@ -73,8 +75,9 @@ char	*find_path(t_mini *shell, char *s)
 		|| ft_strncmp(s, "../", 3) == 0)
 	{
 		file_check(s, shell->env);
-		if (check_permissions(shell, s, shell->env))
-			return (s);
+		path = check_permissions(shell, s, shell->env);
+		if (path)
+			return (free(path), s);
 	}
 	path = ft_getenv("PATH", shell->env, 0);
 	all_path = ft_split(path, ':');

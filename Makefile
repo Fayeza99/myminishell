@@ -1,5 +1,5 @@
 NAME		=	minishell
-CFLAGS		=	-Wall -Wextra -Werror -Ofast
+CFLAGS		=	-Wall -Wextra -Werror
 RL			=	-lreadline
 LIBFT_PATH	=	libft
 LIBFT		=	$(LIBFT_PATH)/libft.a

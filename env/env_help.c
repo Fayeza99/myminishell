@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_help.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asemsey <asemsey@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fnikzad <fnikzad@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 16:09:23 by asemsey           #+#    #+#             */
-/*   Updated: 2024/05/02 12:23:00 by asemsey          ###   ########.fr       */
+/*   Updated: 2024/05/06 12:00:26 by fnikzad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,4 +74,13 @@ char	*env_getname(char *str)
 		return (NULL);
 	ft_strlcpy(name, str, i);
 	return (name);
+}
+
+void	ex_env(t_mini *shell)
+{
+	int	i;
+
+	i = 0;
+	while (shell->env && shell->env[i])
+		printf("%s\n", shell->env[i++]);
 }
