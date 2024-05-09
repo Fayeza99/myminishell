@@ -6,7 +6,7 @@
 /*   By: fnikzad <fnikzad@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 16:12:09 by fnikzad           #+#    #+#             */
-/*   Updated: 2024/05/03 09:55:09 by fnikzad          ###   ########.fr       */
+/*   Updated: 2024/05/09 16:07:29 by fnikzad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,6 @@ int	ex_echo(t_mini *shell, t_cmd *cmd)
 	int	start_index;
 
 	(void)shell;
-	j = check_newline(cmd->argv);
 	if (!cmd->argv[1])
 	{
 		printf("\n");
