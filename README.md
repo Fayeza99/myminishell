@@ -17,4 +17,4 @@ To install and run myminishell, follow these steps:
 git clone https://github.com/Fayeza99/myminishell.git
 cd myminishell
 make
-./myminishell
+./minishell
